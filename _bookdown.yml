@@ -17,4 +17,6 @@ bookdown::gitbook:
     sharing: no
     info: yes
 
+output_dir: "docs"
+
 rmd_files: ["index.Rmd", "the-mathematical-model.Rmd", "interpreting-the-model-parameters.Rmd", "residuals-and-errors.Rmd", "assessing-the-fit-of-a-regression.Rmd", "residual-plots-and-regression-assumptions.Rmd", "estimating-the-model-parameters.Rmd", "transformations.Rmd", "inference-for-model-parameters.Rmd","lowess-and-loess-curves.Rmd"]
