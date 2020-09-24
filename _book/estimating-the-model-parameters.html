@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Estimating the Model Parameters | Introduction</title>
+  <meta name="description" content="7 Estimating the Model Parameters | Introduction" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 Estimating the Model Parameters | Introduction" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Estimating the Model Parameters | Introduction" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="residual-plots-and-regression-assumptions.html"/>
+<link rel="next" href="transformations.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#regression-cheat-sheet"><i class="fa fa-check"></i><b>1.1</b> Regression Cheat Sheet</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html"><i class="fa fa-check"></i><b>2</b> The Mathematical Model</a><ul>
+<li class="chapter" data-level="2.1" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html#part-1-the-true-line"><i class="fa fa-check"></i><b>2.1</b> Part 1: The True Line</a></li>
+<li class="chapter" data-level="2.2" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html#part-2-the-dots"><i class="fa fa-check"></i><b>2.2</b> Part 2: The <em>Dots</em></a></li>
+<li class="chapter" data-level="2.3" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html#part-3-the-estimated-line"><i class="fa fa-check"></i><b>2.3</b> Part 3: The <em>Estimated Line</em></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="interpreting-the-model-parameters.html"><a href="interpreting-the-model-parameters.html"><i class="fa fa-check"></i><b>3</b> Interpreting the Model Parameters</a></li>
+<li class="chapter" data-level="4" data-path="residuals-and-errors.html"><a href="residuals-and-errors.html"><i class="fa fa-check"></i><b>4</b> Residuals and Errors</a></li>
+<li class="chapter" data-level="5" data-path="assessing-the-fit-of-a-regression.html"><a href="assessing-the-fit-of-a-regression.html"><i class="fa fa-check"></i><b>5</b> Assessing the Fit of a Regression</a></li>
+<li class="chapter" data-level="6" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html"><i class="fa fa-check"></i><b>6</b> Residual Plots and Regression Assumptions</a><ul>
+<li class="chapter" data-level="6.1" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#residuals-versus-fitted-values-plot-checks-assumptions-1-and-3"><i class="fa fa-check"></i><b>6.1</b> Residuals versus Fitted-values Plot: Checks Assumptions #1 and #3</a></li>
+<li class="chapter" data-level="6.2" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#q-q-plot-of-the-residuals-checks-assumption-2"><i class="fa fa-check"></i><b>6.2</b> Q-Q Plot of the Residuals: Checks Assumption #2</a></li>
+<li class="chapter" data-level="6.3" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#residuals-versus-order-plot-checks-assumption-5"><i class="fa fa-check"></i><b>6.3</b> Residuals versus Order Plot: Checks Assumption #5</a></li>
+<li class="chapter" data-level="6.4" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#problems-from-failed-assumptions"><i class="fa fa-check"></i><b>6.4</b> Problems from Failed Assumptions</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#lack-of-linearity"><i class="fa fa-check"></i><b>6.4.1</b> Lack of Linearity</a></li>
+<li class="chapter" data-level="6.4.2" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#non-normal-error-terms"><i class="fa fa-check"></i><b>6.4.2</b> Non-normal Error Terms</a></li>
+<li class="chapter" data-level="6.4.3" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#constant-variance-assumption-violated"><i class="fa fa-check"></i><b>6.4.3</b> Constant Variance Assumption Violated</a></li>
+<li class="chapter" data-level="6.4.4" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#independence-assumption-violated"><i class="fa fa-check"></i><b>6.4.4</b> Independence Assumption Violated</a></li>
+<li class="chapter" data-level="6.4.5" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#outliers-present"><i class="fa fa-check"></i><b>6.4.5</b> Outliers Present</a></li>
+<li class="chapter" data-level="6.4.6" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#all-assumptions-satisfied"><i class="fa fa-check"></i><b>6.4.6</b> All Assumptions Satisfied</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="estimating-the-model-parameters.html"><a href="estimating-the-model-parameters.html"><i class="fa fa-check"></i><b>7</b> Estimating the Model Parameters</a><ul>
+<li class="chapter" data-level="7.1" data-path="estimating-the-model-parameters.html"><a href="estimating-the-model-parameters.html#least-squares"><i class="fa fa-check"></i><b>7.1</b> Least Squares</a></li>
+<li class="chapter" data-level="7.2" data-path="estimating-the-model-parameters.html"><a href="estimating-the-model-parameters.html#maximum-likelihood"><i class="fa fa-check"></i><b>7.2</b> Maximum Likelihood</a></li>
+<li class="chapter" data-level="7.3" data-path="estimating-the-model-parameters.html"><a href="estimating-the-model-parameters.html#estimating-the-model-variance"><i class="fa fa-check"></i><b>7.3</b> Estimating the Model Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>8</b> Transformations</a><ul>
+<li class="chapter" data-level="8.1" data-path="transformations.html"><a href="transformations.html#y-transformations"><i class="fa fa-check"></i><b>8.1</b> Y-Transformations</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="transformations.html"><a href="transformations.html#scatterplot-recognition"><i class="fa fa-check"></i><b>8.1.1</b> Scatterplot Recognition</a></li>
+<li class="chapter" data-level="8.1.2" data-path="transformations.html"><a href="transformations.html#box-cox-suggestion"><i class="fa fa-check"></i><b>8.1.2</b> Box-Cox Suggestion</a></li>
+<li class="chapter" data-level="8.1.3" data-path="transformations.html"><a href="transformations.html#an-example"><i class="fa fa-check"></i><b>8.1.3</b> An Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="transformations.html"><a href="transformations.html#x-transformations"><i class="fa fa-check"></i><b>8.2</b> X-Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="inference-for-the-model-parameters.html"><a href="inference-for-the-model-parameters.html"><i class="fa fa-check"></i><b>9</b> Inference for the Model Parameters</a><ul>
+<li class="chapter" data-level="9.1" data-path="inference-for-the-model-parameters.html"><a href="inference-for-the-model-parameters.html#tTests"><i class="fa fa-check"></i><b>9.1</b> t Tests</a></li>
+<li class="chapter" data-level="9.2" data-path="inference-for-the-model-parameters.html"><a href="inference-for-the-model-parameters.html#confidence-intervals"><i class="fa fa-check"></i><b>9.2</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="9.3" data-path="inference-for-the-model-parameters.html"><a href="inference-for-the-model-parameters.html#Ftests"><i class="fa fa-check"></i><b>9.3</b> F tests</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lowess-and-loess-curves.html"><a href="lowess-and-loess-curves.html"><i class="fa fa-check"></i><b>10</b> Lowess (and Loess) Curves</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="estimating-the-model-parameters" class="section level1">
+<h1><span class="header-section-number">7</span> Estimating the Model Parameters</h1>
+<p><span class="expand-caption">How to get <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span>: least squares &amp; maximum likelihood…</span></p>
+<p>There are two approaches to estimating the parameters <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> in the regression model. The oldest and most tradiational approach is using the idea of least squares. A more general approach uses the idea of maximum likelihood (see below). Fortunately, for simple linear regression, the estimates for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> obtained from either method are identical. The estimates for the true parameter values <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are typically denoted by <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span>, respectively, and are given by the following formulas.</p>
+<table>
+<colgroup>
+<col width="40%" />
+<col width="44%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter Estimate</th>
+<th>Mathematical Formula</th>
+<th>R Code</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Slope</td>
+<td><span class="math inline">\(b_1 = \frac{\sum X_i(Y_i-\bar{Y})}{\sum(X_i-\bar{X})^2}\)</span></td>
+<td><code>b_1 &lt;- sum( X*(Y - mean(Y)) ) / sum( (X - mean(X))^2 )</code></td>
+</tr>
+<tr class="even">
+<td>Intercept</td>
+<td><span class="math inline">\(b_0 = \bar{Y} - b_1\bar{X}\)</span></td>
+<td><code>b_0 &lt;- mean(Y) - b_1*mean(X)</code></td>
+</tr>
+</tbody>
+</table>
+<p>It is important to note that these estimates are entirely determined from the observed data <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. When the regression equation is written using the estimates instead of the parameters, we use the notation <span class="math inline">\(\hat{Y}\)</span>, which is the estimator of <span class="math inline">\(E\{Y\}\)</span>. Thus, we write
+<span class="math display">\[\begin{equation}
+  \hat{Y}_i = b_0 + b_1 X_i
+\end{equation}\]</span>
+which is directly comparable to the true, but unknown values
+<span class="math display">\[\begin{equation}
+  E\{Y_i\} = \beta_0 + \beta_1 X_i. 
+  \label{exp}
+\end{equation}\]</span></p>
+<div id="least-squares" class="section level2">
+<h2><span class="header-section-number">7.1</span> Least Squares</h2>
+<p>To estimate the model parameters <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> using least squares, we start by defining the function <span class="math inline">\(Q\)</span> as the sum of the squared errors, <span class="math inline">\(\epsilon_i\)</span>.
+<span class="math display">\[
+  Q = \sum_{i=1}^n \epsilon_i^2 = \sum_{i=1}^n (Y_i - (\beta_0 + \beta_1 X_i))^2
+\]</span>
+Then we use the function Q as if it were a function of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>. Ironically, the values of <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span> are considered fixed. However, this makes sense because once a particular data set has been observed, these values are all known for that data set. What we don’t know are the values of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
+<p>This <a href="https://phet.colorado.edu/sims/html/least-squares-regression/latest/least-squares-regression_en.html">least squares applet</a> is a good way to explore how various choices of the slope and intercept yield different values of the “sum of squared residuals”. But it turns out that there is one “best” choice of the slope and intercept that yields a “smallest” value of the “sum of squared residuals.” This best choice can actually be found using calculus by taking the partial derivatives of <span class="math inline">\(Q\)</span> with respect to both <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.
+<span class="math display">\[
+  \frac{\partial Q}{\partial \beta_0} = -2\sum (Y_i - \beta_0 - \beta_1X_i)
+\]</span>
+<span class="math display">\[
+  \frac{\partial Q}{\partial \beta_1} = -2\sum X_i(Y_i-\beta_0-\beta_1X_i)
+\]</span>
+Setting these partial derivatives to zero, and solving the resulting system of equations provides the values of the parameters which minimize <span class="math inline">\(Q\)</span> for a given set of data. After all the calculations are completed we find the values of the parameter estimators <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> (of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>, respectively) are as stated previously.</p>
+</div>
+<div id="maximum-likelihood" class="section level2">
+<h2><span class="header-section-number">7.2</span> Maximum Likelihood</h2>
+<p>The idea of maximum likelihood estimation is opposite that of least squares. Instead of choosing those values of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> which minime the least squares <span class="math inline">\(Q\)</span> function, we choose the values of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> which maximize the likelihood function. The likelihood function is created by first determining the joint distribution of the <span class="math inline">\(Y_i\)</span> for all observations <span class="math inline">\(i=1,\ldots,n\)</span>. We can do this rather simply by using the assumption that the errors, <span class="math inline">\(\epsilon_i\)</span> are independently normally distributed. When events are independent, their joint probability is simply the product of their individual probabilities. Thus, if <span class="math inline">\(f(Y_i)\)</span> denotes the probability density function for <span class="math inline">\(Y_i\)</span>, then the joint probability density for all <span class="math inline">\(Y_i\)</span>, <span class="math inline">\(f(Y_1,\ldots,Y_n)\)</span> is given by
+<span class="math display">\[
+  f(Y_1,\ldots,Y_n) = \prod_{i=1}^n f(Y_i) 
+\]</span>
+Since each <span class="math inline">\(Y_i\)</span> is assumed to be normally distributed with mean <span class="math inline">\(\beta_0 + \beta_1 X_i\)</span> and variance <span class="math inline">\(\sigma^2\)</span> (see model ()) we have that
+<span class="math display">\[
+  f(Y_i) = \frac{1}{\sqrt{2\pi}\sigma}\exp{\left[-\frac{1}{2}\left(\frac{Y_i-\beta_0-\beta_1X_i}{\sigma}\right)^2\right]}
+\]</span>
+which provides the joint probability as
+<span class="math display">\[
+  f(Y_1,\ldots,Y_n) = \prod_{i=1}^n f(Y_i) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp{\left[-\frac{1}{2\sigma^2}\sum_{i=1}^n(Y_i-\beta_0-\beta_1X_i)^2\right]}
+\]</span>
+The likelihood function <span class="math inline">\(L\)</span> is then given by consider the <span class="math inline">\(Y_i\)</span> and <span class="math inline">\(X_i\)</span> fixed and the parameters <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\sigma^2\)</span> as the variables in the function.
+<span class="math display">\[
+  L(\beta_0,\beta_1,\sigma^2) = \frac{1}{(2\pi\sigma^2)^{n/2}}\exp{\left[-\frac{1}{2\sigma^2}\sum_{i=1}^n(Y_i-\beta_0-\beta_1X_i)^2\right]}
+\]</span>
+Instead of taking partial derivatives of <span class="math inline">\(L\)</span> directly (with respect to all parameters) we take the partial derivatives of the <span class="math inline">\(\log\)</span> of <span class="math inline">\(L\)</span>, which is easier to work with. In a similar, but more difficult calculation, to that of minimizing <span class="math inline">\(Q\)</span>, we obtain the values of <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>, and <span class="math inline">\(\sigma^2\)</span> which maximize the log of <span class="math inline">\(L\)</span>, and which therefore maximize <span class="math inline">\(L\)</span>. (This is not an obvious result, but can be verified after some intense calculations.) The additional result that maximimum likelihood estimation provides that the least squares estimates did not give us is the estimate <span class="math inline">\(\hat{\sigma}^2\)</span> of <span class="math inline">\(\sigma^2\)</span>.
+<span class="math display">\[
+  \hat{\sigma}^2 = \frac{\sum(Y_i-\hat{Y}_i)^2}{n}
+\]</span></p>
+</div>
+<div id="estimating-the-model-variance" class="section level2">
+<h2><span class="header-section-number">7.3</span> Estimating the Model Variance</h2>
+<p><span class="expand-caption">Estimating <span class="math inline">\(\sigma^2\)</span> with MSE…</span></p>
+<p>As shown previously in the “Estimating Model Parameters” section of this page, we can obtain estimates for the model parameters <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> by using either least squares estimation or maximum likelihood estimation. Those estimates were given by the formulas</p>
+<p><span class="math display">\[
+b_1 = \frac{\sum X_i(Y_i-\bar{Y})}{\sum(X_i-\bar{X})^2} \quad \text{(Unbiased Estimate of $\beta_1$)}
+\]</span></p>
+<p><span class="math display">\[
+b_0 = \bar{Y} - b_1\bar{X} \quad \text{(Unbiased Estimate of $\beta_0$)}
+\]</span></p>
+<p>It turns out that these estimates for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are nice in the sense that on average they provide the correct estimate of the true parameter, i.e., they are unbiased estimators. Unfortunately, this is not the case for the maximum likelihood estimate <span class="math inline">\(\widehat{\sigma}^2\)</span> of the model variance <span class="math inline">\(\sigma^2\)</span>. This estimate turns out to be a biased estimator. This means that it is consistently wrong in its estimates of <span class="math inline">\(\sigma^2\)</span>. If we left the estimator alone, our estimates for <span class="math inline">\(\sigma^2\)</span> would always be wrong. This is bad. Fortunately, there is a way to fix it, and this corrected version of the estimator is what we will actually use in practice to estimate <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>Without going into all the details, to “fix” the biased estimator of <span class="math inline">\(\sigma^2\)</span> that is given to us through maximum likelihood estimation, we need to correct its denominator so that it properly represent the degrees of freedom associated with the numerator, which it does not currently. To find the correct degrees of freedom, we have to notice that the <span class="math inline">\(\hat{Y}_i\)</span> in the numerator of <span class="math inline">\(\widehat{\sigma}^2\)</span> is defined by
+<span class="math display">\[\begin{equation}
+  \widehat{Y}_i = b_0 + b_1X_i
+  \label{hatY}
+\end{equation}\]</span>
+From this equation, we notice that two means, <span class="math inline">\(\bar{X}\)</span> and <span class="math inline">\(\bar{Y}\)</span>, were estimated from the data in order to obtain <span class="math inline">\(\hat{Y}_i\)</span>. (See the formulas for <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> above, and note how they use both <span class="math inline">\(\bar{X}\)</span> and <span class="math inline">\(\bar{Y}\)</span> in their calculation.) Anytime a mean is estimated from the data we lose a degree of freedom. Hence, the denominator for <span class="math inline">\(\hat{\sigma}^2\)</span> should be <span class="math inline">\(n-2\)</span> instead of <span class="math inline">\(n\)</span>. Some incredibly long calculations will show that the “fixed” estimator
+<span class="math display">\[\begin{equation}
+  s^2 = MSE = \frac{\sum(Y_i-\hat{Y}_i)^2}{n-2} \quad \text{(Unbiased Estimator of $\sigma^2$)}
+\end{equation}\]</span>
+is an unbiased estimator of <span class="math inline">\(\sigma^2\)</span>. Here <span class="math inline">\(MSE\)</span> stands for <strong>m</strong>ean <strong>s</strong>quared <strong>e</strong>rror, which is the most obvious name for a formula that squares the errors <span class="math inline">\(Y_i-\hat{Y}_i\)</span> then adds them up and divides by their degrees of freedom. Similarly, we call the numerator <span class="math inline">\(\sum(Y_i-\hat{Y}_i)^2\)</span> the sum of the squared errors, denoted by <span class="math inline">\(SSE\)</span>. It is also important to note that the errors are often denoted by <span class="math inline">\(r_i = Y_i-\hat{Y}_i\)</span>, the residuals. Putting this all together we get the following equivalent statements for <span class="math inline">\(MSE\)</span>.
+<span class="math display">\[\begin{equation}
+  s^2 = MSE = \frac{SSE}{n-2} = \frac{\sum(Y_i-\widehat{Y}_i)^2}{n-2} = \frac{\sum r_i^2}{n-2}
+\end{equation}\]</span>
+As a final note, even though the expected value <span class="math inline">\(E\{MSE\} = \sigma^2\)</span>, which shows <span class="math inline">\(MSE\)</span> is an unbiased estimator of <span class="math inline">\(\sigma^2\)</span>, it unfortunately isn’t true that <span class="math inline">\(\sqrt{MSE}\)</span> is an unbiased estimator of <span class="math inline">\(\sigma\)</span>. This presents a few problems later on, but these are minimal enough that we can overlook the issue and move forward. The <span class="math inline">\(\sqrt{MSE}\)</span> is called the <em>residual standard error</em>.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="residual-plots-and-regression-assumptions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="transformations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

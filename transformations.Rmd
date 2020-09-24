@@ -1,0 +1,246 @@
+---
+title: "Transformations"
+---
+
+# Transformations
+
+<span class="expand-caption">$Y'$, $X'$, and returning to the original space...</span>
+
+Y transformations are denoted by y-prime, written $Y'$, and consist of raising $Y$ to some power called $\lambda$.
+
+$$
+  Y' = Y^\lambda \quad \text{(Y Transformation)}
+$$
+
+| Value of $\lambda$ | Transformation to Use  | R Code     |
+|:------------------:|------------------------|------------|
+| -2                 |  $Y' = Y^{-2} = 1/Y^2$ | `lm(Y^-2 ~ X)` |
+| -1                 |  $Y' = Y^{-1} = 1/Y$   | `lm(Y^-1 ~ X)` |
+|  0                 |  $Y' = \log(Y)$        | `lm(log(Y) ~ X)` |
+|  0.5               |  $Y' = \sqrt(Y)$       | `lm(sqrt(Y) ~ X)` |
+|  1                 |  $Y' = Y$              | `lm(Y ~ X)` |
+|  2                 |  $Y' = Y^2$            | `lm(Y^2 ~ X)` |
+
+Using "maximum-likelihood" estimation, the Box-Cox procedure can actually automatically detect the "optimal" value of $\lambda$ to consider for a Y-transformation. Keep in mind however, that simply accepting a suggested Y-transformation without considering the scatterplot and diagnostic plots first, is unwise.
+
+## Y-Transformations
+
+### Scatterplot Recognition
+
+The following panel of scatterplots can give you a good feel for when to try different values of $\lambda$.
+
+```{r, echo=FALSE}
+set.seed(15)
+N <- 300
+X <- runif(N, 5, 50)
+Y <- 25 + 3.5*X + rnorm(N, 0, 20)
+
+Ya <- 1/sqrt(Y)   #1/Y^2   Lam = -2
+Yb <- 1/Y         #1/Y     Lam = -1
+Yc <- exp(.02*Y)  #log(Y)  Lam =  0
+Yd <- Y^2         #sqrt(Y) Lam =  0.5
+Ye <- Y           #Y       Lam =  1
+Yf <- sqrt(Y)     #Y^2     Lam =  2
+
+
+par(mfrow=c(2,3), mai=c(.4,.4,.3,.2), mgp=c(0.5,0.5,0))
+
+plot(Ya ~ X, main=expression(paste("Use ", lambda == -2)), ylab="Y in Original Units", pch=16, col="gray45", cex=0.9, yaxt='n', xaxt='n', xlab="X in Original Units")
+b <- coef(lm(Ya^-2 ~ X))
+curve(1/sqrt(b[1] + b[2]*x), add=TRUE, col="green", lwd=2)
+
+
+plot(Yb ~ X, main=expression(paste("Use ", lambda == -1)), ylab="Y in Original Units", pch=16, col="gray45", cex=0.9, yaxt='n', xaxt='n', xlab="X in Original Units")
+b <- coef(lm(Yb^-1 ~ X))
+curve(1/(b[1] + b[2]*x), add=TRUE, col="green", lwd=2)
+
+plot(Yc ~ X, main=expression(paste("Use ", lambda == 0, " i.e., log(...)")), ylab="Y in Original Units", pch=16, col="gray45", cex=0.9, yaxt='n', xaxt='n', xlab="X in Original Units")
+b <- coef(lm(log(Yc) ~ X))
+curve(exp(b[1] + b[2]*x), add=TRUE, col="green", lwd=2)
+
+
+plot(Yd ~ X, main=expression(paste("Use ", lambda == 0.5)), ylab="Y in Original Units", pch=16, col="gray45", cex=0.9, yaxt='n', xaxt='n', xlab="X in Original Units")
+b <- coef(lm(sqrt(Yd) ~ X))
+curve((b[1] + b[2]*x)^2, add=TRUE, col="green", lwd=2)
+
+plot(Ye ~ X, main=expression(paste("Use ", lambda == 1, " (No Transformation)")), ylab="Y in Original Units", pch=16, col="gray45", cex=0.9, yaxt='n', xaxt='n', xlab="X in Original Units")
+b <- coef(lm(Ye ~ X))
+curve((b[1] + b[2]*x), add=TRUE, col="green", lwd=2)
+
+plot(Yf ~ X, main=expression(paste("Use ", lambda == 2)), 
+ylab="Y in Original Units", pch=16, col="gray45", cex=0.9, yaxt='n', xaxt='n', xlab="X in Original Units")
+b <- coef(lm(Yf^2 ~ X))
+curve(sqrt(b[1] + b[2]*x), add=TRUE, col="green", lwd=2)
+
+```
+
+
+### Box-Cox Suggestion
+
+
+The `boxCox(...)` function in `library(car)` can also be helpful on finding values of $\lambda$ to try.
+
+```{r, echo=FALSE}
+
+par(mfrow=c(2,3), mai=c(.4,.4,.3,.2), mgp=c(2,0.5,0))
+
+boxCox(lm(Ya ~ X))
+mtext(side=3, text=expression(paste("Use ", lambda == -2)), line=.5)
+
+boxCox(lm(Yb ~ X))
+mtext(side=3, text=expression(paste("Use ", lambda == -1)), line=.5)
+
+boxCox(lm(Yc ~ X))
+mtext(side=3, text=expression(paste("Use ", lambda == 0, " i.e., log(...)")), line=.5)
+
+boxCox(lm(Yd ~ X))
+mtext(side=3, text=expression(paste("Use ", lambda == 0.5)), line=.5)
+
+boxCox(lm(Ye ~ X))
+mtext(side=3, text=expression(paste("Use ", lambda == 1, " (No Transformation)")), line=.5)
+
+boxCox(lm(Yf ~ X))
+mtext(side=3, text=expression(paste("Use ", lambda == 2)), line=.5)
+
+```
+
+
+### An Example
+
+Suppose we were running a simple linear regression on the `cars` dataset.
+
+This would be done with the code
+
+`cars.lm <- lm(dist ~ speed, data=cars)`
+
+`summary(cars.lm)`
+
+Notice the line doesn't quite fit the data as well as we would hope. Instead, the data looks a little curved.
+
+```{r}
+cars.lm <-lm(dist ~ speed,data=cars)
+plot(dist ~ speed, data=cars, pch=20, col="firebrick", cex=1.2, las=1,
+     xlab="Speed of the Vehicle (mph) \n the Moment the Brakes were Applied", ylab="Distance (ft) it took the Vehicle to Stop",
+     main="Don't Step in front of a Moving 1920's Vehicle...")
+mtext(side=3, text="...they take a few feet to stop.", cex=0.7, line=.5)
+legend("topleft", legend="Stopping Distance Experiment", bty="n")
+
+abline(cars.lm, col="gray")
+```
+
+Using the `boxCox(...)` function from `library(car)` we would compute the following to determine which Y-transformation would be most meaningful.
+
+`library(car)`
+
+`boxCox(cars.lm)`
+
+The output from the `boxCox(...)` function looks as follows.
+
+```{r}
+cars.lm <-lm(dist ~ speed,data=cars)
+boxCox(cars.lm)
+```
+
+This plot tells use to use the $\lambda = 0.5$ transformation, so that $Y' = Y^0.5 = \sqrt{Y}$. (To see this yourself, see above in the "Box-Cox Suggestion" section, as well as on the "Scatterplot Recognition" section.)
+
+Now, a transformation regression is performed using `sqrt(Y)` in place of `Y` as follows:
+
+`cars.lm.t <- lm(sqrt(dist) ~ speed, data=cars)`
+
+`summary(cars.lm.t)` 
+
+|  &nbsp; |  Estimate |  Std. Error |  t value  |  Pr(>|t|) |
+|---------|-----------|-------------|-----------|----------|
+| **(Intercept)** |   1.277   |    0.4844    |  2.636    | 0.01126 |  
+|    **speed**    |    0.3224   |  0.02978    |  10.83   | 1.773e-14 |
+
+Then,
+
+$$
+  \widehat{Y}_i' = 1.277 + 0.3224 X_i
+$$
+
+And replacing $\hat{Y}_i' = \sqrt{\hat{Y}_i}$ we have
+
+$$
+  \sqrt{\widehat{Y}_i} = 1.277 + 0.3224 X_i
+$$
+
+Solving for $\hat{Y}_i$ gives
+
+$$
+  \widehat{Y}_i = (1.277 + 0.3224 X_i)^2
+$$
+
+Which, using `curve((1.277 + 0.3224*x)^2, add=TRUE)` (see code for details) looks like this:
+
+```{r}
+plot(dist ~ speed, data=cars, pch=20, col="firebrick", cex=1.2, las=1,
+     xlab="Speed of the Vehicle (mph) \n the Moment the Brakes were Applied", ylab="Distance (ft) it took the Vehicle to Stop",
+     main="Don't Step in front of a Moving 1920's Vehicle...")
+mtext(side=3, text="...they take a few feet to stop.", cex=0.7, line=.5)
+legend("topleft", legend="Stopping Distance Experiment", bty="n")
+
+curve( (1.277 + 0.3224*x)^2, add=TRUE, col="firebrick")
+```
+
+
+  
+<br />
+
+## X-Transformations
+
+X-transformations are more difficult to recognize than y-transformations. This is partially because there is no Box-Cox method to automatically search for them.
+
+The best indicator that you should consider an x-transformation is when the variance of the residuals is constant across all fitted-values, but linearity is clearly violated.
+
+The following panel of scatterplots can give you a good feel for when to try different values of an x-transformation.
+
+```{r, echo=FALSE}
+set.seed(15)
+N <- 300
+X <- runif(N, 5, 50)
+Y <- 25 + 3.5*X + rnorm(N, 0, 20)
+
+Xa <- 1/sqrt(X)   #1/X^2   Lam = -2
+Xb <- 1/X         #1/X     Lam = -1
+Xc <- exp(.02*X)  #log(X)  Lam =  0
+Xd <- X^2         #sqrt(X) Lam =  0.5
+Xe <- X           #X       Lam =  1
+Xf <- sqrt(X)     #X^2     Lam =  2
+
+
+par(mfrow=c(2,3), mai=c(.4,.4,.3,.2), mgp=c(0.5,0.5,0))
+
+plot(Y ~ Xa, main=expression(paste("Use ", X*minute == X^-2)), ylab="Y in Original Units", pch=16, col="gray45", cex=0.9, yaxt='n', xaxt='n', xlab="X in Original Units")
+b <- coef(lm(Y ~ I(Xa^-2)))
+curve(b[1] + b[2]*x^-2, add=TRUE, col="green", lwd=2)
+
+
+plot(Y ~ Xb, main=expression(paste("Use ", X*minute == X^-1)), ylab="Y in Original Units", pch=16, col="gray45", cex=0.9, yaxt='n', xaxt='n', xlab="X in Original Units")
+b <- coef(lm(Y ~ I(Xb^-1)))
+curve(b[1] + b[2]*x^-1, add=TRUE, col="green", lwd=2)
+
+plot(Y ~ Xc, main=expression(paste("Use ", X*minute == log(X))), ylab="Y in Original Units", pch=16, col="gray45", cex=0.9, yaxt='n', xaxt='n', xlab="X in Original Units")
+b <- coef(lm(Y ~ log(Xc)))
+curve(b[1] + b[2]*log(x), add=TRUE, col="green", lwd=2)
+
+
+plot(Y ~ Xd, main=expression(paste("Use ", X*minute == sqrt(X))), ylab="Y in Original Units", pch=16, col="gray45", cex=0.9, yaxt='n', xaxt='n', xlab="X in Original Units")
+b <- coef(lm(Y ~ sqrt(Xd)))
+curve(b[1] + b[2]*sqrt(x), add=TRUE, col="green", lwd=2)
+
+plot(Y ~ Xe, main=expression(paste("Use ", X*minute == X, " (No Transformation)")), ylab="Y in Original Units", pch=16, col="gray45", cex=0.9, yaxt='n', xaxt='n', xlab="X in Original Units")
+b <- coef(lm(Y ~ Xe))
+curve((b[1] + b[2]*x), add=TRUE, col="green", lwd=2)
+
+plot(Y ~ Xf, main=expression(paste("Use ", X*minute == X^2)), 
+ylab="Y in Original Units", pch=16, col="gray45", cex=0.9, yaxt='n', xaxt='n', xlab="X in Original Units")
+b <- coef(lm(Y ~ I(Xf^2)))
+curve(b[1] + b[2]*x^2, add=TRUE, col="green", lwd=2)
+
+```
+
+
+
+

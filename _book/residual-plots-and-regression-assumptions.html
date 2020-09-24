@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Residual Plots and Regression Assumptions | Introduction</title>
+  <meta name="description" content="6 Residual Plots and Regression Assumptions | Introduction" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Residual Plots and Regression Assumptions | Introduction" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Residual Plots and Regression Assumptions | Introduction" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="assessing-the-fit-of-a-regression.html"/>
+<link rel="next" href="estimating-the-model-parameters.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#regression-cheat-sheet"><i class="fa fa-check"></i><b>1.1</b> Regression Cheat Sheet</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html"><i class="fa fa-check"></i><b>2</b> The Mathematical Model</a><ul>
+<li class="chapter" data-level="2.1" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html#part-1-the-true-line"><i class="fa fa-check"></i><b>2.1</b> Part 1: The True Line</a></li>
+<li class="chapter" data-level="2.2" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html#part-2-the-dots"><i class="fa fa-check"></i><b>2.2</b> Part 2: The <em>Dots</em></a></li>
+<li class="chapter" data-level="2.3" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html#part-3-the-estimated-line"><i class="fa fa-check"></i><b>2.3</b> Part 3: The <em>Estimated Line</em></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="interpreting-the-model-parameters.html"><a href="interpreting-the-model-parameters.html"><i class="fa fa-check"></i><b>3</b> Interpreting the Model Parameters</a></li>
+<li class="chapter" data-level="4" data-path="residuals-and-errors.html"><a href="residuals-and-errors.html"><i class="fa fa-check"></i><b>4</b> Residuals and Errors</a></li>
+<li class="chapter" data-level="5" data-path="assessing-the-fit-of-a-regression.html"><a href="assessing-the-fit-of-a-regression.html"><i class="fa fa-check"></i><b>5</b> Assessing the Fit of a Regression</a></li>
+<li class="chapter" data-level="6" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html"><i class="fa fa-check"></i><b>6</b> Residual Plots and Regression Assumptions</a><ul>
+<li class="chapter" data-level="6.1" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#residuals-versus-fitted-values-plot-checks-assumptions-1-and-3"><i class="fa fa-check"></i><b>6.1</b> Residuals versus Fitted-values Plot: Checks Assumptions #1 and #3</a></li>
+<li class="chapter" data-level="6.2" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#q-q-plot-of-the-residuals-checks-assumption-2"><i class="fa fa-check"></i><b>6.2</b> Q-Q Plot of the Residuals: Checks Assumption #2</a></li>
+<li class="chapter" data-level="6.3" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#residuals-versus-order-plot-checks-assumption-5"><i class="fa fa-check"></i><b>6.3</b> Residuals versus Order Plot: Checks Assumption #5</a></li>
+<li class="chapter" data-level="6.4" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#problems-from-failed-assumptions"><i class="fa fa-check"></i><b>6.4</b> Problems from Failed Assumptions</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#lack-of-linearity"><i class="fa fa-check"></i><b>6.4.1</b> Lack of Linearity</a></li>
+<li class="chapter" data-level="6.4.2" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#non-normal-error-terms"><i class="fa fa-check"></i><b>6.4.2</b> Non-normal Error Terms</a></li>
+<li class="chapter" data-level="6.4.3" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#constant-variance-assumption-violated"><i class="fa fa-check"></i><b>6.4.3</b> Constant Variance Assumption Violated</a></li>
+<li class="chapter" data-level="6.4.4" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#independence-assumption-violated"><i class="fa fa-check"></i><b>6.4.4</b> Independence Assumption Violated</a></li>
+<li class="chapter" data-level="6.4.5" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#outliers-present"><i class="fa fa-check"></i><b>6.4.5</b> Outliers Present</a></li>
+<li class="chapter" data-level="6.4.6" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#all-assumptions-satisfied"><i class="fa fa-check"></i><b>6.4.6</b> All Assumptions Satisfied</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="estimating-the-model-parameters.html"><a href="estimating-the-model-parameters.html"><i class="fa fa-check"></i><b>7</b> Estimating the Model Parameters</a><ul>
+<li class="chapter" data-level="7.1" data-path="estimating-the-model-parameters.html"><a href="estimating-the-model-parameters.html#least-squares"><i class="fa fa-check"></i><b>7.1</b> Least Squares</a></li>
+<li class="chapter" data-level="7.2" data-path="estimating-the-model-parameters.html"><a href="estimating-the-model-parameters.html#maximum-likelihood"><i class="fa fa-check"></i><b>7.2</b> Maximum Likelihood</a></li>
+<li class="chapter" data-level="7.3" data-path="estimating-the-model-parameters.html"><a href="estimating-the-model-parameters.html#estimating-the-model-variance"><i class="fa fa-check"></i><b>7.3</b> Estimating the Model Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>8</b> Transformations</a><ul>
+<li class="chapter" data-level="8.1" data-path="transformations.html"><a href="transformations.html#y-transformations"><i class="fa fa-check"></i><b>8.1</b> Y-Transformations</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="transformations.html"><a href="transformations.html#scatterplot-recognition"><i class="fa fa-check"></i><b>8.1.1</b> Scatterplot Recognition</a></li>
+<li class="chapter" data-level="8.1.2" data-path="transformations.html"><a href="transformations.html#box-cox-suggestion"><i class="fa fa-check"></i><b>8.1.2</b> Box-Cox Suggestion</a></li>
+<li class="chapter" data-level="8.1.3" data-path="transformations.html"><a href="transformations.html#an-example"><i class="fa fa-check"></i><b>8.1.3</b> An Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="transformations.html"><a href="transformations.html#x-transformations"><i class="fa fa-check"></i><b>8.2</b> X-Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="inference-for-the-model-parameters.html"><a href="inference-for-the-model-parameters.html"><i class="fa fa-check"></i><b>9</b> Inference for the Model Parameters</a><ul>
+<li class="chapter" data-level="9.1" data-path="inference-for-the-model-parameters.html"><a href="inference-for-the-model-parameters.html#tTests"><i class="fa fa-check"></i><b>9.1</b> t Tests</a></li>
+<li class="chapter" data-level="9.2" data-path="inference-for-the-model-parameters.html"><a href="inference-for-the-model-parameters.html#confidence-intervals"><i class="fa fa-check"></i><b>9.2</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="9.3" data-path="inference-for-the-model-parameters.html"><a href="inference-for-the-model-parameters.html#Ftests"><i class="fa fa-check"></i><b>9.3</b> F tests</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lowess-and-loess-curves.html"><a href="lowess-and-loess-curves.html"><i class="fa fa-check"></i><b>10</b> Lowess (and Loess) Curves</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="residual-plots-and-regression-assumptions" class="section level1">
+<h1><span class="header-section-number">6</span> Residual Plots and Regression Assumptions</h1>
+<p><span class="expand-caption">Residuals vs. fitted-values, Q-Q Plot of the residuals, and residuals vs. order plots…</span></p>
+<p>There are five assumptions that should be met for the mathematical model of simple linear regression to be appropriate.</p>
+<div style="padding-left:60px;color:darkgray;font-size:.8em;">
+<p>Each assumption is labeled in the regression equation below.</p>
+</div>
+<ol style="list-style-type: decimal">
+<li>The regression relation between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span> is linear.</li>
+<li>The error terms are normally distributed with <span class="math inline">\(E\{\epsilon_i\}=0\)</span>.</li>
+<li>The variance of the error terms is constant over all <span class="math inline">\(X\)</span> values.</li>
+<li>The <span class="math inline">\(X\)</span> values can be considered fixed and measured without error.</li>
+<li>The error terms are independent.</li>
+</ol>
+<p><span style="color:darkgray;">Regression Equation</span>
+<span class="math display">\[
+  Y_i = \underbrace{\beta_0 + \beta_1 \overbrace{X_i}^\text{#4}}_{\text{#1}} + \epsilon_i \quad \text{where} \ \overbrace{\epsilon_i \sim}^\text{#5} \overbrace{N(0}^\text{#2}, \overbrace{\sigma^2}^\text{#3})
+\]</span></p>
+<p>Residuals are used to diagnose departures from the regression assumptions.</p>
+<p>As shown above, the regression equation makes several claims, or assumptions, about the error terms <span class="math inline">\(\epsilon_i\)</span>, specifically 2, 3, and 5 of the regression assumptions are hidden inside the statement <span class="math inline">\(\epsilon_i \sim N(0, \sigma^2)\)</span> as shown here
+<span class="math display">\[
+  \epsilon_i \underbrace{\sim}_{\substack{\text{Independent} \\ \text{Errors}}} \overbrace{N}^{\substack{\text{Normally} \\ \text{distributed}}}(\underbrace{0}_{\substack{\text{mean of} \\ \text{zero}}}, \underbrace{\sigma^2}_{\substack{\text{Constant} \\ \text{Variance}}})
+\]</span></p>
+<p>While the actual error terms (<span class="math inline">\(\epsilon_i\)</span>) are unknown in real life, the residuals (<span class="math inline">\(r_i\)</span>) are known. Thus, we can use the residuals to check if the assumptions of the regression appear to be satisfied or not.</p>
+<p><br /></p>
+<div id="residuals-versus-fitted-values-plot-checks-assumptions-1-and-3" class="section level2">
+<h2><span class="header-section-number">6.1</span> Residuals versus Fitted-values Plot: Checks Assumptions #1 and #3</h2>
+<table width="90%">
+<tr>
+<td with="15%">
+<p><img src="_main_files/figure-html/unnamed-chunk-13-1.png" width="144" /></p>
+</td>
+<td width="75%">
+<p>The linear relationship and constant variance assumptions can be diagnosed using a residuals versus fitted-values plot. The fitted values are the <span class="math inline">\(\hat{Y}_i\)</span>. The residuals are the <span class="math inline">\(r_i\)</span>. This plot compares the residual to the magnitude of the fitted-value. No discernable pattern in this plot is desirable.</p>
+</td>
+</tr>
+</table>
+<p>The residuals versus fitted values plot checks for departures from the linear relation assumption and the constant variance assumption.</p>
+<ul>
+<li><p>The linear relation is assumed to be satisfied if there are no apparent trends in the plot.</p></li>
+<li><p>The constant variance assumption is assumed to be satisfied if the vertical spread of the residuals remains roughly consistent across all fitted values.</p></li>
+</ul>
+<p>The left column of plots below show scenarios that would be considered not linear. The right column of plots show scenarios that would be considered linear, but lacking constant variance. The middle column of plots shows scenarios that would satisfy both assumptions, linear and constant variance.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+</div>
+<div id="q-q-plot-of-the-residuals-checks-assumption-2" class="section level2">
+<h2><span class="header-section-number">6.2</span> Q-Q Plot of the Residuals: Checks Assumption #2</h2>
+<table width="90%">
+<tr>
+<td with="15%">
+<img src="_main_files/figure-html/unnamed-chunk-15-1.png" width="144" />
+</td>
+<td width="75%">
+<p>The normality of the error terms can be assessed by considering a normal probability plot (Q-Q Plot) of the residuals. If the residuals appear to be normal, then the error terms are also considered to be normal. If the residuals do not appear to be normal, then the error terms are also assumed to violate the normality assumption.</p>
+</td>
+</tr>
+</table>
+<p>There are four main trends that occur in a normal probability plot. Examples of each are plotted below with a histogram of the data next to the normal probability plot.</p>
+<p>Often the plot is called a Q-Q Plot, which stands for quantile-quantile plot. The idea is to compare the observed distribution of data to what the distribution should look like in theory if it was normal. Q-Q Plots are more general than normal probability plots because they can be used with any theoretical distribution, not just the normal distribution.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-16-1.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
+</div>
+<div id="residuals-versus-order-plot-checks-assumption-5" class="section level2">
+<h2><span class="header-section-number">6.3</span> Residuals versus Order Plot: Checks Assumption #5</h2>
+<table width="90%">
+<tr>
+<td with="15%">
+<img src="_main_files/figure-html/unnamed-chunk-17-1.png" width="144" />
+</td>
+<td width="75%">
+<p>When the data is collected in a specific order, or has some other important ordering to it, then the independence of the error terms can be assessed. This is typically done by plotting the residuals against their order of occurrance. If any dramatic trends are visible in the plot, then the independence assumption is violated.</p>
+</td>
+</tr>
+</table>
+<p>Plotting the residuals against the order in which the data was collected provides insight as to whether or not the observations can be considered independent. If the plot shows no trend, then the error terms are considered independent and the regression assumption satisfied. If there is a visible trend in the plot, then the regression assumption is likely violated.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p></br></p>
+</div>
+<div id="problems-from-failed-assumptions" class="section level2">
+<h2><span class="header-section-number">6.4</span> Problems from Failed Assumptions</h2>
+<p>There are various problems that can arise when certain of the regression assumptions are not satisfied.</p>
+<div id="lack-of-linearity" class="section level3">
+<h3><span class="header-section-number">6.4.1</span> Lack of Linearity</h3>
+<p>When the linearity assumption is violated, pretty much everything we obtain from the regression summary is no longer meaningful.</p>
+<ul>
+<li><p>The y-intercept estimate can be drastically off from its actual true value.</p></li>
+<li><p>Important model information is lost by trying to use a simple slope term <span class="math inline">\(\beta_1\)</span> to describe the model with respect to <span class="math inline">\(X\)</span>.</p></li>
+<li><p>The residual standard error will be much higher than it otherwise would be because of curvature patterns in the data that the line cannot capture. Thus, R-squared will be lower than it otherwise should be.</p></li>
+<li><p>P-values can become non-significant, when in fact there is a strong pattern in the data, but that pattern just cannot be captured by a simple line.</p></li>
+</ul>
+<p>*Normality of the errors is often put into question as well when a simplified line is used to try to capture a more complicated curved model.</p>
+<p>The plot below demonstrate these difficulties.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><br/></p>
+</div>
+<div id="non-normal-error-terms" class="section level3">
+<h3><span class="header-section-number">6.4.2</span> Non-normal Error Terms</h3>
+<p>When the normality assumption for the error terms is violated, not all is lost. In fact, the estimate of the slope and intercept are still often fairly meaningful. However, it is unwise to put too much trust in the residual standard error as an estimate of the standard deviation <span class="math inline">\(\sigma\)</span>. This is because the standard deviation in skewed distributions does not carry the same meaning it has in normal distributions.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+</div>
+<div id="constant-variance-assumption-violated" class="section level3">
+<h3><span class="header-section-number">6.4.3</span> Constant Variance Assumption Violated</h3>
+<table style="width:51%;">
+<colgroup>
+<col width="25%" />
+<col width="9%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">True</th>
+<th align="center">Estimated</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>Y-Intercept</strong></td>
+<td align="center">14.2</td>
+<td align="center">13.82</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>Slope</strong></td>
+<td align="center">3.5</td>
+<td align="center">3.768</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>Sigma</strong></td>
+<td align="center">2.5</td>
+<td align="center">13.02</td>
+</tr>
+</tbody>
+</table>
+<p><img src="_main_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+</div>
+<div id="independence-assumption-violated" class="section level3">
+<h3><span class="header-section-number">6.4.4</span> Independence Assumption Violated</h3>
+<table style="width:51%;">
+<colgroup>
+<col width="25%" />
+<col width="9%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">True</th>
+<th align="center">Estimated</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>Y-Intercept</strong></td>
+<td align="center">14.2</td>
+<td align="center">15.51</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>Slope</strong></td>
+<td align="center">3.5</td>
+<td align="center">3.427</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>Sigma</strong></td>
+<td align="center">2.5</td>
+<td align="center">5.043</td>
+</tr>
+</tbody>
+</table>
+<p><img src="_main_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+</div>
+<div id="outliers-present" class="section level3">
+<h3><span class="header-section-number">6.4.5</span> Outliers Present</h3>
+<table style="width:51%;">
+<colgroup>
+<col width="25%" />
+<col width="9%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">True</th>
+<th align="center">Estimated</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>Y-Intercept</strong></td>
+<td align="center">14.2</td>
+<td align="center">12.44</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>Slope</strong></td>
+<td align="center">3.5</td>
+<td align="center">3.505</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>Sigma</strong></td>
+<td align="center">2.5</td>
+<td align="center">6.224</td>
+</tr>
+</tbody>
+</table>
+<p><img src="_main_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+</div>
+<div id="all-assumptions-satisfied" class="section level3">
+<h3><span class="header-section-number">6.4.6</span> All Assumptions Satisfied</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="residual-plots-and-regression-assumptions.html#cb5-1"></a><span class="co"># Create Data from a True Model</span></span>
+<span id="cb5-2"><a href="residual-plots-and-regression-assumptions.html#cb5-2"></a></span>
+<span id="cb5-3"><a href="residual-plots-and-regression-assumptions.html#cb5-3"></a>n &lt;-<span class="st"> </span><span class="dv">30</span>                           <span class="co">#sample size</span></span>
+<span id="cb5-4"><a href="residual-plots-and-regression-assumptions.html#cb5-4"></a></span>
+<span id="cb5-5"><a href="residual-plots-and-regression-assumptions.html#cb5-5"></a>beta_<span class="dv">0</span> &lt;-<span class="st"> </span><span class="fl">14.2</span>                    <span class="co">#True y-intercept</span></span>
+<span id="cb5-6"><a href="residual-plots-and-regression-assumptions.html#cb5-6"></a></span>
+<span id="cb5-7"><a href="residual-plots-and-regression-assumptions.html#cb5-7"></a>beta_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="fl">3.5</span>                     <span class="co">#True slope</span></span>
+<span id="cb5-8"><a href="residual-plots-and-regression-assumptions.html#cb5-8"></a></span>
+<span id="cb5-9"><a href="residual-plots-and-regression-assumptions.html#cb5-9"></a>X_i &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dv">0</span>, <span class="dv">20</span>)            <span class="co">#Sample of X-values</span></span>
+<span id="cb5-10"><a href="residual-plots-and-regression-assumptions.html#cb5-10"></a></span>
+<span id="cb5-11"><a href="residual-plots-and-regression-assumptions.html#cb5-11"></a>sigma &lt;-<span class="st"> </span><span class="fl">2.5</span>                      <span class="co">#True standard deviation</span></span>
+<span id="cb5-12"><a href="residual-plots-and-regression-assumptions.html#cb5-12"></a></span>
+<span id="cb5-13"><a href="residual-plots-and-regression-assumptions.html#cb5-13"></a>epsilon_i &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dv">0</span>, sigma)   <span class="co">#normally distributed errors</span></span>
+<span id="cb5-14"><a href="residual-plots-and-regression-assumptions.html#cb5-14"></a></span>
+<span id="cb5-15"><a href="residual-plots-and-regression-assumptions.html#cb5-15"></a>Y_i &lt;-<span class="st"> </span>beta_<span class="dv">0</span> <span class="op">+</span><span class="st"> </span>beta_<span class="dv">1</span><span class="op">*</span>X_i <span class="op">+</span><span class="st"> </span>epsilon_i </span>
+<span id="cb5-16"><a href="residual-plots-and-regression-assumptions.html#cb5-16"></a>                                  <span class="co">#Sample of Y-values from model</span></span>
+<span id="cb5-17"><a href="residual-plots-and-regression-assumptions.html#cb5-17"></a></span>
+<span id="cb5-18"><a href="residual-plots-and-regression-assumptions.html#cb5-18"></a></span>
+<span id="cb5-19"><a href="residual-plots-and-regression-assumptions.html#cb5-19"></a><span class="co"># Plot the Data and Fitted Model</span></span>
+<span id="cb5-20"><a href="residual-plots-and-regression-assumptions.html#cb5-20"></a></span>
+<span id="cb5-21"><a href="residual-plots-and-regression-assumptions.html#cb5-21"></a>mylm &lt;-<span class="st"> </span><span class="kw">lm</span>(Y_i <span class="op">~</span><span class="st"> </span>X_i)            <span class="co">#Fit Model to Data</span></span>
+<span id="cb5-22"><a href="residual-plots-and-regression-assumptions.html#cb5-22"></a></span>
+<span id="cb5-23"><a href="residual-plots-and-regression-assumptions.html#cb5-23"></a></span>
+<span id="cb5-24"><a href="residual-plots-and-regression-assumptions.html#cb5-24"></a><span class="kw">layout</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), <span class="dv">2</span>, <span class="dv">3</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>), </span>
+<span id="cb5-25"><a href="residual-plots-and-regression-assumptions.html#cb5-25"></a>   <span class="dt">widths=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">heights=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb5-26"><a href="residual-plots-and-regression-assumptions.html#cb5-26"></a>                                 <span class="co">#create plot panel</span></span>
+<span id="cb5-27"><a href="residual-plots-and-regression-assumptions.html#cb5-27"></a></span>
+<span id="cb5-28"><a href="residual-plots-and-regression-assumptions.html#cb5-28"></a></span>
+<span id="cb5-29"><a href="residual-plots-and-regression-assumptions.html#cb5-29"></a><span class="kw">plot</span>(Y_i <span class="op">~</span><span class="st"> </span>X_i,                  <span class="co">#Plot the data</span></span>
+<span id="cb5-30"><a href="residual-plots-and-regression-assumptions.html#cb5-30"></a>     <span class="dt">pch=</span><span class="dv">16</span>, </span>
+<span id="cb5-31"><a href="residual-plots-and-regression-assumptions.html#cb5-31"></a>     <span class="dt">col=</span><span class="st">&quot;darkgray&quot;</span>, </span>
+<span id="cb5-32"><a href="residual-plots-and-regression-assumptions.html#cb5-32"></a>     <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">20</span>), </span>
+<span id="cb5-33"><a href="residual-plots-and-regression-assumptions.html#cb5-33"></a>     <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">100</span>),</span>
+<span id="cb5-34"><a href="residual-plots-and-regression-assumptions.html#cb5-34"></a>     <span class="dt">main=</span><span class="st">&quot;All Assumptions Satisfied&quot;</span>)</span>
+<span id="cb5-35"><a href="residual-plots-and-regression-assumptions.html#cb5-35"></a></span>
+<span id="cb5-36"><a href="residual-plots-and-regression-assumptions.html#cb5-36"></a><span class="kw">abline</span>(mylm, <span class="dt">col=</span><span class="st">&quot;gray&quot;</span>)         <span class="co">#Add fitted line to plot</span></span>
+<span id="cb5-37"><a href="residual-plots-and-regression-assumptions.html#cb5-37"></a></span>
+<span id="cb5-38"><a href="residual-plots-and-regression-assumptions.html#cb5-38"></a><span class="kw">abline</span>(beta_<span class="dv">0</span>, beta_<span class="dv">1</span>,           <span class="co">#Add True line to plot</span></span>
+<span id="cb5-39"><a href="residual-plots-and-regression-assumptions.html#cb5-39"></a>       <span class="dt">col=</span><span class="st">&quot;gray&quot;</span>, <span class="dt">lty=</span><span class="dv">2</span>)</span>
+<span id="cb5-40"><a href="residual-plots-and-regression-assumptions.html#cb5-40"></a></span>
+<span id="cb5-41"><a href="residual-plots-and-regression-assumptions.html#cb5-41"></a>                                 <span class="co">#Summarize the Model Fit</span></span>
+<span id="cb5-42"><a href="residual-plots-and-regression-assumptions.html#cb5-42"></a><span class="kw">pander</span>(<span class="kw">rbind</span>(<span class="st">`</span><span class="dt">Y-Intercept</span><span class="st">`</span> =<span class="st"> </span><span class="kw">c</span>(<span class="dt">True =</span> beta_<span class="dv">0</span>, <span class="dt">Estimated =</span> mylm<span class="op">$</span>coef[[<span class="dv">1</span>]]),</span>
+<span id="cb5-43"><a href="residual-plots-and-regression-assumptions.html#cb5-43"></a>      <span class="dt">Slope =</span> <span class="kw">c</span>(<span class="dt">True =</span> beta_<span class="dv">1</span>, <span class="dt">Estimated =</span> mylm<span class="op">$</span>coef[[<span class="dv">2</span>]]),</span>
+<span id="cb5-44"><a href="residual-plots-and-regression-assumptions.html#cb5-44"></a>      <span class="dt">Sigma =</span> <span class="kw">c</span>(<span class="dt">True =</span> sigma, <span class="dt">Estimated =</span> <span class="kw">summary</span>(mylm)<span class="op">$</span>sigma)))</span></code></pre></div>
+<table style="width:51%;">
+<colgroup>
+<col width="25%" />
+<col width="9%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">True</th>
+<th align="center">Estimated</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>Y-Intercept</strong></td>
+<td align="center">14.2</td>
+<td align="center">14.1</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>Slope</strong></td>
+<td align="center">3.5</td>
+<td align="center">3.488</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>Sigma</strong></td>
+<td align="center">2.5</td>
+<td align="center">2.897</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="residual-plots-and-regression-assumptions.html#cb6-1"></a>                                 <span class="co">#Add summary to plot</span></span>
+<span id="cb6-2"><a href="residual-plots-and-regression-assumptions.html#cb6-2"></a><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">legend=</span><span class="kw">c</span>(<span class="kw">paste</span>(<span class="st">&quot;Y-Intercept:&quot;</span>, <span class="kw">round</span>(mylm<span class="op">$</span>coef[[<span class="dv">1</span>]], <span class="dv">3</span>), <span class="st">&quot;  (&quot;</span>, beta_<span class="dv">0</span>, <span class="st">&quot;)&quot;</span>),</span>
+<span id="cb6-3"><a href="residual-plots-and-regression-assumptions.html#cb6-3"></a>                           <span class="kw">paste</span>(<span class="st">&quot;Slope:&quot;</span>, <span class="kw">round</span>(mylm<span class="op">$</span>coef[[<span class="dv">2</span>]], <span class="dv">3</span>), <span class="st">&quot;  (&quot;</span>, beta_<span class="dv">1</span>, <span class="st">&quot;)&quot;</span>),</span>
+<span id="cb6-4"><a href="residual-plots-and-regression-assumptions.html#cb6-4"></a>                           <span class="kw">paste</span>(<span class="st">&quot;Sigma:&quot;</span>, <span class="kw">round</span>(<span class="kw">summary</span>(mylm)<span class="op">$</span>sigma, <span class="dv">3</span>), <span class="st">&quot;  (&quot;</span>, sigma, <span class="st">&quot;)&quot;</span>)), <span class="dt">bty=</span><span class="st">&#39;n&#39;</span>)</span>
+<span id="cb6-5"><a href="residual-plots-and-regression-assumptions.html#cb6-5"></a></span>
+<span id="cb6-6"><a href="residual-plots-and-regression-assumptions.html#cb6-6"></a>                                 <span class="co">#Draw diagnostic plots</span></span>
+<span id="cb6-7"><a href="residual-plots-and-regression-assumptions.html#cb6-7"></a><span class="kw">plot</span>(mylm, <span class="dt">which=</span><span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)</span>
+<span id="cb6-8"><a href="residual-plots-and-regression-assumptions.html#cb6-8"></a><span class="kw">plot</span>(mylm<span class="op">$</span>residuals, <span class="dt">ylab=</span><span class="st">&quot;Residuals&quot;</span>)</span>
+<span id="cb6-9"><a href="residual-plots-and-regression-assumptions.html#cb6-9"></a><span class="kw">mtext</span>(<span class="st">&quot;Residuals vs Order&quot;</span>, <span class="dt">side=</span><span class="dv">3</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="assessing-the-fit-of-a-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="estimating-the-model-parameters.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

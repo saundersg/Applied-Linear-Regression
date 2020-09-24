@@ -1,0 +1,128 @@
+---
+title: "Prediction and Confidence Intervals for $\hat{Y}_h$"
+---
+
+# Prediction and Confidence Intervals for $\hat{Y}_h$
+
+<span class="expand-caption">predict(..., interval="prediction")... </span>
+
+
+It is a common mistake to assume that averages (means) describe individuals. They do not. So, when providing predictions on individuals, it is crucial to capture the variability of individuals around the line.
+
+| Interval | R Code | Math Equation | When to Use |
+|----------|--------|---------------|-------------|
+| Prediction | <span style="font-size:.8em;">`predict(..., interval="prediction")`</span> | $\hat{Y}_i \pm t^* \cdot s_{\text{Pred}\ Y}$ | Predict an individual's value. |
+| Confidence | <span style="font-size:.8em;">`predict(..., interval="confidence")`</span> | $\hat{Y}_i \pm t^* \cdot s_{\hat{Y}}$ | Estimate location of the mean y-value. |
+
+`predict(mylm, data.frame(XvarName = number), interval=...)` 
+
+<br />
+<br />
+
+
+For example, consider this graph. 
+
+```{r}
+cars.lm <- lm(dist ~ speed, data=cars)
+pander(predict(cars.lm, data.frame(speed=15), interval="prediction"))
+```
+
+Notice the three dots above 15 mph in the graph. Each of these dots show a car that was going 15 mph when it applied the brakes. However, stopping distances of the three individual cars differ with one at 20 feet, one at 26 feet and one at 54 feet. 
+
+The regression line represents the average stopping distance of cars. In this case, cars going 15 mph are estimated to have an average stopping distance of about 40 feet, as shown by the line. But individual vehicles, all going the same speed of 15 mph, varied from stopping distances of 20 feet up to 54 feet! 
+
+So, to predict that a car going 15 mph will take 41.4 feet to stop, doesn't tell the whole story. Far more revealing is the complete statement, "Cars going 15 mph are predicted to take anywhere from 10.2 to 72.6 feet to stop, with an average stopping distance of 41.4 feet." This is called the "prediction interval" and is shown in the graph in blue. 
+
+
+```{r}
+plot(dist ~ speed, data=cars, pch=20, col="firebrick", cex=1.2, las=1,
+     xlab="Speed of the Vehicle (mph) \n the Moment the Brakes were Applied", ylab="Distance (ft) it took the Vehicle to Stop",
+     main="Don't Step in front of a Moving 1920's Vehicle...")
+mtext(side=3, text="...they take a few feet to stop.", cex=0.7, line=.5)
+legend("topleft", legend="Stopping Distance Experiment", bty="n")
+points(dist ~ speed, data=subset(cars, speed==15), pch=20, col="firebrick2", cex=1.5)
+
+cars.lm <- lm(dist ~ speed, data=cars)
+abline(cars.lm, lwd=2, col=rgb(.689,.133,.133, .3))
+abline(h=seq(0,120,20), v=seq(5,25,5), lty=2, col=rgb(.2,.2,.2,.2))
+abline(v=15, lty=2, col="firebrick")
+
+preds <- predict(cars.lm, data.frame(speed=15), interval="prediction")
+lines(c(15,15), preds[2:3] - c(-.5,.5), col=rgb(.529,.8078,.9216,.4), lwd=12)
+lines(c(0,15), preds[c(2,2)], col=rgb(.529,.8078,.9216,.8))
+lines(c(0,15), preds[c(3,3)], col=rgb(.529,.8078,.9216,.8))
+```
+
+
+Now, for the details behind prediction intervals and confidence intervals.
+
+Let's begin by recalling some details (from the section "Inference for the Model Parameters") about the standard error of the y-intercept, $b_0$. Recall that the y-intercept is the average y-value for the given x-value of $x=0$. Recall further that the formula for the standard error of $b_0$ is given by the formula
+
+$$
+  s^2_{b_0} = MSE\left[\frac{1}{n} + \frac{\bar{X}^2}{\sum(X_i-\bar{X})^2}\right]
+$$
+
+If we wanted to be more exact with this formula, we would write it as
+
+$$
+  s^2_{b_0} = MSE\left[\frac{1}{n} + \frac{(0-\bar{X})^2}{\sum(X_i-\bar{X})^2}\right]
+$$
+
+Did you notice the addition of $(0 - \bar{X})^2$ instead of just $\bar{X}^2$ in the numerator of the right-most part of the equation? This more complete statement obviously would reduce to just $\bar{X}^2$, but that is only because $X=0$ when we are working with the y-intercept, $b_0$. We could be working with other values of $X$ than just zero.
+
+<div class="note">
+Let's take a quick detour and talk notation for a second. Typically, $X_i$ and $Y_i$ are used to denote the x-value and y-value of points that are contained in our data set. When we want to reference a point that wasn't within our original data set, we use the notation $X_h$ and $Y_h$. (The letter h is close to i, but different from i, so why not. There is really no other reason to use h.) Thus, $Y_h$ is the y-value for the $X_h$ x-value, neither of which were included in our original regression of $X_i$'s and $Y_i$'s.
+</div>
+
+Now, back to the previous discussion. If $X_h = 0$, then $\hat{Y}_h$ is the y-intercept, so $\hat{Y}_h = b_0$ when $X_h=0$. So, we could write,
+
+$$
+  s^2_{\hat{Y}_h} = MSE\left[\frac{1}{n} + \frac{(X_h-\bar{X})^2}{\sum(X_i-\bar{X})^2}\right]
+$$
+
+Did you notice how the $b_0$ in $s_{b_0}$ was replaced with $\hat{Y}_h$ to get $s_{\hat{Y}_h}$ and the 0 in $(0 - \bar{X})^2$ was replaced with $X_h$ to get $(X_h - \bar{X})^2$? Interesting. We now have a formula that would give us the standard error of $\hat{Y}_h$ for any $X_h$ value, not just $X_h = 0$, or the y-intercept, $b_0$. That is fantastic. It would look like this if plotted. Notice how the gray region is showing the standard error for each $\hat{Y}_h$ value? (It is technically showing the confidence interval for $E\{Y_h\}$ at every possible $X_h$ value, but that is just $\hat{Y}_h \pm t^* \cdot s_{\hat{Y}_h}$.)
+
+```{r}
+ggplot(cars, aes(x=speed, y=dist)) + 
+  geom_point() +
+  geom_smooth(method="lm", se=TRUE, color="skyblue") +
+  theme_bw()
+```
+
+## Confidence Intervals for $\hat{Y}_h$
+
+$$
+  \hat{Y}_h \pm t^* s_{\hat{Y}_h} \quad \text{where} \ s_{\hat{Y}_h}^2 = MSE\left[\frac{1}{n} + \frac{(X_h - \bar{X})^2}{\sum(X_i - \bar{X})^2}\right]
+$$
+
+
+The confidence interval is a wonderful tool for estimating $E\{Y_h\}$, the "true" average y-value for a given x-value of $X_h$. However, it is not valuable for predicting an individual dot, or $Y_h$ value. Notice how few of the dots of the regression are actually contained within the confidence interval band in the plot? The confidence interval does not really predict where the dots will land, just where the average y-value is located for each x-value. 
+
+Remember the 68-95-99.7 Rule of the normal distribution? If not, here is a link back to that concept in the [Math 221](https://byuistats.github.io/BYUI_M221_Book/Lesson05.html#normal-probability-computations) textbook. This rule states that roughly 95% of data, when normally distributed, will be between $z=-2$ and $z=2$ standard deviations from the mean. So, is going two "residual standard errors" to both sides of the regression line enough to capture 95% of the data? The answer is, not quite. The reason for this is because our knowledge of where the true mean lies is uncertain. (Notice the confidence interval band shown in the plot.) However, adding two standard errors to the edges of the confidence band would get us in the right place. In other words, there are two sources of variability at play here, (1) our uncertaintity in where the regression line is sitting, and (2) the natural variability of the data points around the line. Thus, the "prediction interval" requires accounting for both of these sources of variability to produce the following equation.
+
+
+## Prediction Intervals for $\hat{Y}_h$
+
+$$
+  \hat{Y}_h \pm t^* s_{Pred \hat{Y}_h} \quad \text{where} \ s_{Pred \hat{Y}_h}^2 = MSE\left[\frac{1}{n} + 1 + \frac{(X_h - \bar{X})^2}{\sum(X_i - \bar{X})^2}\right]
+$$
+
+This formula provides a useful band for identifying a region where we are 95% confident that a new observation for $Y_h$ will land, given the value of $X_h$.
+
+It looks as follows. Notice the prediction interval is much wider than the confidence interval. This is because data varies far more than do means. Prediction is for where the individual data points will land, confidence is for where the mean will land.
+
+```{r}
+cars.lm <- lm(dist ~ speed, data=cars)
+predy <- predict(cars.lm, data.frame(speed=15), interval="prediction")
+
+ggplot(cars, aes(x=speed, y=dist)) + 
+  geom_point() +
+  geom_smooth(method="lm", color="skyblue") +
+  geom_segment(aes(x=15, xend=15, y=predy[2], yend=predy[3]), lwd=4, color=rgb(.5,.7,.5,.01)) + 
+  geom_point(aes(x=15, y=predy[1]), cex=2, color="skyblue", pch=15) +
+  theme_bw()
+```
+
+
+
+

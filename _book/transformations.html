@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8 Transformations | Introduction</title>
+  <meta name="description" content="8 Transformations | Introduction" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8 Transformations | Introduction" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8 Transformations | Introduction" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="estimating-the-model-parameters.html"/>
+<link rel="next" href="inference-for-the-model-parameters.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#regression-cheat-sheet"><i class="fa fa-check"></i><b>1.1</b> Regression Cheat Sheet</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html"><i class="fa fa-check"></i><b>2</b> The Mathematical Model</a><ul>
+<li class="chapter" data-level="2.1" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html#part-1-the-true-line"><i class="fa fa-check"></i><b>2.1</b> Part 1: The True Line</a></li>
+<li class="chapter" data-level="2.2" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html#part-2-the-dots"><i class="fa fa-check"></i><b>2.2</b> Part 2: The <em>Dots</em></a></li>
+<li class="chapter" data-level="2.3" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html#part-3-the-estimated-line"><i class="fa fa-check"></i><b>2.3</b> Part 3: The <em>Estimated Line</em></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="interpreting-the-model-parameters.html"><a href="interpreting-the-model-parameters.html"><i class="fa fa-check"></i><b>3</b> Interpreting the Model Parameters</a></li>
+<li class="chapter" data-level="4" data-path="residuals-and-errors.html"><a href="residuals-and-errors.html"><i class="fa fa-check"></i><b>4</b> Residuals and Errors</a></li>
+<li class="chapter" data-level="5" data-path="assessing-the-fit-of-a-regression.html"><a href="assessing-the-fit-of-a-regression.html"><i class="fa fa-check"></i><b>5</b> Assessing the Fit of a Regression</a></li>
+<li class="chapter" data-level="6" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html"><i class="fa fa-check"></i><b>6</b> Residual Plots and Regression Assumptions</a><ul>
+<li class="chapter" data-level="6.1" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#residuals-versus-fitted-values-plot-checks-assumptions-1-and-3"><i class="fa fa-check"></i><b>6.1</b> Residuals versus Fitted-values Plot: Checks Assumptions #1 and #3</a></li>
+<li class="chapter" data-level="6.2" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#q-q-plot-of-the-residuals-checks-assumption-2"><i class="fa fa-check"></i><b>6.2</b> Q-Q Plot of the Residuals: Checks Assumption #2</a></li>
+<li class="chapter" data-level="6.3" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#residuals-versus-order-plot-checks-assumption-5"><i class="fa fa-check"></i><b>6.3</b> Residuals versus Order Plot: Checks Assumption #5</a></li>
+<li class="chapter" data-level="6.4" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#problems-from-failed-assumptions"><i class="fa fa-check"></i><b>6.4</b> Problems from Failed Assumptions</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#lack-of-linearity"><i class="fa fa-check"></i><b>6.4.1</b> Lack of Linearity</a></li>
+<li class="chapter" data-level="6.4.2" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#non-normal-error-terms"><i class="fa fa-check"></i><b>6.4.2</b> Non-normal Error Terms</a></li>
+<li class="chapter" data-level="6.4.3" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#constant-variance-assumption-violated"><i class="fa fa-check"></i><b>6.4.3</b> Constant Variance Assumption Violated</a></li>
+<li class="chapter" data-level="6.4.4" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#independence-assumption-violated"><i class="fa fa-check"></i><b>6.4.4</b> Independence Assumption Violated</a></li>
+<li class="chapter" data-level="6.4.5" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#outliers-present"><i class="fa fa-check"></i><b>6.4.5</b> Outliers Present</a></li>
+<li class="chapter" data-level="6.4.6" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#all-assumptions-satisfied"><i class="fa fa-check"></i><b>6.4.6</b> All Assumptions Satisfied</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="estimating-the-model-parameters.html"><a href="estimating-the-model-parameters.html"><i class="fa fa-check"></i><b>7</b> Estimating the Model Parameters</a><ul>
+<li class="chapter" data-level="7.1" data-path="estimating-the-model-parameters.html"><a href="estimating-the-model-parameters.html#least-squares"><i class="fa fa-check"></i><b>7.1</b> Least Squares</a></li>
+<li class="chapter" data-level="7.2" data-path="estimating-the-model-parameters.html"><a href="estimating-the-model-parameters.html#maximum-likelihood"><i class="fa fa-check"></i><b>7.2</b> Maximum Likelihood</a></li>
+<li class="chapter" data-level="7.3" data-path="estimating-the-model-parameters.html"><a href="estimating-the-model-parameters.html#estimating-the-model-variance"><i class="fa fa-check"></i><b>7.3</b> Estimating the Model Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>8</b> Transformations</a><ul>
+<li class="chapter" data-level="8.1" data-path="transformations.html"><a href="transformations.html#y-transformations"><i class="fa fa-check"></i><b>8.1</b> Y-Transformations</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="transformations.html"><a href="transformations.html#scatterplot-recognition"><i class="fa fa-check"></i><b>8.1.1</b> Scatterplot Recognition</a></li>
+<li class="chapter" data-level="8.1.2" data-path="transformations.html"><a href="transformations.html#box-cox-suggestion"><i class="fa fa-check"></i><b>8.1.2</b> Box-Cox Suggestion</a></li>
+<li class="chapter" data-level="8.1.3" data-path="transformations.html"><a href="transformations.html#an-example"><i class="fa fa-check"></i><b>8.1.3</b> An Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="transformations.html"><a href="transformations.html#x-transformations"><i class="fa fa-check"></i><b>8.2</b> X-Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="inference-for-the-model-parameters.html"><a href="inference-for-the-model-parameters.html"><i class="fa fa-check"></i><b>9</b> Inference for the Model Parameters</a><ul>
+<li class="chapter" data-level="9.1" data-path="inference-for-the-model-parameters.html"><a href="inference-for-the-model-parameters.html#tTests"><i class="fa fa-check"></i><b>9.1</b> t Tests</a></li>
+<li class="chapter" data-level="9.2" data-path="inference-for-the-model-parameters.html"><a href="inference-for-the-model-parameters.html#confidence-intervals"><i class="fa fa-check"></i><b>9.2</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="9.3" data-path="inference-for-the-model-parameters.html"><a href="inference-for-the-model-parameters.html#Ftests"><i class="fa fa-check"></i><b>9.3</b> F tests</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lowess-and-loess-curves.html"><a href="lowess-and-loess-curves.html"><i class="fa fa-check"></i><b>10</b> Lowess (and Loess) Curves</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="transformations" class="section level1">
+<h1><span class="header-section-number">8</span> Transformations</h1>
+<p><span class="expand-caption"><span class="math inline">\(Y&#39;\)</span>, <span class="math inline">\(X&#39;\)</span>, and returning to the original space…</span></p>
+<p>Y transformations are denoted by y-prime, written <span class="math inline">\(Y&#39;\)</span>, and consist of raising <span class="math inline">\(Y\)</span> to some power called <span class="math inline">\(\lambda\)</span>.</p>
+<p><span class="math display">\[
+  Y&#39; = Y^\lambda \quad \text{(Y Transformation)}
+\]</span></p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Value of <span class="math inline">\(\lambda\)</span></th>
+<th>Transformation to Use</th>
+<th>R Code</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">-2</td>
+<td><span class="math inline">\(Y&#39; = Y^{-2} = 1/Y^2\)</span></td>
+<td><code>lm(Y^-2 ~ X)</code></td>
+</tr>
+<tr class="even">
+<td align="center">-1</td>
+<td><span class="math inline">\(Y&#39; = Y^{-1} = 1/Y\)</span></td>
+<td><code>lm(Y^-1 ~ X)</code></td>
+</tr>
+<tr class="odd">
+<td align="center">0</td>
+<td><span class="math inline">\(Y&#39; = \log(Y)\)</span></td>
+<td><code>lm(log(Y) ~ X)</code></td>
+</tr>
+<tr class="even">
+<td align="center">0.5</td>
+<td><span class="math inline">\(Y&#39; = \sqrt(Y)\)</span></td>
+<td><code>lm(sqrt(Y) ~ X)</code></td>
+</tr>
+<tr class="odd">
+<td align="center">1</td>
+<td><span class="math inline">\(Y&#39; = Y\)</span></td>
+<td><code>lm(Y ~ X)</code></td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td><span class="math inline">\(Y&#39; = Y^2\)</span></td>
+<td><code>lm(Y^2 ~ X)</code></td>
+</tr>
+</tbody>
+</table>
+<p>Using “maximum-likelihood” estimation, the Box-Cox procedure can actually automatically detect the “optimal” value of <span class="math inline">\(\lambda\)</span> to consider for a Y-transformation. Keep in mind however, that simply accepting a suggested Y-transformation without considering the scatterplot and diagnostic plots first, is unwise.</p>
+<div id="y-transformations" class="section level2">
+<h2><span class="header-section-number">8.1</span> Y-Transformations</h2>
+<div id="scatterplot-recognition" class="section level3">
+<h3><span class="header-section-number">8.1.1</span> Scatterplot Recognition</h3>
+<p>The following panel of scatterplots can give you a good feel for when to try different values of <span class="math inline">\(\lambda\)</span>.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+</div>
+<div id="box-cox-suggestion" class="section level3">
+<h3><span class="header-section-number">8.1.2</span> Box-Cox Suggestion</h3>
+<p>The <code>boxCox(...)</code> function in <code>library(car)</code> can also be helpful on finding values of <span class="math inline">\(\lambda\)</span> to try.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+</div>
+<div id="an-example" class="section level3">
+<h3><span class="header-section-number">8.1.3</span> An Example</h3>
+<p>Suppose we were running a simple linear regression on the <code>cars</code> dataset.</p>
+<p>This would be done with the code</p>
+<p><code>cars.lm &lt;- lm(dist ~ speed, data=cars)</code></p>
+<p><code>summary(cars.lm)</code></p>
+<p>Notice the line doesn’t quite fit the data as well as we would hope. Instead, the data looks a little curved.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="transformations.html#cb7-1"></a>cars.lm &lt;-<span class="kw">lm</span>(dist <span class="op">~</span><span class="st"> </span>speed,<span class="dt">data=</span>cars)</span>
+<span id="cb7-2"><a href="transformations.html#cb7-2"></a><span class="kw">plot</span>(dist <span class="op">~</span><span class="st"> </span>speed, <span class="dt">data=</span>cars, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">col=</span><span class="st">&quot;firebrick&quot;</span>, <span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">las=</span><span class="dv">1</span>,</span>
+<span id="cb7-3"><a href="transformations.html#cb7-3"></a>     <span class="dt">xlab=</span><span class="st">&quot;Speed of the Vehicle (mph) </span><span class="ch">\n</span><span class="st"> the Moment the Brakes were Applied&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Distance (ft) it took the Vehicle to Stop&quot;</span>,</span>
+<span id="cb7-4"><a href="transformations.html#cb7-4"></a>     <span class="dt">main=</span><span class="st">&quot;Don&#39;t Step in front of a Moving 1920&#39;s Vehicle...&quot;</span>)</span>
+<span id="cb7-5"><a href="transformations.html#cb7-5"></a><span class="kw">mtext</span>(<span class="dt">side=</span><span class="dv">3</span>, <span class="dt">text=</span><span class="st">&quot;...they take a few feet to stop.&quot;</span>, <span class="dt">cex=</span><span class="fl">0.7</span>, <span class="dt">line=</span>.<span class="dv">5</span>)</span>
+<span id="cb7-6"><a href="transformations.html#cb7-6"></a><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;Stopping Distance Experiment&quot;</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>)</span>
+<span id="cb7-7"><a href="transformations.html#cb7-7"></a></span>
+<span id="cb7-8"><a href="transformations.html#cb7-8"></a><span class="kw">abline</span>(cars.lm, <span class="dt">col=</span><span class="st">&quot;gray&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p>Using the <code>boxCox(...)</code> function from <code>library(car)</code> we would compute the following to determine which Y-transformation would be most meaningful.</p>
+<p><code>library(car)</code></p>
+<p><code>boxCox(cars.lm)</code></p>
+<p>The output from the <code>boxCox(...)</code> function looks as follows.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="transformations.html#cb8-1"></a>cars.lm &lt;-<span class="kw">lm</span>(dist <span class="op">~</span><span class="st"> </span>speed,<span class="dt">data=</span>cars)</span>
+<span id="cb8-2"><a href="transformations.html#cb8-2"></a><span class="kw">boxCox</span>(cars.lm)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p>This plot tells use to use the <span class="math inline">\(\lambda = 0.5\)</span> transformation, so that <span class="math inline">\(Y&#39; = Y^0.5 = \sqrt{Y}\)</span>. (To see this yourself, see above in the “Box-Cox Suggestion” section, as well as on the “Scatterplot Recognition” section.)</p>
+<p>Now, a transformation regression is performed using <code>sqrt(Y)</code> in place of <code>Y</code> as follows:</p>
+<p><code>cars.lm.t &lt;- lm(sqrt(dist) ~ speed, data=cars)</code></p>
+<p><code>summary(cars.lm.t)</code></p>
+<table>
+<thead>
+<tr class="header">
+<th> </th>
+<th>Estimate</th>
+<th>Std. Error</th>
+<th>t value</th>
+<th>Pr(&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>(Intercept)</strong></td>
+<td>1.277</td>
+<td>0.4844</td>
+<td>2.636</td>
+<td>0.01126</td>
+</tr>
+<tr class="even">
+<td><strong>speed</strong></td>
+<td>0.3224</td>
+<td>0.02978</td>
+<td>10.83</td>
+<td>1.773e-14</td>
+</tr>
+</tbody>
+</table>
+<p>Then,</p>
+<p><span class="math display">\[
+  \widehat{Y}_i&#39; = 1.277 + 0.3224 X_i
+\]</span></p>
+<p>And replacing <span class="math inline">\(\hat{Y}_i&#39; = \sqrt{\hat{Y}_i}\)</span> we have</p>
+<p><span class="math display">\[
+  \sqrt{\widehat{Y}_i} = 1.277 + 0.3224 X_i
+\]</span></p>
+<p>Solving for <span class="math inline">\(\hat{Y}_i\)</span> gives</p>
+<p><span class="math display">\[
+  \widehat{Y}_i = (1.277 + 0.3224 X_i)^2
+\]</span></p>
+<p>Which, using <code>curve((1.277 + 0.3224*x)^2, add=TRUE)</code> (see code for details) looks like this:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="transformations.html#cb9-1"></a><span class="kw">plot</span>(dist <span class="op">~</span><span class="st"> </span>speed, <span class="dt">data=</span>cars, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">col=</span><span class="st">&quot;firebrick&quot;</span>, <span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">las=</span><span class="dv">1</span>,</span>
+<span id="cb9-2"><a href="transformations.html#cb9-2"></a>     <span class="dt">xlab=</span><span class="st">&quot;Speed of the Vehicle (mph) </span><span class="ch">\n</span><span class="st"> the Moment the Brakes were Applied&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Distance (ft) it took the Vehicle to Stop&quot;</span>,</span>
+<span id="cb9-3"><a href="transformations.html#cb9-3"></a>     <span class="dt">main=</span><span class="st">&quot;Don&#39;t Step in front of a Moving 1920&#39;s Vehicle...&quot;</span>)</span>
+<span id="cb9-4"><a href="transformations.html#cb9-4"></a><span class="kw">mtext</span>(<span class="dt">side=</span><span class="dv">3</span>, <span class="dt">text=</span><span class="st">&quot;...they take a few feet to stop.&quot;</span>, <span class="dt">cex=</span><span class="fl">0.7</span>, <span class="dt">line=</span>.<span class="dv">5</span>)</span>
+<span id="cb9-5"><a href="transformations.html#cb9-5"></a><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;Stopping Distance Experiment&quot;</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>)</span>
+<span id="cb9-6"><a href="transformations.html#cb9-6"></a></span>
+<span id="cb9-7"><a href="transformations.html#cb9-7"></a><span class="kw">curve</span>( (<span class="fl">1.277</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.3224</span><span class="op">*</span>x)<span class="op">^</span><span class="dv">2</span>, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="st">&quot;firebrick&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p><br /></p>
+</div>
+</div>
+<div id="x-transformations" class="section level2">
+<h2><span class="header-section-number">8.2</span> X-Transformations</h2>
+<p>X-transformations are more difficult to recognize than y-transformations. This is partially because there is no Box-Cox method to automatically search for them.</p>
+<p>The best indicator that you should consider an x-transformation is when the variance of the residuals is constant across all fitted-values, but linearity is clearly violated.</p>
+<p>The following panel of scatterplots can give you a good feel for when to try different values of an x-transformation.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="estimating-the-model-parameters.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="inference-for-the-model-parameters.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

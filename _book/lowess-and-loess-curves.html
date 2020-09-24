@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>10 Lowess (and Loess) Curves | Introduction</title>
+  <meta name="description" content="10 Lowess (and Loess) Curves | Introduction" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="10 Lowess (and Loess) Curves | Introduction" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="10 Lowess (and Loess) Curves | Introduction" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="inference-for-the-model-parameters.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#regression-cheat-sheet"><i class="fa fa-check"></i><b>1.1</b> Regression Cheat Sheet</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html"><i class="fa fa-check"></i><b>2</b> The Mathematical Model</a><ul>
+<li class="chapter" data-level="2.1" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html#part-1-the-true-line"><i class="fa fa-check"></i><b>2.1</b> Part 1: The True Line</a></li>
+<li class="chapter" data-level="2.2" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html#part-2-the-dots"><i class="fa fa-check"></i><b>2.2</b> Part 2: The <em>Dots</em></a></li>
+<li class="chapter" data-level="2.3" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html#part-3-the-estimated-line"><i class="fa fa-check"></i><b>2.3</b> Part 3: The <em>Estimated Line</em></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="interpreting-the-model-parameters.html"><a href="interpreting-the-model-parameters.html"><i class="fa fa-check"></i><b>3</b> Interpreting the Model Parameters</a></li>
+<li class="chapter" data-level="4" data-path="residuals-and-errors.html"><a href="residuals-and-errors.html"><i class="fa fa-check"></i><b>4</b> Residuals and Errors</a></li>
+<li class="chapter" data-level="5" data-path="assessing-the-fit-of-a-regression.html"><a href="assessing-the-fit-of-a-regression.html"><i class="fa fa-check"></i><b>5</b> Assessing the Fit of a Regression</a></li>
+<li class="chapter" data-level="6" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html"><i class="fa fa-check"></i><b>6</b> Residual Plots and Regression Assumptions</a><ul>
+<li class="chapter" data-level="6.1" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#residuals-versus-fitted-values-plot-checks-assumptions-1-and-3"><i class="fa fa-check"></i><b>6.1</b> Residuals versus Fitted-values Plot: Checks Assumptions #1 and #3</a></li>
+<li class="chapter" data-level="6.2" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#q-q-plot-of-the-residuals-checks-assumption-2"><i class="fa fa-check"></i><b>6.2</b> Q-Q Plot of the Residuals: Checks Assumption #2</a></li>
+<li class="chapter" data-level="6.3" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#residuals-versus-order-plot-checks-assumption-5"><i class="fa fa-check"></i><b>6.3</b> Residuals versus Order Plot: Checks Assumption #5</a></li>
+<li class="chapter" data-level="6.4" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#problems-from-failed-assumptions"><i class="fa fa-check"></i><b>6.4</b> Problems from Failed Assumptions</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#lack-of-linearity"><i class="fa fa-check"></i><b>6.4.1</b> Lack of Linearity</a></li>
+<li class="chapter" data-level="6.4.2" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#non-normal-error-terms"><i class="fa fa-check"></i><b>6.4.2</b> Non-normal Error Terms</a></li>
+<li class="chapter" data-level="6.4.3" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#constant-variance-assumption-violated"><i class="fa fa-check"></i><b>6.4.3</b> Constant Variance Assumption Violated</a></li>
+<li class="chapter" data-level="6.4.4" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#independence-assumption-violated"><i class="fa fa-check"></i><b>6.4.4</b> Independence Assumption Violated</a></li>
+<li class="chapter" data-level="6.4.5" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#outliers-present"><i class="fa fa-check"></i><b>6.4.5</b> Outliers Present</a></li>
+<li class="chapter" data-level="6.4.6" data-path="residual-plots-and-regression-assumptions.html"><a href="residual-plots-and-regression-assumptions.html#all-assumptions-satisfied"><i class="fa fa-check"></i><b>6.4.6</b> All Assumptions Satisfied</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="estimating-the-model-parameters.html"><a href="estimating-the-model-parameters.html"><i class="fa fa-check"></i><b>7</b> Estimating the Model Parameters</a><ul>
+<li class="chapter" data-level="7.1" data-path="estimating-the-model-parameters.html"><a href="estimating-the-model-parameters.html#least-squares"><i class="fa fa-check"></i><b>7.1</b> Least Squares</a></li>
+<li class="chapter" data-level="7.2" data-path="estimating-the-model-parameters.html"><a href="estimating-the-model-parameters.html#maximum-likelihood"><i class="fa fa-check"></i><b>7.2</b> Maximum Likelihood</a></li>
+<li class="chapter" data-level="7.3" data-path="estimating-the-model-parameters.html"><a href="estimating-the-model-parameters.html#estimating-the-model-variance"><i class="fa fa-check"></i><b>7.3</b> Estimating the Model Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>8</b> Transformations</a><ul>
+<li class="chapter" data-level="8.1" data-path="transformations.html"><a href="transformations.html#y-transformations"><i class="fa fa-check"></i><b>8.1</b> Y-Transformations</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="transformations.html"><a href="transformations.html#scatterplot-recognition"><i class="fa fa-check"></i><b>8.1.1</b> Scatterplot Recognition</a></li>
+<li class="chapter" data-level="8.1.2" data-path="transformations.html"><a href="transformations.html#box-cox-suggestion"><i class="fa fa-check"></i><b>8.1.2</b> Box-Cox Suggestion</a></li>
+<li class="chapter" data-level="8.1.3" data-path="transformations.html"><a href="transformations.html#an-example"><i class="fa fa-check"></i><b>8.1.3</b> An Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="transformations.html"><a href="transformations.html#x-transformations"><i class="fa fa-check"></i><b>8.2</b> X-Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="inference-for-the-model-parameters.html"><a href="inference-for-the-model-parameters.html"><i class="fa fa-check"></i><b>9</b> Inference for the Model Parameters</a><ul>
+<li class="chapter" data-level="9.1" data-path="inference-for-the-model-parameters.html"><a href="inference-for-the-model-parameters.html#tTests"><i class="fa fa-check"></i><b>9.1</b> t Tests</a></li>
+<li class="chapter" data-level="9.2" data-path="inference-for-the-model-parameters.html"><a href="inference-for-the-model-parameters.html#confidence-intervals"><i class="fa fa-check"></i><b>9.2</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="9.3" data-path="inference-for-the-model-parameters.html"><a href="inference-for-the-model-parameters.html#Ftests"><i class="fa fa-check"></i><b>9.3</b> F tests</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lowess-and-loess-curves.html"><a href="lowess-and-loess-curves.html"><i class="fa fa-check"></i><b>10</b> Lowess (and Loess) Curves</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="lowess-and-loess-curves" class="section level1">
+<h1><span class="header-section-number">10</span> Lowess (and Loess) Curves</h1>
+<p><span class="expand-caption">A non-parametric approach to estimating <span class="math inline">\(E\{Y_i\}\)</span>… </span></p>
+<p>Robust <strong>lo</strong>cally <strong>wei</strong>ghted regression and <strong>s</strong>moothing <strong>s</strong>catterplots (LOWESS), is an effective way to visually model the average y-value.</p>
+<hr />
+<table>
+<tr>
+<td>
+<p><strong>Using Base R</strong></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="lowess-and-loess-curves.html#cb11-1"></a>air2 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(<span class="kw">select</span>(airquality, Temp, Ozone))</span>
+<span id="cb11-2"><a href="lowess-and-loess-curves.html#cb11-2"></a></span>
+<span id="cb11-3"><a href="lowess-and-loess-curves.html#cb11-3"></a><span class="co"># Just quickly draw the lowess curve:</span></span>
+<span id="cb11-4"><a href="lowess-and-loess-curves.html#cb11-4"></a><span class="kw">plot</span>(Temp <span class="op">~</span><span class="st"> </span>Ozone, <span class="dt">data=</span>air2, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">col=</span><span class="st">&quot;darkgray&quot;</span>)</span>
+<span id="cb11-5"><a href="lowess-and-loess-curves.html#cb11-5"></a><span class="kw">lines</span>(<span class="kw">lowess</span>(air2<span class="op">$</span>Ozone, air2<span class="op">$</span>Temp), <span class="dt">col=</span><span class="st">&quot;firebrick&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="lowess-and-loess-curves.html#cb12-1"></a><span class="co">## OR optionally, </span></span>
+<span id="cb12-2"><a href="lowess-and-loess-curves.html#cb12-2"></a><span class="co">## allow for predictions as well as the graph:</span></span>
+<span id="cb12-3"><a href="lowess-and-loess-curves.html#cb12-3"></a><span class="co"># plot(Temp ~ Ozone, data=air2, pch=16, col=&quot;darkgray&quot;)</span></span>
+<span id="cb12-4"><a href="lowess-and-loess-curves.html#cb12-4"></a><span class="co"># air2 &lt;- arrange(air2, desc(Ozone))</span></span>
+<span id="cb12-5"><a href="lowess-and-loess-curves.html#cb12-5"></a><span class="co"># mylo &lt;- loess(Temp ~ Ozone, data=air2, degree=1)</span></span>
+<span id="cb12-6"><a href="lowess-and-loess-curves.html#cb12-6"></a><span class="co"># lines(mylo$fit ~ Ozone, data=air2)</span></span></code></pre></div>
+</td>
+<td>
+<p><strong>Using ggplot2</strong></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="lowess-and-loess-curves.html#cb13-1"></a>air2 &lt;-<span class="st"> </span><span class="kw">na.omit</span>(<span class="kw">select</span>(airquality, Temp, Ozone))</span>
+<span id="cb13-2"><a href="lowess-and-loess-curves.html#cb13-2"></a></span>
+<span id="cb13-3"><a href="lowess-and-loess-curves.html#cb13-3"></a><span class="co"># Just quickly draw the lowess curve:</span></span>
+<span id="cb13-4"><a href="lowess-and-loess-curves.html#cb13-4"></a><span class="kw">ggplot</span>(air2, <span class="kw">aes</span>(<span class="dt">x=</span>Ozone, <span class="dt">y=</span>Temp)) <span class="op">+</span></span>
+<span id="cb13-5"><a href="lowess-and-loess-curves.html#cb13-5"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;darkgray&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb13-6"><a href="lowess-and-loess-curves.html#cb13-6"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se=</span>F, <span class="dt">method=</span><span class="st">&quot;loess&quot;</span>, <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">degree=</span><span class="dv">1</span>)) <span class="op">+</span><span class="st"> </span><span class="co">#Note, degree=2 by default.</span></span>
+<span id="cb13-7"><a href="lowess-and-loess-curves.html#cb13-7"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="lowess-and-loess-curves.html#cb15-1"></a><span class="co">## OR optionally, </span></span>
+<span id="cb15-2"><a href="lowess-and-loess-curves.html#cb15-2"></a><span class="co">## allow for predictions as well as the graph:</span></span>
+<span id="cb15-3"><a href="lowess-and-loess-curves.html#cb15-3"></a><span class="co"># air2 &lt;- arrange(air2, desc(Ozone))</span></span>
+<span id="cb15-4"><a href="lowess-and-loess-curves.html#cb15-4"></a><span class="co"># mylo &lt;- loess(Temp ~ Ozone, data=air2, degree=1)</span></span>
+<span id="cb15-5"><a href="lowess-and-loess-curves.html#cb15-5"></a><span class="co"># ggplot(air2, aes(x=Ozone, y=Temp)) +</span></span>
+<span id="cb15-6"><a href="lowess-and-loess-curves.html#cb15-6"></a><span class="co">#   geom_point() +</span></span>
+<span id="cb15-7"><a href="lowess-and-loess-curves.html#cb15-7"></a><span class="co">#   geom_line(data=air2, aes(y=mylo$fit, x=Ozone))</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+<hr />
+<p><br /></p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Advantages</strong></th>
+<th><strong>Disadvantages</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Quick. Good at ignoring outliers. Good at capturing the general pattern in the data. Good for making predictions within the scope of the data.</td>
+<td>No mathematical model. Not interpretable. No p-values. No adjusted R-squared.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>How it Works</strong></p>
+<p>The Lowess curve localizes the regression model to a “neighborhood” of points, and then joins these localized regressions together into a smooth line. It minimizes the effect of outliers, and let’s the data “speak for itself”.</p>
+<p>As a downside, it is not interpretable, and has no final way to write the model mathematically. All the same, it is a very powerful tool for identifying an appropriate model, or verifying the fit of a model, or making predictions when no reasonable model does an adequate job.</p>
+<p>Study this graphic and the explanations below to learn how it works.</p>
+<p><em>Recommendation: run the code in this “Code” chunk to the right in your Console, and flip through the resulting graphics.</em></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="lowess-and-loess-curves.html#cb16-1"></a>X &lt;-<span class="st"> </span>cars<span class="op">$</span>speed</span>
+<span id="cb16-2"><a href="lowess-and-loess-curves.html#cb16-2"></a>Y &lt;-<span class="st"> </span>cars<span class="op">$</span>dist</span>
+<span id="cb16-3"><a href="lowess-and-loess-curves.html#cb16-3"></a>X &lt;-<span class="st"> </span>X[<span class="op">!</span><span class="kw">is.na</span>(X) <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(Y)]</span>
+<span id="cb16-4"><a href="lowess-and-loess-curves.html#cb16-4"></a>Y &lt;-<span class="st"> </span>Y[<span class="op">!</span><span class="kw">is.na</span>(X) <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(Y)]</span>
+<span id="cb16-5"><a href="lowess-and-loess-curves.html#cb16-5"></a>f &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span></span>
+<span id="cb16-6"><a href="lowess-and-loess-curves.html#cb16-6"></a>n &lt;-<span class="st"> </span><span class="kw">length</span>(X)</span>
+<span id="cb16-7"><a href="lowess-and-loess-curves.html#cb16-7"></a></span>
+<span id="cb16-8"><a href="lowess-and-loess-curves.html#cb16-8"></a>lfit &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>,n)</span>
+<span id="cb16-9"><a href="lowess-and-loess-curves.html#cb16-9"></a><span class="cf">for</span> (xh <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){</span>
+<span id="cb16-10"><a href="lowess-and-loess-curves.html#cb16-10"></a> xdists &lt;-<span class="st"> </span>X <span class="op">-</span><span class="st"> </span>X[xh]</span>
+<span id="cb16-11"><a href="lowess-and-loess-curves.html#cb16-11"></a> nn &lt;-<span class="st"> </span><span class="kw">floor</span>(n<span class="op">*</span>f)</span>
+<span id="cb16-12"><a href="lowess-and-loess-curves.html#cb16-12"></a> r &lt;-<span class="st"> </span><span class="kw">sort</span>(<span class="kw">abs</span>(xdists))[nn]</span>
+<span id="cb16-13"><a href="lowess-and-loess-curves.html#cb16-13"></a> xdists.nbrhd &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">abs</span>(xdists) <span class="op">&lt;</span><span class="st"> </span>r)</span>
+<span id="cb16-14"><a href="lowess-and-loess-curves.html#cb16-14"></a> w &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(xdists))</span>
+<span id="cb16-15"><a href="lowess-and-loess-curves.html#cb16-15"></a> w[xdists.nbrhd] &lt;-<span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">abs</span>(xdists[xdists.nbrhd]<span class="op">/</span>r)<span class="op">^</span><span class="dv">3</span>)<span class="op">^</span><span class="dv">3</span></span>
+<span id="cb16-16"><a href="lowess-and-loess-curves.html#cb16-16"></a> <span class="kw">plot</span>(Y <span class="op">~</span><span class="st"> </span>X, <span class="dt">pch=</span><span class="dv">21</span>, <span class="dt">bg=</span><span class="kw">rgb</span>(.<span class="dv">53</span>,.<span class="dv">81</span>,.<span class="dv">92</span>, w),   </span>
+<span id="cb16-17"><a href="lowess-and-loess-curves.html#cb16-17"></a>      <span class="dt">col=</span><span class="kw">rgb</span>(.<span class="dv">2</span>,.<span class="dv">2</span>,.<span class="dv">2</span>,.<span class="dv">3</span>), <span class="dt">cex=</span><span class="fl">1.5</span>, <span class="dt">yaxt=</span><span class="st">&#39;n&#39;</span>, <span class="dt">xaxt=</span><span class="st">&#39;n&#39;</span>, <span class="dt">xlab=</span><span class="st">&quot;&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb16-18"><a href="lowess-and-loess-curves.html#cb16-18"></a> <span class="kw">points</span>(Y[xh] <span class="op">~</span><span class="st"> </span>X[xh], <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">col=</span><span class="st">&quot;orange&quot;</span>)</span>
+<span id="cb16-19"><a href="lowess-and-loess-curves.html#cb16-19"></a> lmc &lt;-<span class="st"> </span><span class="kw">lm</span>(Y <span class="op">~</span><span class="st"> </span>X, <span class="dt">weights=</span>w)</span>
+<span id="cb16-20"><a href="lowess-and-loess-curves.html#cb16-20"></a> <span class="kw">curve</span>(lmc<span class="op">$</span>coef[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>lmc<span class="op">$</span>coef[<span class="dv">2</span>]<span class="op">*</span>x, <span class="dt">from=</span><span class="kw">min</span>(X[xdists.nbrhd]), <span class="dt">to=</span><span class="kw">max</span>(X[xdists.nbrhd]), <span class="dt">col=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">add=</span><span class="ot">TRUE</span>)</span>
+<span id="cb16-21"><a href="lowess-and-loess-curves.html#cb16-21"></a> <span class="kw">lines</span>(lfit[<span class="dv">1</span><span class="op">:</span>xh] <span class="op">~</span><span class="st"> </span>X[<span class="dv">1</span><span class="op">:</span>xh], <span class="dt">col=</span><span class="st">&quot;gray&quot;</span>)</span>
+<span id="cb16-22"><a href="lowess-and-loess-curves.html#cb16-22"></a> </span>
+<span id="cb16-23"><a href="lowess-and-loess-curves.html#cb16-23"></a> <span class="co">#lines(lowess(X,Y), col=rgb(0.698,0.133,0.133,.2))</span></span>
+<span id="cb16-24"><a href="lowess-and-loess-curves.html#cb16-24"></a> <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n\n</span><span class="st">&quot;</span>)</span>
+<span id="cb16-25"><a href="lowess-and-loess-curves.html#cb16-25"></a> <span class="kw">readline</span>(<span class="dt">prompt=</span><span class="kw">paste0</span>(<span class="st">&quot;Center point is point #&quot;</span>, xh, <span class="st">&quot;... Press [enter] to continue...&quot;</span>))</span>
+<span id="cb16-26"><a href="lowess-and-loess-curves.html#cb16-26"></a> </span>
+<span id="cb16-27"><a href="lowess-and-loess-curves.html#cb16-27"></a></span>
+<span id="cb16-28"><a href="lowess-and-loess-curves.html#cb16-28"></a> MADnotThereYet &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
+<span id="cb16-29"><a href="lowess-and-loess-curves.html#cb16-29"></a> count &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb16-30"><a href="lowess-and-loess-curves.html#cb16-30"></a> <span class="cf">while</span>(MADnotThereYet){</span>
+<span id="cb16-31"><a href="lowess-and-loess-curves.html#cb16-31"></a>   </span>
+<span id="cb16-32"><a href="lowess-and-loess-curves.html#cb16-32"></a>      <span class="kw">readline</span>(<span class="dt">prompt=</span><span class="kw">paste0</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">   Adjusting line to account for outliers in the y-direction... Press [enter] to continue...&quot;</span>))   </span>
+<span id="cb16-33"><a href="lowess-and-loess-curves.html#cb16-33"></a>   </span>
+<span id="cb16-34"><a href="lowess-and-loess-curves.html#cb16-34"></a>   <span class="kw">curve</span>(lmc<span class="op">$</span>coef[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>lmc<span class="op">$</span>coef[<span class="dv">2</span>]<span class="op">*</span>x, <span class="dt">from=</span><span class="kw">min</span>(X[xdists.nbrhd]), <span class="dt">to=</span><span class="kw">max</span>(X[xdists.nbrhd]), <span class="dt">col=</span><span class="st">&quot;wheat&quot;</span>, <span class="dt">add=</span><span class="ot">TRUE</span>)</span>
+<span id="cb16-35"><a href="lowess-and-loess-curves.html#cb16-35"></a></span>
+<span id="cb16-36"><a href="lowess-and-loess-curves.html#cb16-36"></a>   MAD &lt;-<span class="st"> </span><span class="kw">median</span>(<span class="kw">abs</span>(lmc<span class="op">$</span>res))</span>
+<span id="cb16-37"><a href="lowess-and-loess-curves.html#cb16-37"></a>   resm &lt;-<span class="st"> </span>lmc<span class="op">$</span>res<span class="op">/</span>(<span class="dv">6</span><span class="op">*</span>MAD)</span>
+<span id="cb16-38"><a href="lowess-and-loess-curves.html#cb16-38"></a>   resm[resm<span class="op">&gt;</span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb16-39"><a href="lowess-and-loess-curves.html#cb16-39"></a>   bisq &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>resm<span class="op">^</span><span class="dv">2</span>)<span class="op">^</span><span class="dv">2</span></span>
+<span id="cb16-40"><a href="lowess-and-loess-curves.html#cb16-40"></a>   w &lt;-<span class="st"> </span>w<span class="op">*</span>bisq</span>
+<span id="cb16-41"><a href="lowess-and-loess-curves.html#cb16-41"></a>   obs &lt;-<span class="st"> </span><span class="kw">coef</span>(lmc)</span>
+<span id="cb16-42"><a href="lowess-and-loess-curves.html#cb16-42"></a>   lmc &lt;-<span class="st"> </span><span class="kw">lm</span>(Y <span class="op">~</span><span class="st"> </span>X, <span class="dt">weights=</span>w)</span>
+<span id="cb16-43"><a href="lowess-and-loess-curves.html#cb16-43"></a> </span>
+<span id="cb16-44"><a href="lowess-and-loess-curves.html#cb16-44"></a>   <span class="kw">curve</span>(lmc<span class="op">$</span>coef[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>lmc<span class="op">$</span>coef[<span class="dv">2</span>]<span class="op">*</span>x, <span class="dt">from=</span><span class="kw">min</span>(X[xdists.nbrhd]), <span class="dt">to=</span><span class="kw">max</span>(X[xdists.nbrhd]), <span class="dt">col=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">add=</span><span class="ot">TRUE</span>)</span>
+<span id="cb16-45"><a href="lowess-and-loess-curves.html#cb16-45"></a></span>
+<span id="cb16-46"><a href="lowess-and-loess-curves.html#cb16-46"></a>   count &lt;-<span class="st"> </span>count <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb16-47"><a href="lowess-and-loess-curves.html#cb16-47"></a>   <span class="cf">if</span> ( (<span class="kw">sum</span>(<span class="kw">abs</span>(obs<span class="op">-</span>lmc<span class="op">$</span>coef))<span class="op">&lt;</span>.<span class="dv">1</span>) <span class="op">|</span><span class="st"> </span>(count <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span>))</span>
+<span id="cb16-48"><a href="lowess-and-loess-curves.html#cb16-48"></a>     MADnotThereYet &lt;-<span class="st"> </span><span class="ot">FALSE</span></span>
+<span id="cb16-49"><a href="lowess-and-loess-curves.html#cb16-49"></a>       </span>
+<span id="cb16-50"><a href="lowess-and-loess-curves.html#cb16-50"></a> }</span>
+<span id="cb16-51"><a href="lowess-and-loess-curves.html#cb16-51"></a></span>
+<span id="cb16-52"><a href="lowess-and-loess-curves.html#cb16-52"></a>   <span class="kw">curve</span>(lmc<span class="op">$</span>coef[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>lmc<span class="op">$</span>coef[<span class="dv">2</span>]<span class="op">*</span>x, <span class="dt">from=</span><span class="kw">min</span>(X[xdists.nbrhd]), <span class="dt">to=</span><span class="kw">max</span>(X[xdists.nbrhd]), <span class="dt">col=</span><span class="st">&quot;green&quot;</span>, <span class="dt">add=</span><span class="ot">TRUE</span>)</span>
+<span id="cb16-53"><a href="lowess-and-loess-curves.html#cb16-53"></a>   <span class="kw">points</span>(lmc<span class="op">$</span>coef[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>lmc<span class="op">$</span>coef[<span class="dv">2</span>]<span class="op">*</span>X[xh] <span class="op">~</span><span class="st"> </span>X[xh], <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">col=</span><span class="st">&quot;green&quot;</span>)</span>
+<span id="cb16-54"><a href="lowess-and-loess-curves.html#cb16-54"></a>   </span>
+<span id="cb16-55"><a href="lowess-and-loess-curves.html#cb16-55"></a></span>
+<span id="cb16-56"><a href="lowess-and-loess-curves.html#cb16-56"></a>  <span class="kw">readline</span>(<span class="dt">prompt=</span><span class="kw">paste0</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">   Use final line to get fitted value for this point... Press [enter] to continue to next point...&quot;</span>))</span>
+<span id="cb16-57"><a href="lowess-and-loess-curves.html#cb16-57"></a> </span>
+<span id="cb16-58"><a href="lowess-and-loess-curves.html#cb16-58"></a> lfit[xh] &lt;-<span class="st"> </span><span class="kw">predict</span>(lmc, <span class="kw">data.frame</span>(<span class="dt">X=</span>X[xh]))</span>
+<span id="cb16-59"><a href="lowess-and-loess-curves.html#cb16-59"></a> <span class="kw">lines</span>(lfit[<span class="dv">1</span><span class="op">:</span>xh] <span class="op">~</span><span class="st"> </span>X[<span class="dv">1</span><span class="op">:</span>xh], <span class="dt">col=</span><span class="st">&quot;gray&quot;</span>)</span>
+<span id="cb16-60"><a href="lowess-and-loess-curves.html#cb16-60"></a> </span>
+<span id="cb16-61"><a href="lowess-and-loess-curves.html#cb16-61"></a></span>
+<span id="cb16-62"><a href="lowess-and-loess-curves.html#cb16-62"></a> <span class="cf">if</span> (xh <span class="op">==</span><span class="st"> </span>n){</span>
+<span id="cb16-63"><a href="lowess-and-loess-curves.html#cb16-63"></a>     <span class="kw">readline</span>(<span class="dt">prompt=</span><span class="kw">paste0</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">  Press [enter] to see actual Lowess curve...&quot;</span>))</span>
+<span id="cb16-64"><a href="lowess-and-loess-curves.html#cb16-64"></a>    <span class="kw">lines</span>(<span class="kw">lowess</span>(X,Y, <span class="dt">f=</span>f), <span class="dt">col=</span><span class="st">&quot;firebrick&quot;</span>)</span>
+<span id="cb16-65"><a href="lowess-and-loess-curves.html#cb16-65"></a>    <span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;Actual lowess Curve using lowess(...)&quot;</span>, <span class="dt">col=</span><span class="st">&quot;firebrick&quot;</span>, <span class="dt">lty=</span><span class="dv">1</span>)</span>
+<span id="cb16-66"><a href="lowess-and-loess-curves.html#cb16-66"></a> }</span>
+<span id="cb16-67"><a href="lowess-and-loess-curves.html#cb16-67"></a>  </span>
+<span id="cb16-68"><a href="lowess-and-loess-curves.html#cb16-68"></a>  </span>
+<span id="cb16-69"><a href="lowess-and-loess-curves.html#cb16-69"></a>}</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<ol style="list-style-type: decimal">
+<li><p>Select a fraction of the data to use for the “neighborhood” of points (shown in blue in the graph above). The <code>lowess</code> function in R uses “f=2/3” and the <code>loess</code> function uses “span=0.75” for this value, which selects the nearest two-thirds or 75% of the data, respectively, depending on which function you use. For this example, we set the fraction of points at 50%. Both functions can be set to whatever you want.</p></li>
+<li><p>Pick any point in the regression, eventually selecting all points one at a time. The selected point becomes the “center” of a “neighborhood” of points surrounding it. In this example, the center point is in orange, and the neighboring points are in blue.</p></li>
+<li><p>Use the points within the neighborhood to fit a regression line. However, make the regression depend most on points closest to “center” and least on points furthest from “center.” This is called a weighted regression. Weights are decided according to what is called the tricubic weight function, so that the weight <span class="math inline">\(w\)</span> given to point <span class="math inline">\(j\)</span> of the neighborhood of points is defined by
+<span class="math display">\[
+  w_j = \left(1- \left( \frac{|X_c - X_j|}{\max_k |X_c - X_k|}\right)^3\right)^3
+\]</span>
+where <span class="math inline">\(X_c\)</span> is the x-value of the “center” dot and <span class="math inline">\(X_j\)</span> is the x-value of any other dot in the neighborhood.</p></li>
+<li><p>The fitted-value of <span class="math inline">\(\hat{Y}_c\)</span> is obtained for the center point <span class="math inline">\(X_c\)</span> of the current regression. This point is used as the Lowess (or Loess) curve’s value at that particular x-value. Well, almost. It’s a first guess at where this value will end up, but there’s a little more to the algorithm before we are done. Initial guesses for each of these fitted values are obtained for each point in the regression.</p></li>
+<li><p>Now each local regression for each neighborhood is re-run a few times in such a way the the effect of outliers is minimized. The final line for each neighborhood is obtained by the following steps.</p>
+<ul>
+<li>Compute all residuals for points in the neighborhood of the current regression, denoted by <span class="math inline">\(r_i\)</span>.</li>
+<li>Then compute the MAD, median absolute deviation, of the residuals <span class="math inline">\(MAD = \text{median} (|r_1|, |r_2|, \ldots)\)</span>.</li>
+<li>Divide all residuals by 6 times the MAD: <span class="math inline">\(u_i = r_i/(6\cdot MAD)\)</span> (If <span class="math inline">\(r_i &gt; 6\cdot MAD\)</span> then set <span class="math inline">\(u_i = 0\)</span>.)</li>
+<li>Compute what are called bisquare weights using the formula: <span class="math inline">\(b_i = (1 - u_i^2)^2\)</span></li>
+<li>Perform a regression using the weights <span class="math inline">\(w_i = w_i b_i\)</span></li>
+<li>Repeat the above process with the new weights <span class="math inline">\(w_i\)</span> until the weights stop changing very much.</li>
+</ul></li>
+<li><p>The final fitted values for each <span class="math inline">\(X\)</span>-value in the regression are obtained from the final regression line for each neighborhood. These fitted values make up the Lowess (or loess) curve.</p></li>
+</ol>
+<p>Note that the default of the <code>loess</code> function in R is to use quadratic regressions in each neighborhood instead of linear regressions. This can be controlled with the <code>loess</code> option of “degree=2” (quadratic fits) or “degree = 1”. In the <code>lowess</code> function only a linear regression in each neighborhood is allowed.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="inference-for-the-model-parameters.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
