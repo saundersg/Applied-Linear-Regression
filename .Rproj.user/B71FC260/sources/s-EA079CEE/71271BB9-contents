@@ -1,0 +1,413 @@
+---
+title: "Class Activity - Diagnosing Regression"
+output: 
+  html_document:
+    theme: cerulean
+    code_folding: hide
+    toc: true
+    toc_float: true
+---
+
+```{r, message=FALSE, warning=FALSE}
+library(car)
+library(pander)
+```
+
+## Data from a True Model
+
+In a previous class activity, you created data from a true model, then compared the fitted-model to the true model. 
+
+The codes below do this again for you, but also demonstrates what happens when each assumption of regression is violated.
+
+In each case, the true model is shown by the dashed line. The estimated model is shown by the solid line.
+
+$$
+  Y_i = \beta_0 + \beta_1 X_i + \epsilon_i \quad \text{where} \epsilon_i \sim N(0, \sigma^2)
+$$
+
+
+## All Assumptions Satisfied
+
+```{r, fig.height=7}
+# Create Data from a True Model
+
+n <- 30                           #sample size
+
+beta_0 <- 14.2                    #True y-intercept
+
+beta_1 <- 3.5                     #True slope
+
+X_i <- runif(n, 0, 20)            #Sample of X-values
+
+sigma <- 2.5                      #True standard deviation
+
+epsilon_i <- rnorm(n, 0, sigma)   #normally distributed errors
+
+Y_i <- beta_0 + beta_1*X_i + epsilon_i 
+                                  #Sample of Y-values from model
+
+
+# Plot the Data and Fitted Model
+
+mylm <- lm(Y_i ~ X_i)            #Fit Model to Data
+
+
+layout(matrix(c(1,1,1,2,3,4), 2, 3, byrow = TRUE), 
+   widths=c(2,2,2), heights=c(4,2,2))
+                                 #create plot panel
+
+
+plot(Y_i ~ X_i,                  #Plot the data
+     pch=16, 
+     col="darkgray", 
+     xlim=c(0,20), 
+     ylim=c(0,100),
+     main="All Assumptions Satisfied")
+
+abline(mylm, col="gray")         #Add fitted line to plot
+
+abline(beta_0, beta_1,           #Add True line to plot
+       col="gray", lty=2)
+
+                                 #Summarize the Model Fit
+pander(rbind(`Y-Intercept` = c(True = beta_0, Estimated = mylm$coef[[1]]),
+      Slope = c(True = beta_1, Estimated = mylm$coef[[2]]),
+      Sigma = c(True = sigma, Estimated = summary(mylm)$sigma)))
+
+                                 #Add summary to plot
+legend("topleft", legend=c(paste("Y-Intercept:", round(mylm$coef[[1]], 3), "  (", beta_0, ")"),
+                           paste("Slope:", round(mylm$coef[[2]], 3), "  (", beta_1, ")"),
+                           paste("Sigma:", round(summary(mylm)$sigma, 3), "  (", sigma, ")")), bty='n')
+
+                                 #Draw diagnostic plots
+plot(mylm, which=1:2)
+plot(mylm$residuals, ylab="Residuals")
+mtext("Residuals vs Order", side=3)
+
+```
+
+
+## Linearity Assumption Violated
+
+```{r, fig.height=7}
+# Create Data from a True Model
+
+n <- 30                           #sample size
+
+beta_0 <- 14.2                    #True y-intercept
+
+beta_1 <- 7.5                     #True slope
+
+beta_2 <- -0.25                   #True bend
+
+X_i <- runif(n, 0, 20)            #Sample of X-values
+
+sigma <- 2.5                      #True standard deviation
+
+epsilon_i <- rnorm(n, 0, sigma)   #normally distributed errors
+
+Y_i <- beta_0 + beta_1*X_i + beta_2*X_i^2 + epsilon_i 
+                                  #Sample of Y-values from model
+
+
+# Plot the Data and Fitted Model
+
+mylm <- lm(Y_i ~ X_i)            #Fit Model to Data
+
+
+layout(matrix(c(1,1,1,2,3,4), 2, 3, byrow = TRUE), 
+   widths=c(2,2,2), heights=c(4,2,2))
+                                 #create plot panel
+
+
+plot(Y_i ~ X_i,                  #Plot the data
+     pch=16, 
+     col="darkgray", 
+     xlim=c(0,20), 
+     ylim=c(0,100),
+     main="Non-Linear Relation")
+
+abline(mylm, col="gray")         #Add fitted line to plot
+
+curve(beta_0 + beta_1*x + beta_2*x^2, col="gray", lty=2, add=TRUE) 
+                                 #Add True line to plot
+      
+
+                                 #Summarize the Model Fit
+pander(rbind(`Y-Intercept` = c(True = beta_0, Estimated = mylm$coef[[1]]),
+      Slope = c(True = beta_1, Estimated = mylm$coef[[2]]),
+      Sigma = c(True = sigma, Estimated = summary(mylm)$sigma)))
+
+                                 #Add summary to plot
+legend("topleft", legend=c(paste("Y-Intercept:", round(mylm$coef[[1]], 3), "  (", beta_0, ")"),
+                           paste("Slope:", round(mylm$coef[[2]], 3), "  (", beta_1, ")"),
+                           paste("Sigma:", round(summary(mylm)$sigma, 3), "  (", sigma, ")")), bty='n')
+
+                                 #Draw diagnostic plots
+plot(mylm, which=1:2)
+plot(mylm$residuals, ylab="Residuals")
+mtext("Residuals vs Order", side=3)
+```
+
+
+
+## Constant Variance Assumption Violated
+
+```{r, fig.height=7}
+# Create Data from a True Model
+
+n <- 30                           #sample size
+
+beta_0 <- 14.2                    #True y-intercept
+
+beta_1 <- 3.5                     #True slope
+
+X_i <- runif(n, 0, 20)            #Sample of X-values
+
+sigma <- 2.5                      #True standard deviation
+
+epsilon_i <- rnorm(n, 0, sigma + X_i)   
+                                  #normally distributed errors
+                                  #with increasing variance
+
+Y_i <- beta_0 + beta_1*X_i + epsilon_i 
+                                  #Sample of Y-values from model
+
+
+# Plot the Data and Fitted Model
+
+mylm <- lm(Y_i ~ X_i)            #Fit Model to Data
+
+
+layout(matrix(c(1,1,1,2,3,4), 2, 3, byrow = TRUE), 
+   widths=c(2,2,2), heights=c(4,2,2))
+                                 #create plot panel
+
+
+plot(Y_i ~ X_i,                  #Plot the data
+     pch=16, 
+     col="darkgray", 
+     xlim=c(0,20), 
+     ylim=c(0,100),
+     main="Variance Varies (Non-Constant)")
+
+abline(mylm, col="gray")         #Add fitted line to plot
+
+abline(beta_0, beta_1,           #Add True line to plot
+       col="gray", lty=2)
+
+                                 #Summarize the Model Fit
+pander(rbind(`Y-Intercept` = c(True = beta_0, Estimated = mylm$coef[[1]]),
+      Slope = c(True = beta_1, Estimated = mylm$coef[[2]]),
+      Sigma = c(True = sigma, Estimated = summary(mylm)$sigma)))
+
+                                 #Add summary to plot
+legend("topleft", legend=c(paste("Y-Intercept:", round(mylm$coef[[1]], 3), "  (", beta_0, ")"),
+                           paste("Slope:", round(mylm$coef[[2]], 3), "  (", beta_1, ")"),
+                           paste("Sigma:", round(summary(mylm)$sigma, 3), "  (", round(mean(sigma + X_i), 2), ", mean)")), bty='n')
+
+                                 #Draw diagnostic plots
+plot(mylm, which=1:2)
+plot(mylm$residuals, ylab="Residuals")
+mtext("Residuals vs Order", side=3)
+```
+
+
+
+## Normality Assumption Violated
+
+```{r, fig.height=7}
+# Create Data from a True Model
+
+n <- 30                           #sample size
+
+beta_0 <- 14.2                    #True y-intercept
+
+beta_1 <- 3.5                     #True slope
+
+X_i <- runif(n, 0, 20)            #Sample of X-values
+
+sigma <- 2.5                      #True standard deviation
+
+epsilon_i <- runif(n, -sqrt(12*sigma^2)/2, sqrt(12*sigma^2)/2) #non-normally distributed errors
+
+Y_i <- beta_0 + beta_1*X_i + epsilon_i 
+                                  #Sample of Y-values from model
+
+
+# Plot the Data and Fitted Model
+
+mylm <- lm(Y_i ~ X_i)            #Fit Model to Data
+
+
+layout(matrix(c(1,1,1,2,3,4), 2, 3, byrow = TRUE), 
+   widths=c(2,2,2), heights=c(4,2,2))
+                                 #create plot panel
+
+
+plot(Y_i ~ X_i,                  #Plot the data
+     pch=16, 
+     col="darkgray", 
+     xlim=c(0,20), 
+     ylim=c(0,100),
+     main="Normality Assumption Violated")
+
+abline(mylm, col="gray")         #Add fitted line to plot
+
+abline(beta_0, beta_1,           #Add True line to plot
+       col="gray", lty=2)
+
+
+                                 #Summarize the Model Fit
+pander(rbind(`Y-Intercept` = c(True = beta_0, Estimated = mylm$coef[[1]]),
+      Slope = c(True = beta_1, Estimated = mylm$coef[[2]]),
+      Sigma = c(True = sigma, Estimated = summary(mylm)$sigma)))
+
+
+                                 #Add summary to plot
+legend("topleft", legend=c(paste("Y-Intercept:", round(mylm$coef[[1]], 3), "  (", beta_0, ")"),
+                           paste("Slope:", round(mylm$coef[[2]], 3), "  (", beta_1, ")"),
+                           paste("Sigma:", round(summary(mylm)$sigma, 3), "  (", sigma, ")")), bty='n')
+
+
+                                 #Draw diagnostic plots
+plot(mylm, which=1:2)
+plot(mylm$residuals, ylab="Residuals")
+mtext("Residuals vs Order", side=3)
+```
+
+
+
+
+
+## Independence Assumption Violated
+
+```{r, fig.height=7}
+# Create Data from a True Model
+
+n <- 30                           #sample size
+
+beta_0 <- 14.2                    #True y-intercept
+
+beta_1 <- 3.5                     #True slope
+
+X_i <- runif(n, 0, 20)            #Sample of X-values
+
+sigma <- 2.5                      #True standard deviation
+
+epsilon_i <- rnorm(n, 0, 2.5) + (1:n -n/2)*.5
+                                #normal, but correlated errors
+
+Y_i <- beta_0 + beta_1*X_i + epsilon_i 
+                                  #Sample of Y-values from model
+
+
+# Plot the Data and Fitted Model
+
+mylm <- lm(Y_i ~ X_i)            #Fit Model to Data
+
+
+layout(matrix(c(1,1,1,2,3,4), 2, 3, byrow = TRUE), 
+   widths=c(2,2,2), heights=c(4,2,2))
+                                 #create plot panel
+
+
+plot(Y_i ~ X_i,                  #Plot the data
+     pch=16, 
+     col="darkgray", 
+     xlim=c(0,20), 
+     ylim=c(0,100),
+     main="Independence Assumption Violated")
+
+abline(mylm, col="gray")         #Add fitted line to plot
+
+abline(beta_0, beta_1,           #Add True line to plot
+       col="gray", lty=2)
+
+
+                                 #Summarize the Model Fit
+pander(rbind(`Y-Intercept` = c(True = beta_0, Estimated = mylm$coef[[1]]),
+      Slope = c(True = beta_1, Estimated = mylm$coef[[2]]),
+      Sigma = c(True = sigma, Estimated = summary(mylm)$sigma)))
+
+
+                                 #Add summary to plot
+legend("topleft", legend=c(paste("Y-Intercept:", round(mylm$coef[[1]], 3), "  (", beta_0, ")"),
+                           paste("Slope:", round(mylm$coef[[2]], 3), "  (", beta_1, ")"),
+                           paste("Sigma:", round(summary(mylm)$sigma, 3), "  (", sigma, ")")), bty='n')
+
+
+                                 #Draw diagnostic plots
+plot(mylm, which=1:2)
+plot(mylm$residuals, ylab="Residuals")
+mtext("Residuals vs Order", side=3)
+```
+
+
+
+## Outliers Present
+
+```{r, fig.height=7}
+# Create Data from a True Model
+
+n <- 30                           #sample size
+
+beta_0 <- 14.2                    #True y-intercept
+
+beta_1 <- 3.5                     #True slope
+
+X_i <- runif(n, 0, 20)            #Sample of X-values
+
+sigma <- 2.5                      #True standard deviation
+
+epsilon_i <- rnorm(n, 0, sigma)   #normally distributed errors
+
+
+epsilon_i[3] <- ifelse(X_i[3] < 10, runif(1,25,35), -runif(1,25,35))
+                                  #create outlier
+
+Y_i <- beta_0 + beta_1*X_i + epsilon_i 
+                                  #Sample of Y-values from model
+
+
+
+# Plot the Data and Fitted Model
+
+mylm <- lm(Y_i ~ X_i)            #Fit Model to Data
+
+
+layout(matrix(c(1,1,1,2,3,4), 2, 3, byrow = TRUE), 
+   widths=c(2,2,2), heights=c(4,2,2))
+                                 #create plot panel
+
+
+plot(Y_i ~ X_i,                  #Plot the data
+     pch=16, 
+     col="darkgray", 
+     xlim=c(0,20), 
+     ylim=c(0,100),
+     main="An Outlier Present")
+
+abline(mylm, col="gray")         #Add fitted line to plot
+
+abline(beta_0, beta_1,           #Add True line to plot
+       col="gray", lty=2)
+
+                                 #Summarize the Model Fit
+pander(rbind(`Y-Intercept` = c(True = beta_0, Estimated = mylm$coef[[1]]),
+      Slope = c(True = beta_1, Estimated = mylm$coef[[2]]),
+      Sigma = c(True = sigma, Estimated = summary(mylm)$sigma)))
+
+                                 #Add summary to plot
+legend("topleft", legend=c(paste("Y-Intercept:", round(mylm$coef[[1]], 3), "  (", beta_0, ")"),
+                           paste("Slope:", round(mylm$coef[[2]], 3), "  (", beta_1, ")"),
+                           paste("Sigma:", round(summary(mylm)$sigma, 3), "  (", sigma, ")")), bty='n')
+
+                                 #Draw diagnostic plots
+plot(mylm, which=1:2)
+plot(mylm$residuals, ylab="Residuals")
+mtext("Residuals vs Order", side=3)
+
+```
+
+

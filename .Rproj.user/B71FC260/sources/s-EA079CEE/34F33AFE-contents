@@ -1,0 +1,86 @@
+---
+title: "Residuals and Errors"
+---
+
+# Residuals and Errors
+
+
+<span class="expand-caption">$r_i$, the residual, estimates $\epsilon_i$, the true error...</span>
+
+
+Residuals are the difference between the observed value of $Y_i$ (the point) and the predicted, or estimated value, for that point called $\hat{Y_i}$. The errors are the true distances between the observed $Y_i$ and the actual regression relation for that point, $E\{Y_i\}$.
+
+We will denote a **residual** for individual $i$ by $r_i$,
+$$
+  r_i = \underbrace{Y_i}_{\substack{\text{Observed} \\ \text{Y-value}}} - \underbrace{\hat{Y}_i}_{\substack{\text{Predicted} \\ \text{Y-value}}} \quad \text{(residual)}
+$$
+The residual $r_i$ estimates the true **error** for individual $i$, $\epsilon_i$, 
+$$
+  \epsilon_i = \underbrace{Y_i}_{\substack{\text{Observed} \\ \text{Y-value}}} - \underbrace{E\{Y_i\}}_{\substack{\text{True Mean} \\ \text{Y-value}}} \quad \text{(error)}
+$$
+
+In summary...
+
+<div style="padding-left:30px;">
+
+| Residual $r_i$ | Error $\epsilon_i$ |
+|----------------|--------------------|
+| Distance between the dot $Y_i$ and the estimated line $\hat{Y}_i$ | Distance between the dot $Y_i$ and the true line $E\{Y_i\}$. |
+| $r_i = Y_i - \hat{Y}_i$ | $\epsilon_i = Y_i - E\{Y_i\}$ |
+| Known | Typically Unknown |
+
+</div>
+
+As shown in the graph below, the residuals are known values and they estimate the unknown (but true) error terms.
+
+```{r, echo=FALSE}
+set.seed(19)
+x <- c(1, 2, 3, 4, 5, 6)
+sigma <- 0.9
+epsilon <- rnorm(6, 0, sigma)
+beta_0 <- 2
+beta_1 <- 0.35
+y <- beta_0 + beta_1*x + epsilon
+lmr <- lm(y ~ x)
+plot(y ~ x, pch=16, col="skyblue3", xlim=c(0,7), cex=2, yaxt='n', xaxt='n', xlab="", ylab="", main="Visual Comparison of Residuals and Errors")
+for (i in 1:6){
+  lines(rep(x[i]-0.02, 2), c(y[i], sum(lmr$coef*c(1,x[i]-0.02))), col="skyblue", lty=1, lwd=2)  
+  lines(rep(x[i]+0.02, 2), c(y[i], beta_0 + beta_1*(x[i]+0.02)), col="darkgray", lty=2)  
+}
+points(y ~ x, pch=16, col="skyblue3", xlim=c(0,7), cex=2)
+abline(lmr, col="skyblue", lwd=2)
+abline(beta_0, beta_1, col="darkgray", lty=2)
+legend("topleft", bty='n', lwd=2, lty=c(1,2), legend=c("Estimated Line & Residuals (known)", "True Line & Errors (typically unknown)"), col=c("skyblue","gray"))
+text(x[2], y[2]-.2, expression(r[i]), col="skyblue", pos=2, cex=1.2)
+text(x[2], y[2]-.15, expression(epsilon[i]), col="gray", pos=4, cex=1.2)
+
+```
+
+Keep in mind the idea that the errors $\epsilon_i$ "created" the data and that the residuals $r_i$ are computed after using the data to "re-create" the line.
+
+Residuals have many uses in regression analysis. They allow us to 
+
+1. diagnose the regression assumptions, 
+
+<div style="padding-left:60px;color:darkgray;font-size:.8em;">
+See the "Assumptions" section below for more details.
+</div>
+
+2. estimate the regression relation, 
+
+<div style="padding-left:60px;color:darkgray;font-size:.8em;">
+See the "Estimating the Model Parameters" section below for more details.
+</div>
+
+3. estimate the variance of the error terms, 
+
+<div style="padding-left:60px;color:darkgray;font-size:.8em;">
+See the "Estimating the Model Variance" section below for more details.
+</div>
+
+4. and assess the fit of the regression relation.
+
+<div style="padding-left:60px;color:darkgray;font-size:.8em;">
+See the "Assessing the Fit of a Regression" section below for more details.
+</div>
+
