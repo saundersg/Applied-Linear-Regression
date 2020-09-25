@@ -1,0 +1,282 @@
+---
+title: "Skills Quiz: Hypothesis Tests"
+output: 
+  html_document:
+    theme: cerulean
+    code_folding: hide
+    toc: true
+    toc_float: true
+---
+
+
+## Instructions
+
+Use this file to keep a record of your work as you complete the "Skills Quiz: Hypothesis Tests" assignment in Canvas.
+
+
+----
+
+<!-- Note: The {} after each Problem and Part header allows you to keep track of what work you have completed. Write something like {Done} once you complete each problem and your html file will then show you a nice summary of what you have "done" already. -->
+
+
+## Problem 1 {}
+
+Install the `Ecdat` library in R: `install.packages("Ecdat")`.
+
+From `library(Ecdat)` open the `Caschool` data set in R.  As stated in the help file for this data set, this data is a collection of measurements on 420 different school districts from California during the 1998-1999 school year.
+
+The school districts in California offer a reduced-price lunch program. This is in a way, a measure of the poverty of the student body of the school district. We will assume that the higher the percentage of participants, the greater the general level of poverty. The question is, does the poverty level (or at least the percentage of participation in the reduced-lunch program) predict how well the student body will perform overall on a standardized test?
+
+`> ?Caschool`
+
+`> View(Caschool)`
+
+### Part (a) {}
+
+Type out the mathematical equation for this regression model and label both $Y$ and $X$ in the equation.
+
+<div class="YourAnswer">
+
+$$
+  \underbrace{Y_i}_\text{some label} = ...
+$$
+
+</div>
+
+
+### Part (b) {}
+ 
+Plot a scatterplot of the data with your regression line overlaid. Write out the fitted regression equation.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here
+```
+
+$$
+  \hat{Y}_i = ...
+$$
+
+</div>
+
+
+### Part (c) {}
+
+Report the test statistics and p-values for the following hypotheses.
+
+$$ 
+  \begin{array}{l}
+    H_0: \beta_0 = 0 \\
+    H_a: \beta_0 \neq 0 \\
+  \end{array} \quad 
+  \begin{array}{l}
+    H_0: \beta_1 = 0 \\
+    H_a: \beta_1 \neq 0 \\
+  \end{array}
+$$
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+Type your answer here...
+
+</div> 
+ 
+ 
+### Part (d) {}
+
+
+State the slope, y-intercept, and $R^2$ of this regression. Further, provide 95% confidence intervals for the slope and intercept. Interpret the values.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+
+### Part (e) {}
+
+Create a residuals vs fitted-values plot and Q-Q Plot of the residuals for this regression. What do these plots show?
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+</div>
+
+
+
+
+----
+
+## Problem 2 {}
+
+Open the `Clothing` data set from library(Ecdat).
+
+Although this data is from 1990, it contains two interesting variables (1) the total `tsales` of the clothing stores and (2) the average number of hours worked per employee during the year, `hourspw`. 
+
+`> ?Clothing`
+
+`> View(Clothing)`
+
+### Part (a) {}
+
+Type out the mathematical equation for this regression model and label both $Y$ and $X$ in the equation.
+
+<div class="YourAnswer">
+
+$$
+  \underbrace{Y_i}_\text{some label} = ...
+$$
+
+</div>
+
+
+### Part (b) {}
+ 
+Plot a scatterplot of the data with your regression line overlaid. Write out the fitted regression equation.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here
+```
+
+$$
+  \hat{Y}_i = ...
+$$
+
+</div>
+
+
+### Part (c) {}
+
+Report the test statistics and p-values given by your summary(...) in R for the following hypotheses.
+
+$$ 
+  \begin{array}{l}
+    H_0: \beta_0 = 0 \\
+    H_a: \beta_0 \neq 0 \\
+  \end{array} \quad 
+  \begin{array}{l}
+    H_0: \beta_1 = 0 \\
+    H_a: \beta_1 \neq 0 \\
+  \end{array}
+$$
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+Type your answer here...
+
+</div> 
+ 
+ 
+### Part (d) {}
+
+Now, use your own calculations to obtain test statistics and p-values for the following hypotheses.
+
+You may find useful information on how to do this in the "Explanation" tab under "t Tests" from your Math 325 Notebook, Simple Linear Regression page.
+
+$$ 
+  \begin{array}{l}
+    H_0: \beta_0 = 1500 \\
+    H_a: \beta_0 \neq 1500 \\
+  \end{array} \quad 
+  \begin{array}{l}
+    H_0: \beta_1 = 35000 \\
+    H_a: \beta_1 \neq 35000 \\
+  \end{array}
+$$
+
+Note that these hypotheses come from previous knowledge about clothing sales and employee hours. They state that in years past, the average annual sales when no employees worked any hours on average, was 1500. And that as average eployee hours worked increases by 1 hour, the average total annual sales increases by 35,000. The question now, is if the earning pattern has changed from what it used to be.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+Type your answer here...
+
+</div>  
+ 
+### Part (e) {}
+
+State the slope, y-intercept, and $R^2$ of this regression. Further, provide 95% confidence intervals for the slope and intercept. Interpret the values.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+
+### Part (f) {}
+
+Create a residuals vs fitted-values plot and Q-Q Plot of the residuals for this regression. What do these plots show?
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+</div>
+ 
+
+### Part (g) {}
+
+Do any x-transformations or y-transformations improve the regression? If so, which ones?
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+</div>
+
+
+
+----
+
+
+
+
+
+
+
+<style>
+
+.YourAnswer {
+  color: #317eac;
+  padding: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: skyblue4;
+  border-radius: 5px;
+}
+
+</style>
+
+ 
+ 

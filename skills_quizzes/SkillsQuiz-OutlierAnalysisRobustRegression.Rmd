@@ -1,0 +1,545 @@
+---
+title: "Skills Quiz: Outlier Analysis and Robust Regression"
+output: 
+  html_document:
+    theme: cerulean
+    code_folding: hide
+    toc: true
+    toc_float: true
+---
+
+```{r, warning=FALSE, message=FALSE}
+library(plotly)
+library(reshape2)
+```
+
+
+## Instructions
+
+Use this file to keep a record of your work as you complete the "Skills Quiz: Outlier Analysis and Robust Regression" assignment in Canvas.
+
+
+----
+
+<!-- Note: The {} after each Problem and Part header allows you to keep track of what work you have completed. Write something like {Done} once you complete each problem and your html file will then show you a nice summary of what you have "done" already. -->
+
+
+## Problem 1 {}
+
+Outliers are problematic when it comes to fitting a linear regression. While outliers are fairly easy to detect visually in simple linear regressions, they are far more difficult to uncover in high dimensional regressions.
+
+Let's try a 3D example to demonstrate.
+
+
+### Part (a) {}
+
+Complete the following code so that the regression surface is added to the 3D scatterplot of this regression model: 
+
+$$
+  Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{1i} X_{2i} + \epsilon_i
+$$
+
+```{r}
+# Code to create the 3D model:
+set.seed(15)
+
+beta0 <- 2
+beta1 <- 4
+beta2 <- 1.8
+beta3 <- 2.2
+
+n <- 30
+
+X1 <- runif(n, 0, 40)
+X2 <- runif(n, 0, 12)
+
+sigma <- 2.8
+
+#Make data point #5 an outlier in the X1-direction:
+X1[5] <- 70
+
+Y <- beta0 + beta1*X1 + beta2*X2 + beta3*X1*X2 + rnorm(n, 0, sigma)
+
+#Make data point #4 an outlier in the y-direction:
+Y[4] <- 3*Y[4]
+
+#The Data
+theData <- data.frame(Y, X1, X2)
+```
+
+<div style="font-size:.8em;">
+*Hint: Click open the "(Show Example...)" code within the "Overview" tab of your "Multiple Regression" section of your Statistics Notebook under the "3D" Model portion of that page.*
+</div>
+
+<div class="YourAnswer">
+
+```{r}
+## Complete this code so that the regression surface is added to the plot.
+
+#Perform the multiple regression
+#mylm <- lm(...) #uncomment this code and get it working.
+
+#Graph Resolution (more important for more complex shapes)
+graph_reso <- 0.5
+
+#Setup Axis
+axis_x <- seq(min(theData$X1), max(theData$X1), by = graph_reso)
+axis_y <- seq(min(theData$X2), max(theData$X2), by = graph_reso)
+
+#Sample points (uncomment this code and get it working)
+#my_surface <- expand.grid(..., KEEP.OUT.ATTRS=F)
+#my_surface$Z <- predict.lm(...)
+#my_surface <- acast(...) #y ~ x
+
+#Create scatterplot
+plot_ly(theData, 
+        x = ~X1, 
+        y = ~X2, 
+        z = ~Y,
+        text = rownames(theData), 
+        type = "scatter3d", 
+        mode = "markers") #%>%
+  #add_trace(z = ...,
+  #          x = ...,
+  #          y = ...,
+  #          type = "surface")
+
+```
+
+</div>
+
+
+### Part (b) {}
+ 
+Let's check if you did things correctly in Part (a).
+
+Use your regression model from Part (a) to obtain the fitted value (predicted value) for a point with an X1-value of 26.03622 and an X2-value of 1.409711. If you have this value correct and your plot is showing a regression surface, then you are ready to move on to Part (c). 
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here
+```
+
+</div>
+
+
+### Part (c) {}
+
+Let's see how much of an impact these outliers are having on our estimate of the true regression model by filling in the following table.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here
+```
+
+| Parameter | True Value | Estimated Value | 95% CI             |
+|-----------|------------|-----------------|--------------------|
+| $\beta_0$ |            |                 |  ( , )             |
+| $\beta_1$ |            |                 |  ( , )             |
+| $\beta_2$ |            |                 |  ( , )             |
+| $\beta_3$ |            |                 |  ( , )             |
+| $\sigma$  |            |                 |  NA                |
+
+</div>
+
+Notice that our estimate of $\beta_0$ and $\beta_2$ are not doing too well, even though the confidence intervals still contain the true values. Most importantly however, notice how large the estimate of $\sigma$ is compared to the truth! And notice how wide each of the confidence intervals is currently because of this.
+
+
+
+### Part (d) {}
+
+Draw the pairs plot for this data. 
+
+Then make sure you can identify each of the following.
+
+1. In the plots of Y ~ X1 (top middle plot) and Y ~ X2 (top right plot) can you identify point #4, the outlier in the y-direction?
+
+2. In those same two plots, can you identify point #5, the outlier in the x-direction?
+
+Notice how difficult it is to detect which outlier is which from the pairs plot!
+
+Hint, you may need to complete Part (e) first, and then revisit this problem to really connect with what is going on in these plots.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+
+```
+
+Type your answer here...
+
+</div> 
+
+Pairs plots can be somewhat helpful at finding outliers. However, things can start to get far more complicated when we go into High Dimensional regression models as you will be shown later on. (This problem is a 3D model and is already difficult to work with.)
+ 
+ 
+### Part (e) {}
+
+Plot the diagnostic plots of "Residuals vs fitted" (which=1),  "Cook's Distance" (which=4), and "Residuals vs Leverage" (which=5) using the code: 
+
+`par(mfrow=c(1,3))`
+
+`plot(yourlmobject, which=c(1,4,5))`
+
+Comment on what you notice about points #4 and #5 in these plots. Recall that point #4 was the outlier in the y-direction and point #5 was made to be an outlier in only the x-direction, but is otherwise in line with the true model.
+
+Also of interest is to note points 2 and 20, which were "natural" outliers that were the result of the sampling from rnorm(...). These points have larger Cook's distance than any other points, but don't seem to be causing problems to the regression based on their positions in the "Residuals vs Leverage" plot.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+
+### Part (f) {}
+
+Let's see how our estimates of the regression parameters change if we use a Robust Regression instead of an "Ordinary Least Squares (OLS)" regression.
+
+Rerun your model using `rlm(...)` instead of `lm(...)`. You'll need `library(MASS)` to use `rlm(...)`.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here
+```
+
+| Parameter | True Value | OLS Estimated Value | Robust Estimated Value |
+|-----------|------------|---------------------|------------------------|
+| $\beta_0$ |            |                     |                        |
+| $\beta_1$ |            |                     |                        |
+| $\beta_2$ |            |                     |                        |
+| $\beta_3$ |            |                     |                        |
+| $\sigma$  |            |                     |                        |
+
+</div>
+
+Notice how impressive the results are compared to the OLS estimates that you obtained from Part (c)! One of Robust Regression's greatest strengths is to mitigate the effect of points that have large Cook's distance and high leverage values. Most importantly, notice how well the Robust Regression estimates the value of $\sigma$ as compared to the OLS regression. However, the great downside of a Robust Regression is that it does not provide p-values or confidence intervals. So, let's advantage ourselves with what we have learned from the Robust Regression and try removing the highly detrimental point #4 and re-running the OLS regression.
+
+
+### Part (g) {}
+
+Remove point #4 from the regression (Hint: `theData[-4,]`) and re-run your `lm(...)`. Compare your final estimates and confidence intervals to those you previously obtained.
+
+<div class="YourAnswer">
+
+```{r}
+
+```
+
+
+| Parameter | True Value | OLS (Minus Point 4) Estimate | 95% CI |
+|-----------|------------|------------------------------|--------|
+| $\beta_0$ |            |                              |        |
+| $\beta_1$ |            |                              |        |
+| $\beta_2$ |            |                              |        |
+| $\beta_3$ |            |                              |        |
+| $\sigma$  |            |                              |        |
+
+
+</div>
+
+Notice how the accuracy of the confidence intervals is much improved!
+
+
+
+
+## Problem 2
+
+Let's go back to a 3D model we worked with on a previous skills quiz using the `Utilities` data set from `library(mosaic)`.
+
+If you recall, our final model for that skills quiz was given by
+
+$$
+  \underbrace{Y_i}_\text{gasbill} = \beta_0 + \beta_1 \underbrace{X_{1i}}_\text{year} + \beta_2 \underbrace{X_{2i}}_\text{temp} + \beta_3 \underbrace{X_{2i}^2}_\text{I(temp^2)} + \epsilon_i
+$$
+
+### Part (a)
+
+Create a pairs plot using just the "gasbill", "year", and "temp" columns of the Utilities data set, in that order. 
+
+Make note of any points that could be potential outliers.
+
+<div class="YourAnswer">
+
+```{r}
+
+```
+
+</div>
+
+
+### Part (b)
+
+Perform the regression and look at diagnostic plots 1, 4, and 5. Then answer the following.
+
+1. Which point as the largest positive residual? Most negative residual?
+
+2. Which point has the largest Cook's distance?
+
+3. 3. Which point seems to be impacting the regression negatively based on what we see in the Residuals vs Leverage plot? 
+
+
+
+<div class="YourAnswer">
+
+```{r}
+
+```
+
+</div>
+
+
+### Part (c)
+
+Compare the OLS estimates for each parameter of the model to the Robust estimates. Comment on any differences you notice.
+
+<div class="YourAnswer">
+
+```{r}
+
+```
+
+| Parameter | OLS Estimate | Robust Estimate |
+|-----------|--------------|-----------------|
+| $\beta_0$ |              |                 |
+| $\beta_1$ |              |                 |
+| $\beta_2$ |              |                 |
+| $\beta_3$ |              |                 |
+| $\sigma$  |              |                 |
+
+</div>
+
+
+
+### Part (d)
+
+The fact that the estimate of $\sigma$ from the Robust regression shown in Part (c) is half of that of the OLS regression, is concerning. Notice that this is happening even though there are not any "single" points responsible for the problem. However, if you look closely at the "Residuals vs Fitted" plot, you should notice a scattering of "outlying" points that are much further away from the main group of data than we would expect.
+
+To understand how the Robust Regression is "ignoring" these points, color the dots in the "Residuals vs Fitted" plot according to their weight. 
+
+(Hint: use something like `col=rgb(yourRLM$w,1,.5)`)
+
+<div class="YourAnswer">
+
+```{r}
+
+```
+
+</div>
+
+Notice how the middle region is given the most weight, and the stuff outside of that region is given less weight. This is why the standard deviation estimate from the RLM is about half of what it is from the OLS. The Robust regression (RLM) is weighting the values according to their distance from the line, and giving less trust to the points that are further away. The OLS (lm(...)) trusts all points equally, and thus produces a larger estimate of the residual standard error.
+
+It is a difficult choice on which regression to trust more in this case. There are too many outliers to consider them all a "fluke" and worthy of deletion. However, their presence is certainly inflating the residual standard error to perhaps more than it should be for describing the more common and more typical points. Personally, I would stick with the OLS regression in this case and recognize that I am being overly cautious by allowing the larger residual standard error. This will make all prediction intervals and confidence intervals quite wide.
+
+
+## Problem 3
+
+Now for a high dimensional problem.
+
+Consider the model created by the following code. (Spend a minute studying this code.)
+
+```{r}
+set.seed(20)
+
+n <- 15
+
+# Create three x-variables:
+X1 <- runif(n, 0, 2)
+X2 <- runif(n, 15, 35)
+X3 <- -4.5*X1 + .5*X2 + rnorm(n, 0, 1)
+  #Notice how X3 depends on both X1 and X2
+
+```
+
+```{r, eval=FALSE}
+# Create outlier in X-direction that can't be seen by pairs:
+# I did this by plotting the x's in 3D space and moving a point
+# away from the average. Run the code below if you want to see
+plot_ly(x = ~X1, 
+        y = ~X2, 
+        z = ~X3,
+        text = paste(1:n),
+        color = c("blue","blue","red",rep("blue",12)),
+        colors = c("blue","red"),
+        type = "scatter3d", 
+        mode = "markers")
+```
+
+```{r}
+# Move point #3, marked in red above, down in the X3 axis.
+# was at 8.926... lowest X3 value is at 3.9, so move to 4. 
+# in X2 axis, was at 17.18 move to 33
+X3[3] <- 4
+X2[3] <- 33
+```
+
+```{r, eval=FALSE}
+# Now the red dot is clearly an "outlying x-value" but won't
+# be detected in any of the pairs plots.
+plot_ly(x = ~X1, 
+        y = ~X2, 
+        z = ~X3,
+        text = paste(1:n),
+        color = c("blue","blue","red",rep("blue",12)),
+        colors = c("blue","red"),
+        type = "scatter3d", 
+        mode = "markers")
+```
+
+```{r}
+# Produce beta's for our model.
+beta0 <- 5
+beta1 <- 42
+beta2 <- 2
+beta3 <- 16
+
+# Standard deviation of residuals
+sigma <- 1.5
+
+# Create Y
+Y <- beta0 + beta1*X1 + beta2*X2 + beta3*X3 + rnorm(n, 0, sigma)
+
+# For point #3 to be outlier in y-direction as well
+Y[3] <- Y[3] + 2
+
+theData2 <- data.frame(Y, X1, X2, X3)
+
+```
+
+Be sure you have spent some time studying the code above. And make note that point #3 is created to be outlier in the x-direction, but won't show up as an outlier in any of the pairs plots. This is to emphasize how insightful the diagnostic plots using Cook's distance, leverage, and standardized residuals can be.
+
+
+### Part (a)
+
+Create a pairs plot of `theData2`. 
+
+Make note of any points that could be potential outliers. 
+
+<div style="font-size:.8em;">
+Hint: use col = ifelse(rownames(theData2)==3, "red", "blue") in your pairs plot to see how point #3 is fairly hidden as being an outlier in any of the scatterplots. It is only in the plot of Y ~ X2 that it shows up as a possible outlier. Make the pairs plot without the color as well to see how well this outlier is hidden when not colored.
+</div>
+
+<div class="YourAnswer">
+
+```{r}
+
+```
+
+</div>
+
+
+### Part (b)
+
+Perform a model selection process to see if you can find the true model for this data. If you have studied the code at the beginning of the question, then you know the true model. Ignore that knowledge. This is a good chance to practice your model selection abilities to see if you can find that true model. 
+
+<div class="YourAnswer">
+
+```{r}
+
+```
+
+</div>
+
+
+### Part (c)
+
+Perform a regression for this data using the true model as your guide. Look at diagnostic plots 1, 4, and 5. Then answer the following.
+
+1. Which point as the largest residual?
+
+2. Which point has the largest Cook's distance?
+
+3. Which point seems to be impacting the regression negatively based on what we see in the Residuals vs Leverage plot?
+
+<div class="YourAnswer">
+
+```{r}
+
+```
+
+Type your answer here...
+
+</div>
+
+
+### Part (d)
+
+Perform a Robust regression for this data. Also, perform another OLS regression but where the point identified as a problem in Part (c) is removed from the data.
+
+Compare the true parameter values to the (1) original OLS estimates, (2) the Robust estimates, and (3) the OLS estimates when the problem point is removed from the data. Comment on any differences you notice.
+
+<div class="YourAnswer">
+
+```{r}
+
+```
+
+| Parameter | True Value   | OLS   | Robust | OLS -Outlier |
+|-----------|--------------|-------|--------|--------------|
+| $\beta_0$ |              |       |        |              |
+| $\beta_1$ |              |       |        |              |
+| $\beta_2$ |              |       |        |              |
+| $\beta_3$ |              |       |        |              |
+| $\sigma$  |              |       |        |              |
+
+</div>
+
+
+
+### Part (e)
+
+Look at the diagnostic plots 1, 4, and 5 from plot(yourlm, which=c(1,4,5)) for your House Selling Prices analysis. Do you notice any outliers or problem points in that data? 
+
+What action might you take to resolve the issue?
+
+Resubmit your updated analysis to the Canvas dropbox.
+
+<div class="YourAnswer">
+
+Type your answer here...
+
+Run your code in your House Prices analysis.
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+
+.YourAnswer {
+  color: #317eac;
+  padding: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: skyblue4;
+  border-radius: 5px;
+}
+
+</style>
+
+ 
+ 

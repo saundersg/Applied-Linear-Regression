@@ -1,0 +1,369 @@
+---
+title: "Skills Quiz: Model Selection"
+output: 
+  html_document:
+    theme: cerulean
+    code_folding: hide
+    toc: true
+    toc_float: true
+---
+
+
+## Instructions
+
+Use this file to keep a record of your work as you complete the "Skills Quiz: Model Selection" assignment in Canvas.
+
+
+```{r, message=FALSE, warning=FALSE}
+library(mosaic)
+
+```
+
+
+----
+
+<!-- Note: The {} after each Problem and Part header allows you to keep track of what work you have completed. Write something like {Done} once you complete each problem and your html file will then show you a nice summary of what you have "done" already. -->
+
+
+
+## Problem 1 {}
+
+Run this code in R. Notice that the loess curves being fit to the data do not "fit" very well currently. Work through the following parts of this problem to learn how to improve the fit of a loess curve.
+
+```{r, echo=TRUE}
+#Ensure library(ggplot2) and library(mosaicData) are loaded
+ggplot(Births78, aes(x=day_of_year, y=births, color=wday)) +
+  geom_point() +
+  geom_smooth(method="loess", span=0.75,
+              se=FALSE, 
+              method.args=list(degree=1))
+```
+
+### Part (a)
+
+Copy and paste the code from above, then change the `span` and the `degree` until you come up with a nice fitting set of loess curves. Write a brief comment about how these two choices effect the fit of your loess curves.
+
+* `span` adjusts the percentage of points that are used in each local regression. It should be a number between 0 and 1. 
+
+* `degree` changes the type of polynomial that is used in each local regression. A choice of `degree = 1` uses lines and `degree = 2` uses parabolas.
+
+Hint: it may help to add `+ facet_wrap(~wday)` to the end of the above code, which will allow you to see each loess curve in its own little plot.
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Write your comments here...
+
+</div>
+
+### Part (b)
+
+Use your nicely fitting loess curve that you came up with in Part (a) to visually predict the number of births that happened on day 366 of 1978... (i.e., January 1st of 1979, which happened to be a Monday).
+
+How accurate do you think this prediction will be? Why?
+
+<div class="YourAnswer">
+
+>Type your answer here...
+
+</div>
+
+
+## Problem 2 {}
+
+Open the `CO2` data set in R. This data is based around an experiment aimed to understand CO2 `uptake` of plants, which is an important characteristic of a plant's overall health and longevity. Variables known to be associated with `uptake` were controlled in this experiment at different values to try to model their effect on `uptake`. 
+
+* `conc` - the ambient CO2 concentration surrounding the plant. The more CO2 available, the higher the uptake levels should be.
+
+* `Type` - The type of plant. Plants from the warmer climate of Mississippi were compared to plants from a colder climate like Quebec.
+
+* `Treatment` - Plants were either chilled or left un-chilled to see how refrigeration preserved CO2 uptake.
+
+
+### Part (a)
+
+Create a scatterplot with overlaid loess curves showing how uptake is effected by the (1) ambient CO2 `conc`entration, (2) the `Type` of plant, and (3) the `Treatment` applied to the plant. 
+
+Fit loess curves to the data using span=0.6 and degree=2. (You should have four different curves.)
+
+Hint: use a ggplot and `color=interaction(Type, Treatment)`
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Write your answer here...
+
+</div>
+
+### Part (b)
+
+Using one of the four loess curves that were drawn on your plot, predict the `uptake` of CO2 for a plant that is chilled, from Quebec, and is placed in an ambient CO2 concentration of 300 mL/L.
+
+Note: It would be awesome if you could run something like `loess(uptake ~ conc + Treatment + Type, data=CO2)`. Unfortunately, this will not work. Instead, you will need to run something like `loess(uptake ~ conc, data= ...)` where the `...` is an appriopriately reduced version of the `CO2` data. Also, be sure to specify the span and degree in your loess(...) function as instructed in Part (a).
+
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+</div>
+
+<br/>
+
+
+## Problem 3 {}
+
+Open the `Loblolly` data set in R. Sometimes a lowess curve can be used to help us decide on an appropriate model for data.
+
+### Part (a)
+
+Create a scatterplot of the `height` of a tree on the `age` of the tree. Overlay both a simple linear regression line and a lowess curve, degree 1 on the plot. Does the lowess curve suggest that the line is a good fit or a poor fit?
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Type your comments here...
+
+</div>
+
+
+### Part (b)
+
+Re-draw the scatterplot, this time overlaying the curve from a quadratic regression model as well as the lowess curve of degree 1. Does this model look better or worse than the simple linear regression line when compared to the lowess curve?
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Type your comments here...
+
+</div>
+
+
+
+## Problem 4 {}
+
+Consider the `?Utilities` data set. The goal of this question is to find a "best model" for predicting the monthly electricity bill `elecbill`. Work through each of the parts below to do this.
+
+
+### Part (a)
+
+Identify the row of the pairs plot below that corresponds to `elecbill` being the y-variable in each of the plots. This is the main row you want to look at as you decide which variable is most useful in explaining y, the `elecbill`.
+
+```{r}
+pairs(Utilities, panel = panel.smooth, pch=16, cex=0.7, col=rgb(.2,.2,.2,.5))
+```
+
+
+<div class="YourAnswer">
+
+Write your answer here...
+
+</div>
+
+### Part (b)
+
+Fit a simple linear regression model on the most "useful" variable for predicting `elecbill`.
+
+State the p-value for the $\beta_1$ term. State the $R^2$ value of the regression. Show the residuals vs fitted values plot for the regression. What do each of these show?
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+</div>
+
+
+### Part (c)
+
+Create a new pairs plot that includes the residuals and fitted values from the previous regression. 
+
+Hint: `cbind(R = lm1$res, Fit = lm1$fit, Utilities)`
+
+There are a lot of interesting patterns in the pairs plot at this point. Identify all of the plots that seem like they might explain something useful about the residuals from the regression in Part (b).
+
+Notice how `month` is strongly related to several variables in a quadratic way. Identify the scatterplots where month, acting as the x-variable, is a strong predictor of those variables.
+
+Thus, while many variables could give some insight on the residuals, month seems to explain most of them, so that would suggest using month as a variable that could explain elecbill. Also, month would be the best choice to actually use over any of the other related variables, because it would be the easiest variable to "measure" in real life. However, there is one other variable that does not relate to `month` that also seems to shed some insight on the residuals from the regression from Part (b).
+
+Which variable is this? (It shows a low correlation, but positive linear relationship and is not related to month at all according to the pairs plots.)
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+
+
+### Part (d)
+
+Perform a second regression that adds both of these newly identified variables to the regression performed in Part (b). This should now be a regression of elecbill on three different explanatory variables.
+
+Report the p-values of each of the two new variables, as well as the $R^2$ value of the regression, and create a residuals vs fitted values plot for the regression.
+
+What do each of these values show?
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+
+
+
+### Part (e)
+
+Add to the regression model of Part (d) a quadratic `month` term. Note how the p-values of all terms have now changed. State the adjusted $R^2$ value of the regression. Create a residuals vs fitted values plot of the regression.
+
+What does all of this show?
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+<br />
+
+
+
+### Part (f)
+
+Let's check one more time if any other variables should be added to the model before we try a transformation.
+
+Create another pairs plot that uses the residuals and fitted values from the regression in Part (d). What do you see? 
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+</div>
+
+
+### Part (g)
+
+Perform a regression that includes temp and I(temp^2) into the regression from Part (e).
+
+What happens to the p-values for month and I(month^2)?
+
+What is the adjusted R-squared of this model?
+
+<div class="YourAnswer">
+
+$$
+ ...
+$$
+
+</div>
+
+### Part (h)
+
+Drop month and I(month^2) from the model in Part (g) but leave all other terms in the model. 
+
+What is the adjusted R-squared of this model?
+
+What does the residuals vs fitted values plot show?
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+
+### Part (i)
+
+Though we could check another pairs plot at this point (it actually doesn't show anything useful), let's try a y-transformation instead, just for fun. Run boxCox(...) on your lm from Part (h). Which value of $\lambda$ is suggested?
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+
+### Part (j)
+
+State the equation for the final regression model for predicting elecbill. What is the adjusted R-squared of this final model?
+
+<div class="YourAnswer">
+
+$$
+ \hat{Y_i} = ...
+$$
+
+</div>
+
+<br />
+
+
+
+**Concluding Comments**
+
+This is a pretty good model. However, one final comment. In order to use this model to predict the elecbill, we have to know the "temp" for the month of interest. Some reading about the data ?Utilities shows that "temp" is the "average temperature (F) for billing period". Similarly, kwh is the "electricity usage (kwh)" for the billing period. So... our model is only useful for predicting the bill a day or two before it arrives. If you wanted to predict the elecbill for each month during the coming year, you would be forced to move to a model that only used year and month... and the adjusted R-squared of this model: 
+
+elecbill ~ year + I(month^2), data = Utilities 
+
+is unfortunately a lot lower.... So, remember, there is a balance between the usefulness of the model and the accuracy of the model. Our work came up with a model that was highly accurate, but by the time we would know all of the information needed to make our prediction, the bill would be arriving in our inbox. Fortunately, our model does give the customer great insight about how their final bill is created, and would allow them an opportunity (if we assume causation) to make changes to their habits that might change their overall bill. So, while not as useful for prediction, it is highly valuable for interpretation and insight.
+
+
+
+
+
+
+
+
+<style>
+
+.YourAnswer {
+  color: #317eac;
+  padding: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: skyblue4;
+  border-radius: 5px;
+}
+
+</style>
+
+ 
+ 

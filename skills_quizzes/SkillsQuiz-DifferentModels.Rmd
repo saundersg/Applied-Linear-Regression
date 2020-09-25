@@ -1,0 +1,304 @@
+---
+title: "Skills Quiz: Different Types of Models"
+output: 
+  html_document:
+    theme: cerulean
+    code_folding: hide
+    toc: true
+    toc_float: true
+---
+
+
+## Instructions
+
+Use this file to keep a record of your work as you complete the "Skills Quiz: Different Types of Models" assignment in Canvas.
+
+
+```{r, message=FALSE, warning=FALSE}
+library(mosaicData)
+```
+
+
+----
+
+<!-- Note: The {} after each Problem and Part header allows you to keep track of what work you have completed. Write something like {Done} once you complete each problem and your html file will then show you a nice summary of what you have "done" already. -->
+
+
+
+## Problem 1 {}
+
+Consider the scatterplot shown here of a single residence's monthly gas bill according to the month of the year. See `?Utilities` for more details on the data.
+
+```{r}
+plot(gasbill ~ month, data=Utilities, main="Single Residence in Minnisota", xlab="Month of the Year", ylab="Monthly Gas Bill (US Dollars)")
+
+
+```
+
+
+
+### Part (a)
+
+Add the estimated regression function to the scatterplot above and state the function below.
+
+<div class="YourAnswer">
+
+$$
+  \hat{Y}_i = ...
+$$
+
+</div>
+
+### Part (b)
+
+Diagnose the appropriateness of this regression model. How well does it fit the data? 
+
+<span style="font-size:.8em;">Be sure to provide diagnostic plots and supporting arguments for your claims.</span>
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+</div>
+
+
+### Part (c)
+
+What range of possible gas bill amounts do you predict for the September bill? How confident are you in your prediction?
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+
+### Part (d)
+
+Compute the mean of just September's gas bills and draw a horizontal reference line for this mean on your scatterplot. How does this mean compare to your prediction in Part (c)?
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+
+
+
+### Part (e)
+
+State the values of $R^2$, $MSE$, and the residual standard error. What do each of these values tell us about the regression model?
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+<br />
+
+
+
+## Problem 2
+
+View the `mtcars` dataset and corresponding help file `?mtcars`.
+
+Perform a regression that predicts the miles per gallon `mpg` of the vehicle based on the quarter mile time `qsec` and transmission type `am` of the vehicle.
+
+
+### Part (a)
+
+Plot the data and your fitted regression model.
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+</div>
+
+
+### Part (b)
+
+State the fitted regression model.
+
+<div class="YourAnswer">
+
+$$
+ ...
+$$
+
+</div>
+
+### Part (c)
+
+Use `summary(...)` to perform an appropriate t test to determine if the interaction term is needed in this regression model.
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+
+### Part (d)
+
+Diagnose the appropriateness of this regression model. How well does it fit the data? 
+
+<span style="font-size:.8em;">Be sure to provide diagnostic plots and supporting arguments for your claims.</span>
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+
+### Part (e)
+
+State the $R^2$ and residual standard error values for this model. What do these values show?
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+<br />
+
+
+
+## Problem 3
+
+View the `mtcars` dataset and corresponding help file `?mtcars`.
+
+Perform a regression that predicts the quarter mile time `qsec` of the vehicle based on the displacement of the engine `disp` and transmission type `am` of the vehicle according to the model:
+
+$$
+  \underbrace{Y_i}_\text{qsec} = \beta_0 + \beta_1 \underbrace{X_{1i}}_\text{disp} + \beta_2 X_{1i}^2 + \beta_3 \underbrace{X_{2i}}_\text{am == 1} + \beta_4 X_{1i}X_{2i} + \beta_5 X_{1i}^2X_{2i} + \epsilon_i
+$$
+
+where $\epsilon_i \sim N(0, \sigma^2)$.
+
+### Part (a)
+
+Plot the data and your fitted regression model.
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+### Part (b)
+
+State the fitted regression model.
+
+<div class="YourAnswer">
+
+$$
+  \hat{Y}_i = ...
+$$
+
+</div>
+
+
+### Part (c)
+
+Use `summary(...)` to perform appropriate t tests to determine which interaction terms are needed in this regression model.
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+</div>
+
+### Part (d)
+
+Diagnose the appropriateness of this regression model. How well does it fit the data? 
+
+<span style="font-size:.8em;">Be sure to provide diagnostic plots and supporting arguments for your claims.</span>
+
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+### Part (e) 
+
+Drop the "least significant" term from the model. This is a silly statement really, but is an accepted practice when searching for a "best" model in regression analysis. What has changed?
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<style>
+
+.YourAnswer {
+  color: #317eac;
+  padding: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: skyblue4;
+  border-radius: 5px;
+}
+
+</style>
+
+ 
+ 

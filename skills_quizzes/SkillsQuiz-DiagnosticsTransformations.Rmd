@@ -1,0 +1,432 @@
+---
+title: "Skills Quiz: Regression Diagnostics & Transformations"
+output: 
+  html_document:
+    theme: cerulean
+    code_folding: hide
+    toc: true
+    toc_float: true
+---
+
+
+## Instructions
+
+Use this file to keep a record of your work as you complete the "Skills Quiz: Regression Diagnostics & Transformations" assignment in Canvas.
+
+
+----
+
+<!-- Note: The {} after each Problem and Part header allows you to keep track of what work you have completed. Write something like {Done} once you complete each problem and your html file will then show you a nice summary of what you have "done" already. -->
+
+## Problem 1 {}
+
+Open the `Davis` dataset in R, found in `library(car)`. As stated in the help file for this data set, "The subjects were men and women engaged in regular exercise." 
+
+Perform a simple linear regression of the height of the individual based on their weight.
+
+### Part (a) {}
+
+Type out the mathematical equation for this regression model and label both $Y$ and $X$ in the equation.
+
+<div class="YourAnswer">
+
+$$
+  \underbrace{Y_i}_\text{some label} = ...
+$$
+
+</div>
+
+
+### Part (b) {}
+ 
+Plot a scatterplot of the data with your regression line overlaid.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here
+```
+
+</div>
+
+
+### Part (c) {}
+
+Create a residuals vs fitted-values plot for this regression. What does this plot show?
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+Type your answer here...
+
+</div> 
+ 
+ 
+### Part (d) {}
+
+State and interpret the slope, y-intercept, and $R^2$ of this regression. Are they meaningful for this data under the current regression?
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+
+### Part (e) {}
+
+Run `View(Davis)` in your Console. What do you notice about observation #12 in this data set? 
+
+Perform a second regression for this data with observation #12 removed. Recreate the scatterplot of Part (b) with two regression lines showing this time. The first regression line should include the outlier. The second should exclude the outlier. Include a legend to show which line is which.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+</div>
+
+
+### Part (f) {}
+
+Compute the slope, y-intercept, and $R^2$ value for the regression with the outlier removed. compare the results to the values when the outlier was present.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+
+### Part (g)
+
+Create a residuals vs fitted-values plot for the regression with the outlier removed. How do things look now?
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+
+----
+
+## Problem 2 {}
+
+Open the **Prestige** data set found in `library(car)`.
+
+Perform a regression that explains the 1971 average annual **income** from jobs according to their "Pineo-Porter **prestige** score for occupation, from a social survey conducted in the mod-1960's."
+
+### Part (a) {}
+
+Plot the data and fitted simple linear regression line.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here..
+```
+
+</div>
+
+
+### Part (b) {}
+
+State the estimated values for $\beta_0$, $\beta_1$, and $\sigma$ for this regression. 
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here
+```
+
+</div>
+
+
+### Part (c) {}
+
+Create a residuals vs fitted-values plot and a Q-Q Plot of the residuals for this regression. 
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+</div> 
+
+
+### Part (d) {}
+
+Comment on any difficulties the diagnostic plots in Part (c) reveal about the regression. 
+
+Comment on which estimates of Part (b) are likely effected by these difficulties.
+
+<div class="YourAnswer">
+
+Type your answer here...
+
+</div> 
+ 
+
+ 
+
+
+
+----
+
+
+## Problem 3 {}
+
+Open the **Burt** data set from library(car).
+
+This data set is famous for being fraudulent, or fake. See ?Burt for more details. One of the first indicators that it was fraudulent was revealed by regressing IQbio ~ IQfoster. This regression was just a little too good to be real. (Note that for social science data, like this data, $R^2$ values above 0.3 are impressive. Values above 0.7 are rare.)
+
+### Part (a) {}
+
+Plot the data and fitted regression line. State the estimated values of $\beta_0$, $\beta_1$, and $\sigma$ as well as the $R^2$ of the regression.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here
+```
+
+</div>
+
+
+
+### Part (b) {}
+
+Create a (1) residuals vs. fitted-values plot, (2) Q-Q Plot of the residuals, and (3) residuals vs. order plot for this regression. Are any problems with regression assumption violations visible in these plots?
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here
+```
+
+</div>
+
+
+### Part (c) {}
+
+Comment on what the three diagnostic plots of Part (b) show for the regression. 
+
+<div class="YourAnswer">
+
+Type your answer here...
+
+</div>
+
+
+
+
+
+----
+
+## Problem 4
+
+Open the **mtcars** data set in R.
+
+Perform a regression of **mpg** explained by the **disp**lacement of the vehicle's engine.
+
+### Part (a) {}
+
+Plot the data and fitted regression line. State the estimated values of $\beta_0$, $\beta_1$, and $\sigma$ as well as the $R^2$ of the regression.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here
+```
+
+</div>
+
+
+
+### Part (b) {}
+
+Create a (1) residuals vs. fitted-values plot, (2) Q-Q Plot of the residuals, and (3) residuals vs. order plot for this regression. Are any problems with regression assumption violations visible in these plots?
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here
+```
+
+</div>
+
+
+### Part (c) {}
+
+Comment on what the three diagnostic plots of Part (b) show for the validity of the values computed in Part (a). 
+
+<div class="YourAnswer">
+
+Type your answer here...
+
+</div>
+
+
+
+
+
+
+
+## Problem 5 {}
+
+Open the **Orange** data set found in R.
+
+Perform a regression that explains the **circumference** of the trunk of the orange tree as the tree **age**s.
+
+### Part (a) {}
+
+Plot the data and fitted simple linear regression line.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here..
+```
+
+</div>
+
+
+### Part (b) {}
+
+State the estimated values for $\beta_0$, $\beta_1$, and $\sigma$ for this regression. 
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here
+```
+
+</div>
+
+
+### Part (c) {}
+
+Create a residuals vs fitted-values plot and a Q-Q Plot of the residuals for this regression. 
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+</div> 
+
+
+### Part (d) {}
+
+Comment on any difficulties the diagnostic plots in Part (c) reveal about the regression. 
+
+Comment on which estimates of Part (b) are likely effected by these difficulties.
+
+<div class="YourAnswer">
+
+Type your answer here...
+
+</div> 
+ 
+
+### Part (e) {}
+
+Perform a Box-Cox analysis of the regression. Which Y-transformation is suggested?
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+Type your answer here...
+
+</div> 
+
+ 
+### Part (f) {}
+
+Perform a regression with the transformed y-variable. Plot the regression in the transformed units. Diagnose the fit of the regression on the transformed data.
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+</div> 
+
+
+### Part (g) {}
+
+Write out the fitted model for $\hat{Y}_i'$ and then rewrite the fitted model back in the original units.
+
+<div class="YourAnswer">
+
+$$
+  \hat{Y}_i' = ...
+$$
+
+$$
+  \hat{Y}_i = ...
+$$
+
+</div> 
+
+
+### Part (h)
+
+Plot the data in the original units. Place the transformed line, back in the original units, on this plot. 
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+</div> 
+
+
+----
+
+
+
+
+
+
+
+
+<style>
+
+.YourAnswer {
+  color: #317eac;
+  padding: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: skyblue4;
+  border-radius: 5px;
+}
+
+</style>
+
+ 
+ 

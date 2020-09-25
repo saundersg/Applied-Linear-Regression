@@ -1,0 +1,289 @@
+---
+title: "Skills Quiz: Confidence and Prediction Intervals"
+output: 
+  html_document:
+    theme: cerulean
+    code_folding: hide
+    toc: true
+    toc_float: true
+---
+
+
+## Instructions
+
+Use this file to keep a record of your work as you complete the "Skills Quiz: Confidence and Prediction Intervals" assignment in Canvas.
+
+
+----
+
+<!-- Note: The {} after each Problem and Part header allows you to keep track of what work you have completed. Write something like {Done} once you complete each problem and your html file will then show you a nice summary of what you have "done" already. -->
+
+
+## Problem 1 {}
+
+Install the `alr3` library in R: `install.packages("alr3")`.
+
+From `library(alr3)` open the `BGSall` data set in R.  As stated in the help file for this data set, this data is a collection of measurements on "children born in 1928-29 in Berkeley, CA."
+
+`> ?BGSall`
+
+`> View(BGSall)`
+
+A standing tradition is that if you measure a child when they are 2-years old, and double their height, this will give a good prediction on their final adult height. Let's see if this is true. 
+
+Perform a regression that could predict a child's 18-year old height from their 2-year old height.
+
+### Part (a) {}
+
+Type out the mathematical equation for this regression model and label both $Y$ and $X$ in the equation.
+
+<div class="YourAnswer">
+
+$$
+  \underbrace{Y_i}_\text{some label} = ...
+$$
+
+</div>
+
+
+### Part (b) {}
+ 
+Plot a scatterplot of the data with your regression line overlaid. Write out the fitted regression equation.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here
+```
+
+$$
+  \hat{Y}_i = ...
+$$
+
+</div>
+
+
+### Part (c) {}
+
+Report the test statistics and p-values for the following hypotheses. (The hypotheses about $\beta_0$ claim that at age 0-years, a child should have height 0 cm. The hypotheses about $\beta_1$ claim that height doubles from age 2 to 18.)
+
+$$ 
+  \begin{array}{l}
+    H_0: \beta_0 = 0 \\
+    H_a: \beta_0 \neq 0 \\
+  \end{array} \quad 
+  \begin{array}{l}
+    H_0: \beta_1 = 2 \\
+    H_a: \beta_1 \neq 2 \\
+  \end{array}
+$$
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+Type your answer here...
+
+</div> 
+ 
+ 
+### Part (d) {}
+
+
+State the slope, y-intercept, and $R^2$ of this regression. Further, provide 95% confidence intervals for the slope and intercept. Interpret the values.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+
+### Part (e) {}
+
+Create a residuals vs fitted-values plot and Q-Q Plot of the residuals for this regression. What do these plots show?
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+</div>
+
+
+
+### Part (f) {}
+
+A certain stats teacher at BYU-Idaho has a son named Andrew who turns 2-years old in a couple of weeks. He is currently 2 feet 9 inches tall. Predict his 18-year old height in centimeters with 95% confidence.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+</div>
+
+
+----
+
+## Problem 2 {}
+
+Open the `wblake` data set from library(alr3).
+
+`> ?wblake`
+
+`> View(wblake)`
+
+If you love fishing, then you might like this data. The goal of this data was to see if there was a link in the radius size of a key "Scale" of a fish and the overall "Length" of the fish.
+
+### Part (a) {}
+
+Type out the mathematical equation for this regression model and label both $Y$ and $X$ in the equation.
+
+<div class="YourAnswer">
+
+$$
+  \underbrace{Y_i}_\text{some label} = ...
+$$
+
+</div>
+
+
+### Part (b) {}
+ 
+Plot a scatterplot of the data with your regression line overlaid. Write out the fitted regression equation. State the $R^2$ value of the regression.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here
+```
+
+$$
+  \hat{Y}_i = ...
+$$
+
+</div>
+
+
+### Part (c) {}
+
+Diagnose the regression with a residuals vs. fitted-values plot. Determine which Y-transformation is suggested for this data.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+Type your answer here...
+
+</div> 
+ 
+ 
+### Part (d) {}
+
+Perform a regression of the form $Y' = Y^\lambda$. Use your answer to Part (c) to select $\lambda$.
+
+Plot the regression in the transformed space, $Y' \sim X$ and add the fitted regression to the plot. 
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+Type your answer here...
+
+</div>  
+ 
+### Part (e) {}
+
+State the slope, y-intercept, and $R^2$ of this transformed regression. 
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+
+### Part (f) {}
+
+Create a residuals vs fitted-values plot and Q-Q Plot of the residuals for this trasnformed regression. Does this regression look better than the original?
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+</div>
+ 
+
+### Part (g) {}
+
+Untransform the fitted regression equation and draw it on a scatterplot of the original data. Include the original regression line on this plot. 
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+</div>
+
+
+
+### Part (h) {}
+
+Place two prediction intervals for the Scale radius when the Length of the fish is 250 on your scatterplot of the data in the original units.
+
+1. Show the prediction interval from the original regression in the original units. 
+
+2. Show the prediction interval from the transformed regression back on the original units.
+
+<div class="YourAnswer">
+
+```{r}
+# Type your code here...
+```
+
+</div>
+
+
+----
+
+
+
+
+
+
+
+<style>
+
+.YourAnswer {
+  color: #317eac;
+  padding: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: skyblue4;
+  border-radius: 5px;
+}
+
+</style>
+
+ 
+ 

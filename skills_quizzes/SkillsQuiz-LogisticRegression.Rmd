@@ -1,0 +1,186 @@
+---
+title: "Skills Quiz: Logistic Regression"
+output: 
+  html_document:
+    theme: cerulean
+    code_folding: hide
+    toc: true
+    toc_float: true
+---
+
+
+## Instructions
+
+Use this file to keep a record of your work as you complete the "Skills Quiz: Logistic Regression" assignment in Canvas.
+
+
+```{r, message=FALSE, warning=FALSE}
+library(mosaicData)
+```
+
+
+----
+
+<!-- Note: The {} after each Problem and Part header allows you to keep track of what work you have completed. Write something like {Done} once you complete each problem and your html file will then show you a nice summary of what you have "done" already. -->
+
+
+## Problem 1 {}
+
+Use the KidsFeet data set from library(mosaic) to practice fitting a logistic regression.
+
+### Part (a)
+
+Is birthmonth enough information to predict the birthyear of a fourth grade student? Fit a logistic regression of birthyear == 88 on the birthmonth of a child to find out.
+
+Enter the values of your estimates for $\beta_0$ and $\beta_1$ in the logistic model:
+
+$$
+  P(\text{birthyear}_i = 88 \, | \, \text{birthmonth}_i) = \frac{e^{\beta_0 + \beta_1 \text{birthmonth}_i}}{1 + e^{\beta_0 + \beta_1 \text{birthmonth}_i}}
+$$
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Write your answer here...
+
+</div>
+
+
+### Part (b)
+
+Fit a new model using only the width of the child's foot instead of birthmonth to predict the birthyear of the child. Is foot width a better or worse predictor of the birthyear of the child than birthmonth?
+
+State the AIC, null deviance, and residual deviance of both logistic regression models.
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Write your answer here...
+
+</div>
+
+
+### Part (c)
+
+Use the better model of the two models from parts (a) and (b) to predict the probability that a fourth grade boy (from the same era as the students in this data) was born in 88 given they had a foot width of 9.5 cm, a foot length of 24, and was born in May. (This is more information than you need to make the prediction.)
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Write your answer here...
+
+</div>
+
+### Part (d)
+
+Interpret the effect on the odds that the slope term from the model used in Part (c) has on the odds of a fourth grade child being born in 88.
+
+<div class="YourAnswer">
+
+Write your answer here...
+
+</div>
+
+
+
+## Problem 2 {}
+
+Consider the `?RailTrail` data set in library(mosaicData). As shown by the boxplot below, the number of users on the rail trail seems to be influenced by whether or not there was any precipitation on that day.
+
+```{r}
+boxplot(volume ~ precip>0, data=RailTrail, col="skyblue", xlab="90 Days of Records from April to November", ylab="Total Number of Users on the Trail that Day", main="Rain Seems to Reduce the Number of Users", names = c("Days with No Rain", "Rainy Days"))
+```
+
+The goal of this question is to identify a logistic regression model that could be used to predict if there will be rain on a given day or not.
+
+Run the following commands to reduce the data to variables of interest for this problem.
+
+```{}
+library(dplyr)
+RT <- RailTrail %>% 
+  mutate(precipOccurred = (precip > 0)) %>%
+  select(precipOccurred, lowtemp, spring, summer, fall, cloudcover, weekday)
+```
+
+
+### Part (a)
+
+Create a pairs plot that shows how well each variable in the RT data set can explain whether or not precipitation occurred on a given day. State which variables seem to be the strongest predictors of precipitation occurring.
+
+(Note that a major limitation of this data is that all measurements are on the "day of" the precipitation. The data could potentially be more insightful if it contained the temperature or other information for the day prior, or two days prior, or so on... as well.)
+
+
+<div class="YourAnswer">
+
+```{r}
+#Hint: pairs(..., pch=16, col=rgb(.2,.2,.2,.1))
+#Or: pairs(..., pch=16, col=as.factor(yourData$yourYvariable))
+```
+
+Write your answer here...
+
+</div>
+
+### Part (b)
+
+Fit three logistic regression models. The first should use lowtemp to predict precipitation. The second should use cloudcover to predict precipitation. The third should use fall to predict precipitation. 
+
+Compare the AIC and residual deviance of each model, which one is "better"?
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+</div>
+
+
+### Part (c)
+
+Try every possible 2-variable (no interaction term) logistic regression model that uses both (1) the best variable from Part (b), and (2) each of the other variables in the RT data set, one at a time. Note the AIC of each model. The best two-variable model for this data is has an AIC of 82.75. State the model.
+
+What is the p-value of both variables in this model? Which p-value is not significant?
+
+What is the AIC of this model? Is it better or worse than the "best" one-variable model from Part (b)?
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+Type your answer here...
+
+</div>
+
+
+
+
+
+
+
+<style>
+
+.YourAnswer {
+  color: #317eac;
+  padding: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: skyblue4;
+  border-radius: 5px;
+}
+
+</style>
+
+ 
+ 
