@@ -231,7 +231,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note: <span class="math inline">\(\hat{Y}_i\)</span> is pronounced “why-hat-eye” and is known as the “estimated y-value” or “fitted y-value” because it is the y-value you get from <span class="math inline">\(b_0 + b_1 X_i\)</span>. It is always different from <span class="math inline">\(Y_i\)</span> because dots are rarely if ever exactly on the estimated regression line.</p>
 </div>
 <p>This graphic depicts the true, but typically unknown, regression relation (dotted line). It also shows how a sample of data from the true regression relation (the dots) can be used to obtain an estimated regression equation (solid line) that is fairly close to the truth (dotted line).</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>Something to ponder: The true line, when coupled with the error terms, “creates” the data. The estimated (or fitted) line uses the sampled data to try to “re-create” the true line.</p>
 <p>We could loosely call this the “order of creation” as shown by the following diagram.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="the-mathematical-model.html#cb1-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="dt">mai=</span><span class="kw">c</span>(.<span class="dv">2</span>,.<span class="dv">2</span>,.<span class="dv">4</span>,.<span class="dv">1</span>))</span>
@@ -242,7 +242,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-6"><a href="the-mathematical-model.html#cb1-6"></a><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">xaxt=</span><span class="st">&#39;n&#39;</span>, <span class="dt">yaxt=</span><span class="st">&#39;n&#39;</span>, <span class="dt">main=</span><span class="st">&quot;The Law is Estimated&quot;</span>)</span>
 <span id="cb1-7"><a href="the-mathematical-model.html#cb1-7"></a><span class="kw">curve</span>(xylm<span class="op">$</span>coef[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>xylm<span class="op">$</span>coef[<span class="dv">2</span>]<span class="op">*</span>x, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">yaxt=</span><span class="st">&#39;n&#39;</span>, <span class="dt">xaxt=</span><span class="st">&#39;n&#39;</span>)</span>
 <span id="cb1-8"><a href="the-mathematical-model.html#cb1-8"></a><span class="kw">curve</span>(beta0 <span class="op">+</span><span class="st"> </span>beta1<span class="op">*</span>x, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <table>
 <colgroup>
 <col width="29%" />
