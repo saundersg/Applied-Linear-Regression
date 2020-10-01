@@ -132,9 +132,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#regression-cheat-sheet"><i class="fa fa-check"></i><b>1.1</b> Regression Cheat Sheet</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html"><i class="fa fa-check"></i><b>2</b> The Mathematical Model</a><ul>
-<li class="chapter" data-level="2.1" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html#equation-1-the-true-line"><i class="fa fa-check"></i><b>2.1</b> Equation 1: The True Line</a></li>
-<li class="chapter" data-level="2.2" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html#part-2-the-dots"><i class="fa fa-check"></i><b>2.2</b> Part 2: The <em>Dots</em></a></li>
-<li class="chapter" data-level="2.3" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html#part-3-the-estimated-line"><i class="fa fa-check"></i><b>2.3</b> Part 3: The <em>Estimated Line</em></a></li>
+<li class="chapter" data-level="2.1" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html#the-true-line"><i class="fa fa-check"></i><b>2.1</b> The True Line</a></li>
+<li class="chapter" data-level="2.2" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html#the-dots"><i class="fa fa-check"></i><b>2.2</b> The <em>Dots</em></a></li>
+<li class="chapter" data-level="2.3" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html#the-estimated-line"><i class="fa fa-check"></i><b>2.3</b> The <em>Estimated Line</em></a></li>
+<li class="chapter" data-level="2.4" data-path="the-mathematical-model.html"><a href="the-mathematical-model.html#putting-it-all-together"><i class="fa fa-check"></i><b>2.4</b> Putting it all Together</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="interpreting-the-model-parameters.html"><a href="interpreting-the-model-parameters.html"><i class="fa fa-check"></i><b>3</b> Interpreting the Model Parameters</a></li>
 <li class="chapter" data-level="4" data-path="residuals-and-errors.html"><a href="residuals-and-errors.html"><i class="fa fa-check"></i><b>4</b> Residuals and Errors</a></li>
@@ -198,51 +199,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \]</span></p>
 <p>In this mathematical model, notice the use of the index <span class="math inline">\(i\)</span> next to <span class="math inline">\(Y\)</span>, <span class="math inline">\(X\)</span>, and <span class="math inline">\(\epsilon\)</span>. This index value <span class="math inline">\(i\)</span> is a way of stating that each individual “<span class="math inline">\(i\)</span>” (like you or me) is assumed to have a unique <span class="math inline">\(Y\)</span>-value (<span class="math inline">\(Y_i\)</span>), <span class="math inline">\(X\)</span>-value (<span class="math inline">\(X_i\)</span>), and <span class="math inline">\(\epsilon\)</span>-value (<span class="math inline">\(\epsilon_i\)</span>). On the other hand, there is no subscript <span class="math inline">\(i\)</span> for the <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>. That is because the mathematical function is assumed to be the same for <em>all</em> individuals involved in the regression. Similarly, there is no <span class="math inline">\(i\)</span> on the variance term <span class="math inline">\(\sigma^2\)</span>. That is because the regression model assumes that all individuals in the regression have the same variability of their error terms <span class="math inline">\(\epsilon_i\)</span>. But this is already starting to become confusing. Let’s slow down and take a deeper look at this mathematical regression model.</p>
 <p>To really understand the mathematics of the regression model it is useful to consider the following three equations.</p>
-<div id="equation-1-the-true-line" class="section level2">
-<h2><span class="header-section-number">2.1</span> Equation 1: The True Line</h2>
-<p>The first part of the mathematical model is what we might call the <strong>true line</strong>. It is most often called the “expected value of <span class="math inline">\(Y_i\)</span>,” denoted by, <span class="math inline">\(E\{Y_i\}\)</span>. (The <span class="math inline">\(E\)</span> in <span class="math inline">\(E\{Y_i\}\)</span> stands for “expected value.”) Thus, <span class="math inline">\(E\{Y_i\}\)</span> is the mathematical function that defines the regression relation between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span>. The most important thing to understand about <span class="math inline">\(E\{Y_i\}\)</span> is that it is an assumption that is made about how the data was “created.” It is something that is typically unknown in real life.</p>
-<div style="padding-left;color:steelblue;">
+<div id="the-true-line" class="section level2">
+<h2><span class="header-section-number">2.1</span> The True Line</h2>
+<p>The first equation to consider of the mathematical model is what we might call the <strong>true line</strong>. It is most often called the “expected value of <span class="math inline">\(Y_i\)</span>,” denoted by, <span class="math inline">\(E\{Y_i\}\)</span>. (The <span class="math inline">\(E\)</span> in <span class="math inline">\(E\{Y_i\}\)</span> stands for “expected value.”) Thus, <span class="math inline">\(E\{Y_i\}\)</span> is the mathematical function that defines the regression relation between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span>. The most important thing to understand about <span class="math inline">\(E\{Y_i\}\)</span> is that it is an assumption that is made about how the data was “created.” It is something that is typically unknown in real life.</p>
+<div style="padding-left:20px;color:steelblue;">
 <p><span class="math inline">\(\underbrace{E\{Y\}}_{\substack{\text{true mean} \\ \text{y-value}}} = \underbrace{\overbrace{\beta_0}^\text{y-intercept} + \overbrace{\beta_1}^\text{slope} X}_\text{equation of a line}\)</span></p>
 </div>
 <p>Notice that the equation for <span class="math inline">\(E\{Y_i\}\)</span> does not include the error term <span class="math inline">\(\epsilon_i\)</span>. Thus, <span class="math inline">\(E\{Y_i\}\)</span> is simply a mathematical function, in this case a line.</p>
-<p>The true line is shown by the dotted line in the graph pictured below. This is typically unobservable. Think of it as “natural law” or “God’s law”. It is some true line that is unknown to us.</p>
-<p>The regression relation <span class="math inline">\(E\{Y\} = \beta_0 + \beta_1 X\)</span> creates the line of regression where <span class="math inline">\(\beta_0\)</span> is the <span class="math inline">\(y\)</span>-intercept of the line and <span class="math inline">\(\beta_1\)</span> is the slope of the line. The regression relationship provides the average <span class="math inline">\(Y\)</span>-value, denoted <span class="math inline">\(E\{Y_i\}\)</span>, for a given <span class="math inline">\(X\)</span>-value, denoted by <span class="math inline">\(X_i\)</span>.</p>
+<p>The true line is shown by the dotted line in the graph pictured below. This is typically unobservable. Think of it as “natural law” or “God’s law.” It is some true line that is unknown to us.</p>
+<p>The expected value of <span class="math inline">\(Y\)</span> equation, <span class="math inline">\(E\{Y\} = \beta_0 + \beta_1 X\)</span>, creates the line of regression where <span class="math inline">\(\beta_0\)</span> is the <span class="math inline">\(y\)</span>-intercept of the line and <span class="math inline">\(\beta_1\)</span> is the slope of the line. This regression relationship provides the average <span class="math inline">\(Y\)</span>-value, denoted <span class="math inline">\(E\{Y_i\}\)</span>, for a given <span class="math inline">\(X\)</span>-value, denoted by <span class="math inline">\(X_i\)</span>.</p>
 <p>Note: <span class="math inline">\(E\{Y\}\)</span> is pronounced “the expected value of y” because, well… the mean is the typical, average, or “expected” value.</p>
 </div>
-<div id="part-2-the-dots" class="section level2">
-<h2><span class="header-section-number">2.2</span> Part 2: The <em>Dots</em></h2>
-<p>The <strong>dots</strong>, i.e., the data as shown by dots in a scatterplot are assumed to be created by the regression relation plus an error term:</p>
-<div style="padding-left:60px;color:darkgray;">
-<div style="color:steelblue;">
+<div id="the-dots" class="section level2">
+<h2><span class="header-section-number">2.2</span> The <em>Dots</em></h2>
+<p>The <strong>dots</strong> visible in a scatterplot are graphical representations of the <span class="math inline">\(X,Y\)</span> values of the observed data. These values are assumed to have come from the given regression relation <span class="math inline">\(E\{Y_i\} = \beta_0 + \beta_1 X_i\)</span> plus an error term called <span class="math inline">\(\epsilon_i\)</span>:</p>
+<div style="padding-left:60px;color:steelblue;">
 <p><span class="math inline">\(Y_i = \underbrace{\beta_0 + \beta_1 X_i}_{E\{Y_i\}} + \underbrace{\epsilon_i}_\text{error term} \quad \text{where} \ \epsilon_i\sim N(0,\sigma^2)\)</span></p>
 </div>
-<p>This is shown by the dots in the graph below. This is the data. In regression, the assumption is that the y-value for individual <span class="math inline">\(i\)</span>, denoted by <span class="math inline">\(Y_i\)</span>, was “created” by adding an error term <span class="math inline">\(\epsilon_i\)</span> to each individual’s “expected” value <span class="math inline">\(\beta_0 + \beta_1 X_i\)</span>. Note the “order of creation” would require first knowing an indivual’s x-value, <span class="math inline">\(X_i\)</span>, then their expected value from the regression relation <span class="math inline">\(E\{Y_i\} = \beta_0 + \beta_1 X_i\)</span> and then adding their <span class="math inline">\(\epsilon_i\)</span> value to the result. The <span class="math inline">\(\epsilon_i\)</span> allows each individual to deviate from the line. Some individuals deviate dramatically, some deviate only a little, but all dots vary some distance <span class="math inline">\(\epsilon_i\)</span> from the line.</p>
-<p>Note: <span class="math inline">\(Y_i\)</span> is pronounced “why-eye” because it is the y-value for individual <span class="math inline">\(i\)</span>. Sometimes also called “why-sub-eye” because <span class="math inline">\(i\)</span> is in the subscript of <span class="math inline">\(Y\)</span>.</p>
+<p>This is shown by the dots in the graph below representing the observed data. In regression, the assumption is that the y-value for individual <span class="math inline">\(i\)</span>, denoted by <span class="math inline">\(Y_i\)</span>, was “created” by adding an error term <span class="math inline">\(\epsilon_i\)</span> to each individual’s “expected” value <span class="math inline">\(\beta_0 + \beta_1 X_i\)</span>. Note the “order of creation” would require first knowing an indivual’s x-value, <span class="math inline">\(X_i\)</span>, then their expected value from the regression relation <span class="math inline">\(E\{Y_i\} = \beta_0 + \beta_1 X_i\)</span> and then adding their <span class="math inline">\(\epsilon_i\)</span> value to the result. The <span class="math inline">\(\epsilon_i\)</span> allows each individual to deviate from the line. Some individuals deviate dramatically, some deviate only a little, but all dots vary some vertical distance <span class="math inline">\(\epsilon_i\)</span> from the line.</p>
+<p>Note: <span class="math inline">\(Y_i\)</span> is pronounced “why-eye” because it is the y-value for individual <span class="math inline">\(i\)</span>. It is sometimes also called “why-sub-eye” because <span class="math inline">\(i\)</span> is in the subscript of <span class="math inline">\(Y\)</span>.</p>
 </div>
-</div>
-<div id="part-3-the-estimated-line" class="section level2">
-<h2><span class="header-section-number">2.3</span> Part 3: The <em>Estimated Line</em></h2>
-<p>The estimated line is the least squares regression line that is obtained directly from a sample of data.</p>
-<div style="padding-left:60px;color:darkgray;">
-<div style="color:steelblue;">
+<div id="the-estimated-line" class="section level2">
+<h2><span class="header-section-number">2.3</span> The <em>Estimated Line</em></h2>
+<p>The estimated line is the least squares regression line that is obtained directly from a sample of data. This line differs from the “true line” (the expected value of <span class="math inline">\(Y\)</span>) because it is based upon the observed data rather than the “law” upon which the data was “predicated.”</p>
+<div style="padding-left:60px;color:steelblue;">
 <p><span class="math inline">\(\underbrace{\hat{Y}_i}_{\substack{\text{estimated mean} \\ \text{y-value}}} = \underbrace{b_0 + b_1 X_i}_\text{estimated regression equation}\)</span></p>
 </div>
-<p>The estimated line is shown by the solid line in the graph below. <span class="math inline">\(\hat{Y}\)</span> is the estimated regression equation obtained from the sample of data. It is the estimator of the true regression equation <span class="math inline">\(E\{Y\}\)</span>. So <span class="math inline">\(\hat{Y}\)</span> is interpreted as the estimated average (or mean) <span class="math inline">\(Y\)</span>-value for any given <span class="math inline">\(X\)</span>-value. Thus, <span class="math inline">\(b_0\)</span> is the estimated y-intercept and <span class="math inline">\(b_1\)</span> is the estimated slope. The b’s are sample statistics, like <span class="math inline">\(\bar{x}\)</span> and the <span class="math inline">\(\beta\)</span>’s are population parameters like <span class="math inline">\(\mu\)</span>. The <span class="math inline">\(b\)</span>’s estimate the <span class="math inline">\(\beta\)</span>’s.</p>
+<p>The estimated line is shown by the solid line in the graph below. <span class="math inline">\(\hat{Y}\)</span> is the estimated regression equation obtained from the sample of data. It is the estimator of the true regression equation <span class="math inline">\(E\{Y\}\)</span>. So <span class="math inline">\(\hat{Y}\)</span> is interpreted as the estimated average (or mean) <span class="math inline">\(Y\)</span>-value for any given <span class="math inline">\(X\)</span>-value. Thus, <span class="math inline">\(b_0\)</span> is the estimated y-intercept and <span class="math inline">\(b_1\)</span> is the estimated slope. The b’s are sample statistics, like <span class="math inline">\(\bar{x}\)</span>, because they come from a sample of data. The <span class="math inline">\(\beta\)</span>’s are population parameters, like <span class="math inline">\(\mu\)</span>, because they simply exist. The <span class="math inline">\(b\)</span>’s estimate the <span class="math inline">\(\beta\)</span>’s.</p>
 <p>Note: <span class="math inline">\(\hat{Y}_i\)</span> is pronounced “why-hat-eye” and is known as the “estimated y-value” or “fitted y-value” because it is the y-value you get from <span class="math inline">\(b_0 + b_1 X_i\)</span>. It is always different from <span class="math inline">\(Y_i\)</span> because dots are rarely if ever exactly on the estimated regression line.</p>
 </div>
+<div id="putting-it-all-together" class="section level2">
+<h2><span class="header-section-number">2.4</span> Putting it all Together</h2>
 <p>This graphic depicts the true, but typically unknown, regression relation (dotted line). It also shows how a sample of data from the true regression relation (the dots) can be used to obtain an estimated regression equation (solid line) that is fairly close to the truth (dotted line).</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<p>Something to ponder: The true line, when coupled with the error terms, “creates” the data. The estimated (or fitted) line uses the sampled data to try to “re-create” the true line.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>The true line, <span class="math inline">\(E\{Y_i\}\)</span>, when coupled with the error terms, <span class="math inline">\(\epsilon_i\)</span>, “creates” the data. The estimated (or fitted) line, <span class="math inline">\(\hat{Y_i}\)</span>, uses the sampled data to try to “re-create” or “estimate” the true line, <span class="math inline">\(E\{Y_i\}\)</span>.</p>
 <p>We could loosely call this the “order of creation” as shown by the following diagram.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="the-mathematical-model.html#cb1-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="dt">mai=</span><span class="kw">c</span>(.<span class="dv">2</span>,.<span class="dv">2</span>,.<span class="dv">4</span>,.<span class="dv">1</span>))</span>
-<span id="cb1-2"><a href="the-mathematical-model.html#cb1-2"></a><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>,  <span class="dt">main=</span><span class="st">&quot;A Law is Given&quot;</span>, <span class="dt">yaxt=</span><span class="st">&#39;n&#39;</span>, <span class="dt">xaxt=</span><span class="st">&#39;n&#39;</span>)</span>
-<span id="cb1-3"><a href="the-mathematical-model.html#cb1-3"></a><span class="kw">curve</span>(beta0 <span class="op">+</span><span class="st"> </span>beta1<span class="op">*</span>x, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">lty=</span><span class="dv">2</span>)</span>
-<span id="cb1-4"><a href="the-mathematical-model.html#cb1-4"></a><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">main=</span><span class="st">&quot;Data is Created&quot;</span>, <span class="dt">xaxt=</span><span class="st">&#39;n&#39;</span>, <span class="dt">yaxt=</span><span class="st">&#39;n&#39;</span>)</span>
-<span id="cb1-5"><a href="the-mathematical-model.html#cb1-5"></a><span class="kw">curve</span>(beta0 <span class="op">+</span><span class="st"> </span>beta1<span class="op">*</span>x, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">lty=</span><span class="dv">2</span>)</span>
-<span id="cb1-6"><a href="the-mathematical-model.html#cb1-6"></a><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">xaxt=</span><span class="st">&#39;n&#39;</span>, <span class="dt">yaxt=</span><span class="st">&#39;n&#39;</span>, <span class="dt">main=</span><span class="st">&quot;The Law is Estimated&quot;</span>)</span>
-<span id="cb1-7"><a href="the-mathematical-model.html#cb1-7"></a><span class="kw">curve</span>(xylm<span class="op">$</span>coef[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>xylm<span class="op">$</span>coef[<span class="dv">2</span>]<span class="op">*</span>x, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">yaxt=</span><span class="st">&#39;n&#39;</span>, <span class="dt">xaxt=</span><span class="st">&#39;n&#39;</span>)</span>
-<span id="cb1-8"><a href="the-mathematical-model.html#cb1-8"></a><span class="kw">curve</span>(beta0 <span class="op">+</span><span class="st"> </span>beta1<span class="op">*</span>x, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <table>
 <colgroup>
 <col width="29%" />
@@ -269,49 +261,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<p>Click open the “Code” buttom below to the right to find code that runs a simulation demonstrating this “order of creation”.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="the-mathematical-model.html#cb2-1"></a><span class="co">## Simulating Data from a Regression Model</span></span>
-<span id="cb2-2"><a href="the-mathematical-model.html#cb2-2"></a><span class="co">## This R-chunk is meant to be played in your R Console.</span></span>
-<span id="cb2-3"><a href="the-mathematical-model.html#cb2-3"></a><span class="co">## It allows you to explore how the various elements</span></span>
-<span id="cb2-4"><a href="the-mathematical-model.html#cb2-4"></a><span class="co">## of the regression model combine together to &quot;create&quot;</span></span>
-<span id="cb2-5"><a href="the-mathematical-model.html#cb2-5"></a><span class="co">## data and then use the data to &quot;re-create&quot; the line.</span></span>
-<span id="cb2-6"><a href="the-mathematical-model.html#cb2-6"></a></span>
-<span id="cb2-7"><a href="the-mathematical-model.html#cb2-7"></a><span class="kw">set.seed</span>(<span class="dv">101</span>) <span class="co">#Allows us to always get the same &quot;random&quot; sample</span></span>
-<span id="cb2-8"><a href="the-mathematical-model.html#cb2-8"></a>              <span class="co">#Change to a new number to get a new sample</span></span>
-<span id="cb2-9"><a href="the-mathematical-model.html#cb2-9"></a></span>
-<span id="cb2-10"><a href="the-mathematical-model.html#cb2-10"></a>  n &lt;-<span class="st"> </span><span class="dv">30</span> <span class="co">#set the sample size</span></span>
-<span id="cb2-11"><a href="the-mathematical-model.html#cb2-11"></a></span>
-<span id="cb2-12"><a href="the-mathematical-model.html#cb2-12"></a>  X_i &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dv">15</span>, <span class="dv">45</span>) <span class="co">#Gives n random values from a uniform distribution between 15 to 45.</span></span>
-<span id="cb2-13"><a href="the-mathematical-model.html#cb2-13"></a></span>
-<span id="cb2-14"><a href="the-mathematical-model.html#cb2-14"></a>  beta0 &lt;-<span class="st"> </span><span class="dv">3</span> <span class="co">#Our choice for the y-intercept. </span></span>
-<span id="cb2-15"><a href="the-mathematical-model.html#cb2-15"></a></span>
-<span id="cb2-16"><a href="the-mathematical-model.html#cb2-16"></a>  beta1 &lt;-<span class="st"> </span><span class="fl">1.8</span> <span class="co">#Our choice for the slope. </span></span>
-<span id="cb2-17"><a href="the-mathematical-model.html#cb2-17"></a></span>
-<span id="cb2-18"><a href="the-mathematical-model.html#cb2-18"></a>  sigma &lt;-<span class="st"> </span><span class="fl">2.5</span> <span class="co">#Our choice for the std. deviation of the error terms.</span></span>
-<span id="cb2-19"><a href="the-mathematical-model.html#cb2-19"></a></span>
-<span id="cb2-20"><a href="the-mathematical-model.html#cb2-20"></a>  epsilon_i &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dv">0</span>, sigma) <span class="co">#Gives n random values from a normal distribution with mean = 0, st. dev. = sigma.</span></span>
-<span id="cb2-21"><a href="the-mathematical-model.html#cb2-21"></a></span>
-<span id="cb2-22"><a href="the-mathematical-model.html#cb2-22"></a>  Y_i &lt;-<span class="st"> </span>beta0 <span class="op">+</span><span class="st"> </span>beta1<span class="op">*</span>X_i <span class="op">+</span><span class="st"> </span>epsilon_i <span class="co">#Create Y using the normal error regression model</span></span>
-<span id="cb2-23"><a href="the-mathematical-model.html#cb2-23"></a></span>
-<span id="cb2-24"><a href="the-mathematical-model.html#cb2-24"></a>  fabData &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">y=</span>Y_i, <span class="dt">x=</span>X_i) <span class="co">#Store the data as data</span></span>
-<span id="cb2-25"><a href="the-mathematical-model.html#cb2-25"></a></span>
-<span id="cb2-26"><a href="the-mathematical-model.html#cb2-26"></a>  <span class="kw">View</span>(fabData) </span>
-<span id="cb2-27"><a href="the-mathematical-model.html#cb2-27"></a>  </span>
-<span id="cb2-28"><a href="the-mathematical-model.html#cb2-28"></a>  <span class="co">#In the real world, we begin with data (like fabData) and try to recover the model that (we assume) was used to created it.</span></span>
-<span id="cb2-29"><a href="the-mathematical-model.html#cb2-29"></a></span>
-<span id="cb2-30"><a href="the-mathematical-model.html#cb2-30"></a>  fab.lm &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data=</span>fabData) <span class="co">#Fit an estimated regression model to the fabData.</span></span>
-<span id="cb2-31"><a href="the-mathematical-model.html#cb2-31"></a></span>
-<span id="cb2-32"><a href="the-mathematical-model.html#cb2-32"></a>  <span class="kw">summary</span>(fab.lm) <span class="co">#Summarize your model. </span></span>
-<span id="cb2-33"><a href="the-mathematical-model.html#cb2-33"></a></span>
-<span id="cb2-34"><a href="the-mathematical-model.html#cb2-34"></a>  <span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data=</span>fabData) <span class="co">#Plot the data.</span></span>
-<span id="cb2-35"><a href="the-mathematical-model.html#cb2-35"></a></span>
-<span id="cb2-36"><a href="the-mathematical-model.html#cb2-36"></a>  <span class="kw">abline</span>(fab.lm) <span class="co">#Add the estimated regression line to your plot.</span></span>
-<span id="cb2-37"><a href="the-mathematical-model.html#cb2-37"></a></span>
-<span id="cb2-38"><a href="the-mathematical-model.html#cb2-38"></a><span class="co"># Now for something you can&#39;t do in real life... but since we created the data...</span></span>
-<span id="cb2-39"><a href="the-mathematical-model.html#cb2-39"></a></span>
-<span id="cb2-40"><a href="the-mathematical-model.html#cb2-40"></a>  <span class="kw">abline</span>(beta0, beta1, <span class="dt">lty=</span><span class="dv">2</span>) <span class="co">#Add the true regression line to your plot using a dashed line (lty=2). </span></span>
-<span id="cb2-41"><a href="the-mathematical-model.html#cb2-41"></a></span>
-<span id="cb2-42"><a href="the-mathematical-model.html#cb2-42"></a>  <span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;True Line&quot;</span>, <span class="st">&quot;Estimated Line&quot;</span>), <span class="dt">lty=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>) <span class="co">#Add a legend to your plot specifying which line is which.</span></span></code></pre></div>
+<p>If you are interested, here is the code that runs a simulation demonstrating this “order of creation”.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="the-mathematical-model.html#cb1-1"></a><span class="co">## Simulating Data from a Regression Model</span></span>
+<span id="cb1-2"><a href="the-mathematical-model.html#cb1-2"></a><span class="co">## This R-chunk is meant to be played in your R Console.</span></span>
+<span id="cb1-3"><a href="the-mathematical-model.html#cb1-3"></a><span class="co">## It allows you to explore how the various elements</span></span>
+<span id="cb1-4"><a href="the-mathematical-model.html#cb1-4"></a><span class="co">## of the regression model combine together to &quot;create&quot;</span></span>
+<span id="cb1-5"><a href="the-mathematical-model.html#cb1-5"></a><span class="co">## data and then use the data to &quot;re-create&quot; the line.</span></span>
+<span id="cb1-6"><a href="the-mathematical-model.html#cb1-6"></a></span>
+<span id="cb1-7"><a href="the-mathematical-model.html#cb1-7"></a><span class="kw">set.seed</span>(<span class="dv">101</span>) <span class="co">#Allows us to always get the same &quot;random&quot; sample</span></span>
+<span id="cb1-8"><a href="the-mathematical-model.html#cb1-8"></a>              <span class="co">#Change to a new number to get a new sample</span></span>
+<span id="cb1-9"><a href="the-mathematical-model.html#cb1-9"></a></span>
+<span id="cb1-10"><a href="the-mathematical-model.html#cb1-10"></a>  n &lt;-<span class="st"> </span><span class="dv">30</span> <span class="co">#set the sample size</span></span>
+<span id="cb1-11"><a href="the-mathematical-model.html#cb1-11"></a></span>
+<span id="cb1-12"><a href="the-mathematical-model.html#cb1-12"></a>  X_i &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dv">15</span>, <span class="dv">45</span>) <span class="co">#Gives n random values from a uniform distribution between 15 to 45.</span></span>
+<span id="cb1-13"><a href="the-mathematical-model.html#cb1-13"></a></span>
+<span id="cb1-14"><a href="the-mathematical-model.html#cb1-14"></a>  beta0 &lt;-<span class="st"> </span><span class="dv">3</span> <span class="co">#Our choice for the y-intercept. </span></span>
+<span id="cb1-15"><a href="the-mathematical-model.html#cb1-15"></a></span>
+<span id="cb1-16"><a href="the-mathematical-model.html#cb1-16"></a>  beta1 &lt;-<span class="st"> </span><span class="fl">1.8</span> <span class="co">#Our choice for the slope. </span></span>
+<span id="cb1-17"><a href="the-mathematical-model.html#cb1-17"></a></span>
+<span id="cb1-18"><a href="the-mathematical-model.html#cb1-18"></a>  sigma &lt;-<span class="st"> </span><span class="fl">2.5</span> <span class="co">#Our choice for the std. deviation of the error terms.</span></span>
+<span id="cb1-19"><a href="the-mathematical-model.html#cb1-19"></a></span>
+<span id="cb1-20"><a href="the-mathematical-model.html#cb1-20"></a>  epsilon_i &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dv">0</span>, sigma) <span class="co">#Gives n random values from a normal distribution with mean = 0, st. dev. = sigma.</span></span>
+<span id="cb1-21"><a href="the-mathematical-model.html#cb1-21"></a></span>
+<span id="cb1-22"><a href="the-mathematical-model.html#cb1-22"></a>  Y_i &lt;-<span class="st"> </span>beta0 <span class="op">+</span><span class="st"> </span>beta1<span class="op">*</span>X_i <span class="op">+</span><span class="st"> </span>epsilon_i <span class="co">#Create Y using the normal error regression model</span></span>
+<span id="cb1-23"><a href="the-mathematical-model.html#cb1-23"></a></span>
+<span id="cb1-24"><a href="the-mathematical-model.html#cb1-24"></a>  fabData &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">y=</span>Y_i, <span class="dt">x=</span>X_i) <span class="co">#Store the data as data</span></span>
+<span id="cb1-25"><a href="the-mathematical-model.html#cb1-25"></a></span>
+<span id="cb1-26"><a href="the-mathematical-model.html#cb1-26"></a>  <span class="kw">View</span>(fabData) </span>
+<span id="cb1-27"><a href="the-mathematical-model.html#cb1-27"></a>  </span>
+<span id="cb1-28"><a href="the-mathematical-model.html#cb1-28"></a>  <span class="co">#In the real world, we begin with data (like fabData) and try to recover the model that (we assume) was used to created it.</span></span>
+<span id="cb1-29"><a href="the-mathematical-model.html#cb1-29"></a></span>
+<span id="cb1-30"><a href="the-mathematical-model.html#cb1-30"></a>  fab.lm &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data=</span>fabData) <span class="co">#Fit an estimated regression model to the fabData.</span></span>
+<span id="cb1-31"><a href="the-mathematical-model.html#cb1-31"></a></span>
+<span id="cb1-32"><a href="the-mathematical-model.html#cb1-32"></a>  <span class="kw">summary</span>(fab.lm) <span class="co">#Summarize your model. </span></span>
+<span id="cb1-33"><a href="the-mathematical-model.html#cb1-33"></a></span>
+<span id="cb1-34"><a href="the-mathematical-model.html#cb1-34"></a>  <span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data=</span>fabData) <span class="co">#Plot the data.</span></span>
+<span id="cb1-35"><a href="the-mathematical-model.html#cb1-35"></a></span>
+<span id="cb1-36"><a href="the-mathematical-model.html#cb1-36"></a>  <span class="kw">abline</span>(fab.lm) <span class="co">#Add the estimated regression line to your plot.</span></span>
+<span id="cb1-37"><a href="the-mathematical-model.html#cb1-37"></a></span>
+<span id="cb1-38"><a href="the-mathematical-model.html#cb1-38"></a><span class="co"># Now for something you can&#39;t do in real life... but since we created the data...</span></span>
+<span id="cb1-39"><a href="the-mathematical-model.html#cb1-39"></a></span>
+<span id="cb1-40"><a href="the-mathematical-model.html#cb1-40"></a>  <span class="kw">abline</span>(beta0, beta1, <span class="dt">lty=</span><span class="dv">2</span>) <span class="co">#Add the true regression line to your plot using a dashed line (lty=2). </span></span>
+<span id="cb1-41"><a href="the-mathematical-model.html#cb1-41"></a></span>
+<span id="cb1-42"><a href="the-mathematical-model.html#cb1-42"></a>  <span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;True Line&quot;</span>, <span class="st">&quot;Estimated Line&quot;</span>), <span class="dt">lty=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>) <span class="co">#Add a legend to your plot specifying which line is which.</span></span></code></pre></div>
 
 </div>
 </div>

@@ -19,55 +19,51 @@ In this mathematical model, notice the use of the index $i$ next to $Y$, $X$, an
 To really understand the mathematics of the regression model it is useful to consider the following three equations.
 
 
-## Equation 1: The True Line
+## The True Line
 
-The first part of the mathematical model is what we might call the **true line**. It is most often called the "expected value of $Y_i$," denoted by, $E\{Y_i\}$. (The $E$ in $E\{Y_i\}$ stands for "expected value.") Thus, $E\{Y_i\}$ is the mathematical function that defines the regression relation between $Y$ and $X$. The most important thing to understand about $E\{Y_i\}$ is that it is an assumption that is made about how the data was "created." It is something that is typically unknown in real life. 
+The first equation to consider of the mathematical model is what we might call the **true line**. It is most often called the "expected value of $Y_i$," denoted by, $E\{Y_i\}$. (The $E$ in $E\{Y_i\}$ stands for "expected value.") Thus, $E\{Y_i\}$ is the mathematical function that defines the regression relation between $Y$ and $X$. The most important thing to understand about $E\{Y_i\}$ is that it is an assumption that is made about how the data was "created." It is something that is typically unknown in real life. 
 
-<div style="padding-left;color:steelblue;">
+<div style="padding-left:20px;color:steelblue;">
 $\underbrace{E\{Y\}}_{\substack{\text{true mean} \\ \text{y-value}}} = \underbrace{\overbrace{\beta_0}^\text{y-intercept} + \overbrace{\beta_1}^\text{slope} X}_\text{equation of a line}$
 </div>
 
 Notice that the equation for $E\{Y_i\}$ does not include the error term $\epsilon_i$. Thus, $E\{Y_i\}$ is simply a mathematical function, in this case a line.
 
-The true line is shown by the dotted line in the graph pictured below. This is typically unobservable. Think of it as "natural law" or "God's law". It is some true line that is unknown to us.
+The true line is shown by the dotted line in the graph pictured below. This is typically unobservable. Think of it as "natural law" or "God's law." It is some true line that is unknown to us.
 
-The regression relation $E\{Y\} = \beta_0 + \beta_1 X$ creates the line of regression where $\beta_0$ is the $y$-intercept of the line and $\beta_1$ is the slope of the line. The regression relationship provides the average $Y$-value, denoted $E\{Y_i\}$, for a given $X$-value, denoted by $X_i$. 
+The expected value of $Y$ equation, $E\{Y\} = \beta_0 + \beta_1 X$, creates the line of regression where $\beta_0$ is the $y$-intercept of the line and $\beta_1$ is the slope of the line. This regression relationship provides the average $Y$-value, denoted $E\{Y_i\}$, for a given $X$-value, denoted by $X_i$. 
 
 Note: $E\{Y\}$ is pronounced "the expected value of y" because, well... the mean is the typical, average, or "expected" value.
 
 
-## Part 2: The *Dots*
+## The *Dots*
 
-The **dots**, i.e., the data as shown by dots in a scatterplot are assumed to be created by the regression relation plus an error term:
+The **dots** visible in a scatterplot are graphical representations of the $X,Y$ values of the observed data. These values are assumed to have come from the given regression relation $E\{Y_i\} = \beta_0 + \beta_1 X_i$ plus an error term called $\epsilon_i$:
 
-<div style="padding-left:60px;color:darkgray;">
-<div style="color:steelblue;">
+<div style="padding-left:60px;color:steelblue;">
 $Y_i = \underbrace{\beta_0 + \beta_1 X_i}_{E\{Y_i\}} + \underbrace{\epsilon_i}_\text{error term} \quad \text{where} \ \epsilon_i\sim N(0,\sigma^2)$
 </div>
 
-This is shown by the dots in the graph below. This is the data. In regression, the assumption is that the y-value for individual $i$, denoted by $Y_i$, was "created" by adding an error term $\epsilon_i$ to each individual's "expected" value $\beta_0 + \beta_1 X_i$. Note the "order of creation" would require first knowing an indivual's x-value, $X_i$, then their expected value from the regression relation $E\{Y_i\} = \beta_0 + \beta_1 X_i$ and then adding their $\epsilon_i$ value to the result. The $\epsilon_i$ allows each individual to deviate from the line. Some individuals deviate dramatically, some deviate only a little, but all dots vary some distance $\epsilon_i$ from the line.
+This is shown by the dots in the graph below representing the observed data. In regression, the assumption is that the y-value for individual $i$, denoted by $Y_i$, was "created" by adding an error term $\epsilon_i$ to each individual's "expected" value $\beta_0 + \beta_1 X_i$. Note the "order of creation" would require first knowing an indivual's x-value, $X_i$, then their expected value from the regression relation $E\{Y_i\} = \beta_0 + \beta_1 X_i$ and then adding their $\epsilon_i$ value to the result. The $\epsilon_i$ allows each individual to deviate from the line. Some individuals deviate dramatically, some deviate only a little, but all dots vary some vertical distance $\epsilon_i$ from the line.
 
-Note: $Y_i$ is pronounced "why-eye" because it is the y-value for individual $i$. Sometimes also called "why-sub-eye" because $i$ is in the subscript of $Y$.
-
-</div>
+Note: $Y_i$ is pronounced "why-eye" because it is the y-value for individual $i$. It is sometimes also called "why-sub-eye" because $i$ is in the subscript of $Y$.
 
 
-## Part 3: The *Estimated Line*
 
-The estimated line is the least squares regression line that is obtained directly from a sample of data.
+## The *Estimated Line*
 
-<div style="padding-left:60px;color:darkgray;">
+The estimated line is the least squares regression line that is obtained directly from a sample of data. This line differs from the "true line" (the expected value of $Y$) because it is based upon the observed data rather than the "law" upon which the data was "predicated."
 
-<div style="color:steelblue;">
+<div style="padding-left:60px;color:steelblue;">
 $\underbrace{\hat{Y}_i}_{\substack{\text{estimated mean} \\ \text{y-value}}} = \underbrace{b_0 + b_1 X_i}_\text{estimated regression equation}$
 </div>
 
-The estimated line is shown by the solid line in the graph below. $\hat{Y}$ is the estimated regression equation obtained from the sample of data. It is the estimator of the true regression equation $E\{Y\}$. So $\hat{Y}$ is interpreted as the estimated average (or mean) $Y$-value for any given $X$-value. Thus, $b_0$ is the estimated y-intercept and $b_1$ is the estimated slope. The b's are sample statistics, like $\bar{x}$ and the $\beta$'s are population parameters like $\mu$. The $b$'s estimate the $\beta$'s.
+The estimated line is shown by the solid line in the graph below. $\hat{Y}$ is the estimated regression equation obtained from the sample of data. It is the estimator of the true regression equation $E\{Y\}$. So $\hat{Y}$ is interpreted as the estimated average (or mean) $Y$-value for any given $X$-value. Thus, $b_0$ is the estimated y-intercept and $b_1$ is the estimated slope. The b's are sample statistics, like $\bar{x}$, because they come from a sample of data. The $\beta$'s are population parameters, like $\mu$, because they simply exist. The $b$'s estimate the $\beta$'s.
 
 Note: $\hat{Y}_i$ is pronounced "why-hat-eye" and is known as the "estimated y-value" or "fitted y-value" because it is the y-value you get from $b_0 + b_1 X_i$. It is always different from $Y_i$ because dots are rarely if ever exactly on the estimated regression line.
 
-</div>
 
+## Putting it all Together
 
 This graphic depicts the true, but typically unknown, regression relation (dotted line). It also shows how a sample of data from the true regression relation (the dots) can be used to obtain an estimated regression equation (solid line) that is fairly close to the truth (dotted line).
 
@@ -87,11 +83,11 @@ xylm <- lm(y ~ x)
 abline(xylm)
 ```
 
-Something to ponder: The true line, when coupled with the error terms, "creates" the data. The estimated (or fitted) line uses the sampled data to try to "re-create" the true line.
+The true line, $E\{Y_i\}$, when coupled with the error terms, $\epsilon_i$, "creates" the data. The estimated (or fitted) line, $\hat{Y_i}$, uses the sampled data to try to "re-create" or "estimate" the true line, $E\{Y_i\}$.
 
 We could loosely call this the "order of creation" as shown by the following diagram.
 
-```{r, fig.height=3}
+```{r, echo=FALSE, fig.height=3}
 par(mfrow=c(1,3), mai=c(.2,.2,.4,.1))
 plot(y ~ x, col="white",  main="A Law is Given", yaxt='n', xaxt='n')
 curve(beta0 + beta1*x, add=TRUE, lty=2)
@@ -107,7 +103,7 @@ curve(beta0 + beta1*x, add=TRUE, lty=2)
 | $E\{Y_i\} = \beta_0 + \beta_1 X_i$ | $Y_i = E\{Y_i\} + \epsilon_i$ | $\hat{Y}_i = b_0 + b_1 X_i$ |
 | The true line is the "law". | The $Y_i$ are created by adding $\epsilon_i$ to $E\{Y_i\}$ where $E\{Y_i\} = \beta_0 + \beta_1 X_i$. | The law is estimated with $\hat{Y}_i$ which is given with `lm(...)`. |
 
-Click open the "Code" buttom below to the right to find code that runs a simulation demonstrating this "order of creation".
+If you are interested, here is the code that runs a simulation demonstrating this "order of creation".
 
 ```{r simulatingTheRegressionModel, eval=FALSE}
 ## Simulating Data from a Regression Model

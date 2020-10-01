@@ -378,7 +378,9 @@ Perform a regression with the transformed y-variable. Plot the regression in the
 
 ### Part (g) {}
 
-Write out the fitted model for $\hat{Y}_i'$ and then rewrite the fitted model back in the original units.
+Write out the fitted model for $\hat{Y}_i'$. Then solve the transformed model back into the original units for $\hat{Y}_i$. Then compute the following.
+
+When $X_i = 500$, then $\hat{Y}_i = \ldots$.
 
 <div class="YourAnswer">
 
