@@ -156,17 +156,22 @@ Type your comments here...
 
 ## Problem 4 {}
 
-Consider the `?Utilities` data set. The goal of this question is to find a "best model" for predicting the monthly electricity bill `elecbill`. Work through each of the parts below to do this.
+Consider the `Utilities` data set. As mentioned in the help file `?Utilities`, this is "data from [monthly] utility bills at a residence." 
 
+Let's use this data to produce a "best model" for predicting the monthly electricity bill, `elecbill`, for this given residence. 
+
+Working through each part of this problem below will guide you through the model selection process.
 
 ### Part (a)
 
-Identify the row of the pairs plot below that corresponds to `elecbill` being the y-variable in each of the plots. This is the main row you want to look at as you decide which variable is most useful in explaining y, the `elecbill`.
+A great first step in model selection is to identify explanatory variables that can be used to successfully predict a response variable. A pairs plot is a useful tool for this.
+
+Create a pairs plot of the `Utilities` data set. Then, identify the row of the pairs plot that corresponds to `elecbill` being the y-variable in each plot contained in that row. This is the main row you want to look at as you decide which explanatory variables are most useful in explaining `elecbill` (y).
 
 ```{r}
-pairs(Utilities, panel = panel.smooth, pch=16, cex=0.7, col=rgb(.2,.2,.2,.5))
-```
+# hint: pairs(dataSetName, panel = panel.smooth, pch=16, cex=0.7, col=rgb(.2,.2,.2,.5))
 
+```
 
 <div class="YourAnswer">
 
@@ -176,9 +181,23 @@ Write your answer here...
 
 ### Part (b)
 
-Fit a simple linear regression model on the most "useful" variable for predicting `elecbill`.
+According to what you see in the pairs plot of Part (a), which explanatory variable looks to be the "best" for predicting elecbill?
 
-State the p-value for the $\beta_1$ term. State the $R^2$ value of the regression. Show the residuals vs fitted values plot for the regression. What do each of these show?
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+</div>
+
+### Part (c)
+
+Once we find a useful explanatory variable for Y, we fit a simple linear regression model with this explanatory variable and decide if the variable gives meaningful information about Y. 
+
+Fit a simple linear regression model on the most "useful" variable for predicting elecbill.
+
+State the $R^2$ value of the regression. State the p-value for the $\beta_1$ term of the regression.  Show the residuals vs fitted values plot for the regression. What do each of these show?
 
 <div class="YourAnswer">
 
@@ -189,15 +208,40 @@ State the p-value for the $\beta_1$ term. State the $R^2$ value of the regressio
 </div>
 
 
-### Part (c)
+### Part (d)
+
+Another useful tool to use when deciding if a given regression model is sufficiently good at explaining Y is the residuals versus fitted values plot. Make this for the current regression of `elecbill` versus your chosen x-variable from Part (c).
+
+<div class="YourAnswer">
+
+```{r}
+#Type your code here...
+```
+
+</div>
+
+
+### Part (e)
 
 Create a new pairs plot that includes the residuals and fitted values from the previous regression. 
 
 Hint: `cbind(R = lm1$res, Fit = lm1$fit, Utilities)`
 
-There are a lot of interesting patterns in the pairs plot at this point. Identify all of the plots that seem like they might explain something useful about the residuals from the regression in Part (b).
+<div class="YourAnswer">
 
-Notice how `month` is strongly related to several variables in a quadratic way. Identify the scatterplots where month, acting as the x-variable, is a strong predictor of those variables.
+```{r}
+#Type your code here...
+```
+
+</div>
+
+This new pairs plot shows the residuals "R" against each of the variables in the data set, including the fitted values "Fit". Thus, this pairs plot creates the "residuals versus fitted values plot" as well as what are called "added variable plots" for each variable not currently included in the regression. 
+
+Select the row of the pairs plot that shows the residuals versus all other variables in the data set.
+
+As we look for interesting variables across the row of the residuals in the pairs plot, we want to find variables that show patterns in predicting the residuals. But we also want to find variables that give unique information about these variables. Sometimes variables are related to each other and thus using one or the other as the explanatory variable would essentially give the same information. 
+
+Look for example at how `month` is strongly related to several variables in a quadratic way. To verify that you are looking at the right plots, click on the scatterplots where month, acting as the x-variable, is a strong predictor of those other variables.
 
 Thus, while many variables could give some insight on the residuals, month seems to explain most of them, so that would suggest using month as a variable that could explain elecbill. Also, month would be the best choice to actually use over any of the other related variables, because it would be the easiest variable to "measure" in real life. However, there is one other variable that does not relate to `month` that also seems to shed some insight on the residuals from the regression from Part (b).
 
@@ -215,9 +259,9 @@ Type your answer here...
 
 
 
-### Part (d)
+### Part (f)
 
-Perform a second regression that adds both of these newly identified variables to the regression performed in Part (b). This should now be a regression of elecbill on three different explanatory variables.
+Perform a second regression that adds both of these newly identified variables to the regression performed in Part (c). Perform a second regression that adds both of these newly identified variables to the regression performed in Part (c). This should now be a regression of elecbill on the explanatory variables of kwh, month, and year.
 
 Report the p-values of each of the two new variables, as well as the $R^2$ value of the regression, and create a residuals vs fitted values plot for the regression.
 
@@ -236,9 +280,9 @@ Type your answer here...
 
 
 
-### Part (e)
+### Part (g)
 
-Add to the regression model of Part (d) a quadratic `month` term. Note how the p-values of all terms have now changed. State the adjusted $R^2$ value of the regression. Create a residuals vs fitted values plot of the regression.
+Add to the regression model of Part (f) a quadratic `month` term (making four terms now included in the model) to predict `elecbill`. Note how the p-values of all terms have changed from those in Part (f). State the adjusted $R^2$ value of the regression. Create a residuals vs fitted values plot of the regression.
 
 What does all of this show?
 
@@ -256,11 +300,11 @@ Type your answer here...
 
 
 
-### Part (f)
+### Part (h)
 
 Let's check one more time if any other variables should be added to the model before we try a transformation.
 
-Create another pairs plot that uses the residuals and fitted values from the regression in Part (d). What do you see? 
+Create another pairs plot that uses the residuals and fitted values from the four explanatory variables regression in Part (g). What do you see? 
 
 <div class="YourAnswer">
 
@@ -271,9 +315,9 @@ Create another pairs plot that uses the residuals and fitted values from the reg
 </div>
 
 
-### Part (g)
+### Part (i)
 
-Perform a regression that includes temp and I(temp^2) into the regression from Part (e).
+Perform a regression that includes temp and I(temp^2) into the regression from Part (h).
 
 What happens to the p-values for month and I(month^2)?
 
@@ -287,9 +331,9 @@ $$
 
 </div>
 
-### Part (h)
+### Part (j)
 
-Drop month and I(month^2) from the model in Part (g) but leave all other terms in the model. 
+Drop month and I(month^2) from the model in Part (i) but leave all other terms in the model. 
 
 What is the adjusted R-squared of this model?
 
@@ -306,9 +350,9 @@ Type your answer here...
 </div>
 
 
-### Part (i)
+### Part (k)
 
-Though we could check another pairs plot at this point (it actually doesn't show anything useful), let's try a y-transformation instead, just for fun. Run boxCox(...) on your lm from Part (h). Which value of $\lambda$ is suggested?
+Though we could check another pairs plot at this point (it actually doesn't show anything useful), let's try a y-transformation instead, just for fun. Run boxCox(...) on your lm from Part (j). Which value of $\lambda$ is suggested?
 
 <div class="YourAnswer">
 
@@ -321,7 +365,7 @@ Type your answer here...
 </div>
 
 
-### Part (j)
+### Part (l)
 
 State the equation for the final regression model for predicting elecbill. What is the adjusted R-squared of this final model?
 
