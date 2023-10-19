@@ -30,7 +30,7 @@ library(mosaicData)
 Consider the scatterplot shown here of a single residence's monthly gas bill according to the month of the year. See `?Utilities` for more details on the data.
 
 ```{r}
-plot(gasbill ~ month, data=Utilities, main="Single Residence in Minnisota", xlab="Month of the Year", ylab="Monthly Gas Bill (US Dollars)")
+plot(gasbill ~ month, data=Utilities, main="Single Residence in Minnesota", xlab="Month of the Year", ylab="Monthly Gas Bill (US Dollars)")
 
 
 ```
